@@ -1,0 +1,194 @@
+@font-face {
+  font-family: 'Caflisch';
+  src: url('/css/fonts/Caflisch Script Web.ttf');
+}
+@import url(https://fonts.googleapis.com/css?family=Lato:100,900);
+
+body {
+  margin:0;
+  padding:0;
+  font-family:Lato;
+}
+header {
+  padding: 10px 0;
+}
+header::after {
+  content: "";
+  background: url('/assets/mis_logos_2018.png') no-repeat;
+  background-size: contain;
+  opacity: 0.1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  z-index: -1;   
+}
+main {
+  font-size:18px;
+  padding:30px;
+  max-width:1200px;
+  text-align:center;
+  margin:0 auto;
+}
+section {
+  text-align: left;
+}
+figure { margin:0; }
+figure img { width: 100%; }
+a { margin:0 20px; text-decoration: none; color:#003399; font-weight: bold;}
+.kairos { color: #FF7900; }
+.destacado { background-color: #000; padding: 2px 10px;}
+a.dblock { display:block; }
+a:hover { text-decoration: underline; }
+.pair { 
+  display: flex;
+  justify-content: left;
+  vertical-align: middle;
+  margin: 40px 0;
+}
+.block ul li:last-child a { margin-bottom:0; }
+.block ul li:first-child a { margin-top:0; }
+.middle { padding: 1rem; }
+
+.center {
+  text-align:center;
+  margin:0 auto;
+  align-items: center;
+  justify-content: center; 
+}
+h1 { font-family:'Caflisch'; font-size:3em; }
+h2 { font-family:'Caflisch'; font-size:2em; text-align:center; }
+li {
+  list-style: none;
+}
+historical-line, section {
+  background: #FFF;
+}
+section {
+  padding: 0 3rem;
+}
+
+.block {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  white-space: normal;
+  justify-content: flex-end;
+}
+.block ul {
+  width: 40%;
+}
+.block ul li.list {
+  padding:10px;
+}
+
+.mislogos { 
+  width:100%;
+  max-width:1200px;
+  display: block;
+  text-align:center;
+  margin:0 auto;
+}
+.logo { height:50px; max-width:60px; }
+.manulogo {
+  max-height:5rem;
+  display: block;
+  text-align:center;
+  margin:0 auto;
+}
+.manufoto {
+  max-width:8rem;
+
+}
+
+.item0 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.item1 {
+  color:#00F;
+}
+.item2 {
+  color:#0F0;
+}
+.item3 {
+  color:#F43;
+}
+.footer {
+  color:#FF7900;
+  margin: 3rem 0;
+}
+
+@media (max-width: 398px) {
+  .main {
+    padding:5px;
+    font-size:18px;
+  }
+  section {
+    padding: 0;
+  }
+  .mislogos { 
+    width:100%;
+    max-width:330px;
+  }
+  .manulogo {
+    max-height:3rem;
+  }
+  .item0 a {
+    width:30px;
+  }
+  h1 {
+    font-size: 1.6em;
+  }
+  .block {
+    flex-direction: column;
+  }
+  .block ul {
+    width:100%;
+    padding-left:10px;
+  }
+  .block ul li {
+    padding:0;
+  }
+  .block ul li.list {
+    padding:10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding:5px;
+    font-size:20px;
+  }
+  section {
+    padding: 0;
+  }
+  .mislogos { 
+    width:100%;
+    max-width:530px;
+  }
+  .manulogo {
+    max-height:4rem;
+  }
+  .item0 a {
+    width:30px;
+  }
+  h1 {
+    font-size: 1.6em;
+  }
+  .block {
+    flex-direction: column;
+  }
+  .block ul {
+    width:100%;
+    padding-left:10px;
+  }
+  .block ul li {
+    padding:0;
+  }
+  .block ul li.list {
+    padding:10px;
+  }
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Página personal de Mánu Fosela - @manufosela">
+    <title>manufosela</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script type="module" src="/js/historical-line.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36855098-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-36855098-2');
+    </script>
+  </head>
+
+  <body>
+    <header class="center">
+      <a href="https://manufosela.es/" rel="home">
+        <img class="manufoto" src="/assets/manufosela2020.webp" alt="foto de manu"/>
+        <img class="item2 manulogo" src="/assets/logomanufosela.webp" alt="@manufosela" />
+      </a>
+    </header>
+
+    <main id="main" class="site-main">
+      <hr />
+      <section>
+        <h1 class="center">¡Hola! Soy Mánu Fosela</h1>
+        <p>Tengo 48 años. Soy Tauro. Extrovertido y divertido. Apasionado. Creativo. Resolutivo. Quisquilloso. Testarudo. Me enfadan los cambios imprevistos, pero me adapto rápido a ellos.</p>
+        <p>Actualmente soy uno de los responsables del área de desarrollo de software de <a class="destacado kairos" href="https://www.kairosds.com">Kairós Digital Solutions</a></p>
+        <p>Soy el mayor de 5 hermanos. Esposo de una persona maravillosa y padre de dos "obsolescentes" de 15 y 13 años.</p>
+      </section>
+
+      <hr />
+      <section>
+        <h2 class="has-text-align-center">¿Y qué mas?</h2>
+        <p>Durante 20 años de experiencia, he participado en muchos proyectos que han ayudado a muchos clientes y empresas a alcanzar sus objetivos. </p>
+        <p>Ahora lo hago desde la perspectiva de la dirección de equipos, aprovechando la experiencia que da aprender de tus errores.</p>
+        <p>Empecé a desarrollar con 14 años, allá por el año 1985, escribiendo los programas en un cuaderno y luego iba a teclearlo a un ZX-Spectrum 48K de un amigo.</p>
+        <p>Estudié B.U.P., C.O.U., FP de Electrónica Industrial y después cursé dos especialidades de Ingenieria de Telecomunicaciones, Sistemas de telecomunicación y Telemática.</p>
+        <p>Por azares del destino entré a trabajar en una startup, plus.es y arranqué mi andadura como desarrollador web.</p>
+        <p>He trabajado con ASP, Java, PHP, Perl, ShellScript, Javascript, desde vanilla ES1 hasta VueJS, pasando por dojo, prototype, scriptaculous, jquery, backbone, AngularJS, React, Angular 2, Polymer, Lit-Element...</p>
+        <p>Y me he pegado con sistemas Windows y Linux. Apache, Nginx. MySQL, Oracle, PostgreSQL, IBMDb2, mongoDB...</p>
+        <p>En total 20 años de experiencia en el mundo del desarrollo de software web.</p>
+        <p>Ahora en una nueva aventura ayudando a mis compañeros a desarrollarse profesionalmente, a encontrar proyectos donde aprender y aportar y ayudando a nuestros clientes a crear las mejores aplicaciones.</p>
+      </section>
+
+      <hr />
+      <section>
+        <h2 class="has-text-align-center">Trayectoria profesional</h2>
+        <historical-line id="HL1" title="Trabajos" startYear="1999" endYear="2019"></historical-line>
+        <script>
+          let jobData = [
+            {start: '10/1/1999', main: 'plus.es', desc: 'ASP, Javacript, HTML, CSS, XML, MSSQL', bg: '#E2007A'},
+            {start: '3/1/2002', main: 'eresmas.com/wanadoo.es', desc: 'PHP, ASP, Java, Javascript, HTML, CSS, Apache, Linux, Tomcat, IIS, MySQL', bg: 'linear-gradient(to right, #0FAFA3 0%, rgba(15,175,163,0.3) 30%, rgba(199,0,47,0.3) 50%, rgba(199,0,47,1) 70%, #C7002F 100%)'},
+            {start: '10/1/2004', main: 'Grupo Marsans', desc: 'Perl, PHP, MySQL, HTML, CSS, Javascript', bg: '#A9114B', color:'#FFF' },
+            {start: '9/1/2006', main: 'Mirai', desc: 'PHP, Javascript, HTML, CSS, PostgreSQL, IBMDb2, XP, TDD', bg: '#ED2C38'},
+            {start: '9/1/2008', main: 'Orange', desc: 'Javascript, HTML, CSS, NodeJS, JQuery, PHP, MySQL, Oracle, Java', bg: '#FE6500'},
+            {start: '10/1/2015', main: 'KairosDS', desc: 'Javascript, Polymer, NodeJS, Team Leader, Dirección de equipos', bg: '#FF7900'}
+          ];
+          document.querySelector('#HL1').data = jobData;
+        </script>
+      </section>
+
+      <hr />
+      <section>
+          <h2 class="has-text-align-center">Estudios</h2>
+        <historical-line id="HL2" title="Estudios" startYear="1989" endYear="1999"></historical-line>
+        <script>
+          let jobData2 = [
+            {start: '9/1/1989', main: 'C.O.U.', desc: 'Especialidad: Ciencias Puras. Opt: Biología y Química', bg: '#0083BA'},
+            {start: '9/1/1990', main: 'FP2: Electrónica', desc: 'Electronica Industrial. 3º-4º-5º', bg: '#FEDD0B'},
+            {start: '9/1/1992', main: 'Ing Telecomunicaciones', desc: 'Ingenieria de Telecomunicaciones: Esp. Sistemas de Telecomunicaciones', bg: 'rgba(128,64,0,0.7'},
+            {start: '9/1/1997', main: 'Ing Telecomunicaciones', desc: 'Ingenieria de Telecomunicaciones: Esp. Telemática', bg: 'rgb(128,64,0,0.8'},
+
+          ];
+          document.querySelector('#HL2').data = jobData2;
+        </script>
+      </section>
+
+      <hr />
+      <h2 class="has-text-align-center">Formación complementaria</h2>
+      <section class="block">
+        <ul>
+          <li>
+            <a href="#" class="pair">
+              <img class="logo" src="/assets/logo_tkp.webp" alt="tkp logo" />
+              <span class="middle">Team Kanban Practitioner (TKP)</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="pair">
+              <img class="logo" src="/assets/logo_kmp.webp" alt="kmp logo" />
+              <span class="middle">Kanban Management Practitioner (KMP)</span>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="#" class="pair">
+              <img class="logo" src="/assets/logo_leanchangemanagement.webp" alt="lean change management logo" />
+              <span class="middle">Lean Change Managment</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="pair">
+              <img class="logo" src="/assets/logo_management3.0.webp" alt="management 3.0 logo" />
+              <span class="middle">Management 3.0</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <h2 class="has-text-align-center">Código que comparto</h2>
+      <section class="block">
+        <ul>
+          <li>
+            <a href="https://github.com/manufosela" class="pair">
+              <img class="logo" src="/assets/logo_github.webp" alt="github logo" />
+              <span class="middle">gitgub</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.npmjs.com/~manufosela" class="pair">
+              <img class="logo" src="/assets/logo_npm.svg" alt="npm logo"/>
+              <span class="middle">npm</span>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="https://codepen.io/manufosela/" class="pair">
+              <img class="logo" src="/assets/logo_codepenio.webp" alt="codepen.io logo"/>
+              <span class="middle">codepen.io</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.webcomponents.org/search/manufosela" class="pair">
+              <img class="logo" src="/assets/logo_webcomponents.webp" alt="webcomponents logo"/>
+              <span class="middle">webcomponents.org</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <h2 class="has-text-align-center">Trabaja conmigo</h2>
+      <section>
+        <p>Siempre estoy buscando nuevos compañeros con los que trabajar y seguir aprediendo y enseñando, buscando developers con un <strong>M.A.P. </strong>lo mas alto posible: Motivación, Actitud y Potencial.</p>
+        <p>Da igual si llevas 0, 1 o 2 años desarrollando, como si llevas 20. Si tienes <strong>Motivación, Actitud y Potencial</strong> quiero trabajar contigo. </p>
+        <p><strong>Busco trabajar con developers</strong> que les guste <strong>Javascript</strong>, tanto en front como en back, así como cualquier framework o librería.</p>
+        <p>También con developers que les guste <strong>Java</strong>, Spring, Spring-Boot, Spring-*, y el desarrollo de micro-servicios.</p>
+        <p>Si además eres un entusiasta, o te gustaría serlo, de buenas prácicas, metodologías agiles, entregar valor, te gusta el TDD, el XP, Docker, Kubernetes... coincidimos mucho 🙂</p>
+        <p>¿Te ánimas?</p>
+      </section>
+
+      <hr />
+      <h2 class="has-text-align-center">Mi equipo</h2>
+      <section class="center">
+        <figure ><img src="/assets/mi_equipo.webp" alt="Mi equipo" /></figure>
+        <div data-carousel-extra='{"blog_id":165200017,"permalink":"https:\/\/manufosela.wordpress.com\/"}' class="wp-block-media-text__content">
+          <p>Tengo la suerte de compartir mi día a día con un equipo maravilloso, con los que comparto muchas cosas y de los que aprendo cada día.</p>
+        </div>
+
+        <figure ><img src="/assets/developers_de_kairos.webp" alt="Developers de Kairós en JSDay 2019"/></figure>
+        <div data-carousel-extra='{"blog_id":165200017,"permalink":"https:\/\/manufosela.wordpress.com\/"}' class="wp-block-media-text__content">
+          <p>El equipo de developers al que pertenezco es increíblemente talentoso, siempre dispuestos a aprender, a enseñar, a ayudar a otros, con espíritu crítico y de mejora continua.</p>
+          <p>Gracias a todos ellos y a todos los que han pasado por el equipo.</p>
+        </div>
+        
+        <figure ><img src="/assets/developers_de_kairos_en_codemotion2018.webp" alt="developers de Kairós en Codemotion 2018"/></figure>
+        <div data-carousel-extra='{"blog_id":165200017,"permalink":"https:\/\/manufosela.wordpress.com\/"}' class="wp-block-media-text__content">
+          <p>Nos encanta ir a eventos todos juntos y hacernos notar 🙂</p>
+        </div>
+
+        <figure ><img src="/assets/developers_katedra_2018.webp" alt="developers de la Kátedra de 2018" /></figure>
+        <div data-carousel-extra='{"blog_id":165200017,"permalink":"https:\/\/manufosela.wordpress.com\/"}' class="wp-block-media-text__content">
+          <p>En el equipo hay mucho talento joven y diverso.</p>
+        </div>
+
+        <figure ><img src="/assets/staff_kairos.webp" alt="Con el equipo de Staff de Kairós" /></figure>
+        <div data-carousel-extra='{"blog_id":165200017,"permalink":"https:\/\/manufosela.wordpress.com\/"}' class="wp-block-media-text__content">
+          <p>Y no solo pertenecen al equipo los developers. También pertenece a nuestro equipo todo el departamento de Staff, el verdado corazón y pulmón del equipo.</p>
+        </div>
+
+        <figure ><img src="/assets/manufest_all_developers_kairos.webp" alt="Todos los developers de Kairós en el MánuFest 2019" /></figure>
+        <div data-carousel-extra='{"blog_id":165200017,"permalink":"https:\/\/manufosela.wordpress.com\/"}' class="wp-block-media-text__content">
+          <p>Y nos encanta quedar a tomar &#8220;kañas kairoseras&#8221; cada vez que podemos</p>
+        </div>
+      </section>
+
+      <hr />
+      <h2 class="has-text-align-center">Donde encontrarme en la red</h2>
+      <section class="block">
+        <ul>
+          <li><a href="https://twitter.com/manufosela" class="pair"><img class="logo" src="/assets/logo_twitter.webp" alt="twitter" /><span class="middle">Twitter</span></a></li>
+          <li><a href="https://www.linkedin.com/in/manufosela/" class="pair"><img class="logo" src="/assets/logo_linkedin.webp" alt="linkedin" /><span class="middle">Linkedin</span></a></li>
+        </ul>
+        <ul>
+          <li><a href="https://stackoverflow.com/users/1833198/manufosela" class="pair"><img class="logo" src="/assets/logo_stackoverflow.webp" alt="stack-overflow" /><span class="middle">Stack-Overflow</span></a></li>
+          <li><a href="https://medium.com/@manufosela" class="pair"><img class="logo" src="/assets/logo_medium.webp" alt="Medium" /><span class="middle">Medium</span></a></li>
+        </ul>
+      </section>
+
+      <hr />
+      <h2 class="">Eventos Tecnológicos en los que colaboro</h2>
+      <section class="block">
+        <ul>
+          <li>
+            <a href="https://www.meetup.com/madridjs" class="pair">
+              <img class="logo" src="/assets/logo_meetupmadridjs.webp" alt="madridjs meetup logo"/>
+              <span class="middle">Co-organizador del Meetup de MadridJS</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.meetup.com/Node-js-Madrid" class="pair">
+              <img class="logo" src="/assets/logo_meetupnodejs.webp" alt="nodejs meetup logo"/>
+              <span class="middle">Co-organizador del Meetup de NodeJSMadrid</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.meetup.com/es-ES/Codify/" class="pair">
+              <img class="logo" src="/assets/logo_meetupcodify.webp" alt="codify meetup logo"/>
+              <span class="middle">Co-organizador del Meetup de Codify</span>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="http://2018.jsday.es/es/" class="pair">
+              <img class="logo" src="/assets/logo_jsdayes.webp" alt="jsday event logo" style="background:#000" />
+              <span class="middle">Co-organizador del Evento de JSDay (2018 y 2020)</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://polymerday.com/" class="pair">
+              <img class="logo" src="/assets/logo_polymerday.webp" alt="polymerday event logo"/>
+              <span class="middle">Co-organizador del Evento Polymer Day(2016 y 2019)</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <hr />
+      <h2>Mis Frodos</h2>
+      <section class="block">
+        <ul>
+          <li class="list">Los juegos de palabras y los chistes malos XDDD</li>
+          <li class="list">Bloguero-Cocinero: <a class="destacado kairos" href="https://pintxos.paratorp.es">Pintxos para torpes</a></li>
+          <li class="list">Futbol-sala, jugar y dirigir. Titulación de entrenador de 1er nivel de futbol-sala por la Comunidad de Madrid (1997)</li>
+        </ul>
+        <ul>
+          <li class="list">Tocar la guitarra española (1 año de solfeo)</li>
+          <li class="list">Programar, robotica, freakear...</li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="footer center destacado">
+      @manufosela - manufosela at gmail
+    </footer>
+  </body>
+</html>
