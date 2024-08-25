@@ -1,0 +1,33 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import ContributionsContent from '~/components/Contributions.astro';
+import SocialNets from '~/components/SocialNets.astro';
+import Footer from '~/components/Footer.astro';
+
+import { Site, contributionsDesc } from '~/data/config';
+const title = Site.title;
+const language = "es";
+const contributionsDescription = contributionsDesc[language];
+---
+
+<Layout {title}>
+  <main>
+    <figure class="responsive-image-container">
+      <picture>
+        <source srcset="/images/contributions1280.webp" media="(min-width: 1280px)" type="image/webp">
+        <source srcset="/images/contributions768.webp" media="(min-width: 768px)" type="image/webp">
+        <source srcset="/images/contributions480.webp" media="(min-width: 480px)" type="image/webp">
+        <img src="/images/contributions320.webp" srcset="/images/contributions320.webp 1x, /images/contributions320@2x.webp 2x" alt={contributionsDescription} class="responsive-image" width="320" height="320">
+      </picture>
+      <figcaption>{contributionsDescription}</figcaption>
+    </figure>
+
+    <div class="maincontent">
+      <Header class="header" title={title} active="Contribuciones" language={language}/>
+      <ContributionsContent language={language} />
+      <SocialNets language={language} />
+      <Footer language={language} />
+    </div>
+  </main>
+</Layout>

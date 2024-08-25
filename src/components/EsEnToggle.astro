@@ -1,0 +1,91 @@
+---
+---
+<section class="language-toggle">
+  <input type="checkbox" id="toggle-lang" class="toggle-lang">
+  <label for="toggle-lang" class="button-lang" aria-label="Toggle Spanish and English mode"></label>
+</section>
+
+<script>
+  const lang = document.location.pathname.includes('/en/') ? 'EN' : 'ES';
+  let toggleLanguage: HTMLInputElement | null;
+
+  function init() {
+    toggleLanguage = document.querySelector('#toggle-lang');
+    if (toggleLanguage) {
+      toggleLanguage.addEventListener('change', toggleLangHandler);
+      setLanguageBasedOnPreference(lang);
+    }
+  }
+
+  function setLanguageBasedOnPreference(lang: string) {
+    if (toggleLanguage) {
+      toggleLanguage.checked = lang === 'EN';
+    }
+    document.documentElement.setAttribute('lang', lang);
+  }
+
+  function toggleLangHandler() {
+    const newLanguage = toggleLanguage?.checked ? 'EN' : 'ES';
+    const currentPath = window.location.pathname;
+
+    let newPath = '';
+
+    if (currentPath === '/' || currentPath === '/es/' || currentPath === '/en/') {
+      newPath = newLanguage === 'EN' ? '/en/' : '/';
+    } else {
+      const segments = currentPath.split('/');
+      if (newLanguage === 'EN') {
+        segments[1] = 'en';
+      } else {
+        segments[1] = 'es';
+      }
+      newPath = segments.join('/');
+    }
+
+    document.documentElement.setAttribute('lang', newLanguage);
+    window.location.href = newPath;
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+
+<style>
+  .language-toggle {
+    padding: 1rem;
+    z-index: 5;
+  }
+
+  .language-toggle .toggle-lang {
+    display: none;
+  }
+
+  .language-toggle .button-lang {
+    display: inline-block;
+    width: 90px;
+    height: 35px;
+    background: #4ac;
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .language-toggle .button-lang::after {
+    content: 'ES';
+    width: 30px;
+    height: 35px;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    display: grid;
+    place-content: center;
+    line-height: 0;
+    color: white;
+    font-weight: bold;
+    transition: transform 0.5s ease-in;
+  }
+
+  .language-toggle .toggle-lang:checked + .button-lang::after {
+    content: 'EN';
+    transform: translateX(40px);
+  }
+</style>

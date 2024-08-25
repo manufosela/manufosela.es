@@ -1,0 +1,137 @@
+---
+import { aboutData } from '~/data/config';
+
+const { language } = Astro.props;
+
+const slides = aboutData[language]?.slides || [];
+---
+
+<script>
+  let currentIndex = 0;
+
+  /**
+   * Cambia el slide actual según el índice.
+   * @param {number} index - Índice del slide a mostrar.
+   */
+  function goToSlide(index: number) {
+    currentIndex = index;
+
+    document.querySelectorAll('.slides').forEach((slide, slideIndex) => {
+      slide.classList.toggle('slideActive', slideIndex === index);
+    });
+
+    document.querySelectorAll('.nav-button').forEach((button, buttonIndex) => {
+      button.classList.toggle('active', buttonIndex === index);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.nav-button').forEach((button, index) => {
+      button.addEventListener('click', () => {
+        goToSlide(index);
+      });
+    });
+
+    // Inicializar el primer slide
+    goToSlide(0);
+  });
+</script>
+
+<div class="pagecontent">
+  <div class="nav-buttons">
+    {slides.map((slide, index) => (
+      <div>
+        <button class={`nav-button ${index === 0 ? 'active' : ''}`}>
+          {slide.subtitle}
+        </button>
+      </div>
+    ))}
+  </div>
+  {slides.map((slide, index) => (
+    <div id={`slide${index}`} class={`slides ${index === 0 ? 'slideActive': ''}`} set:html={slide.description.replace(/\n/g, '<br>')}></div>
+  ))}
+</div>
+
+<style>
+  .slides {
+    height: 40vh;
+    width: 100%;
+    color:var(--color-text-light);
+    font-size: 1.5rem;
+    text-align: left;
+    margin-bottom: 1.2rem;
+    overflow-y: auto;
+    display: none;
+  }
+
+  .slides.slideActive {
+    display: block;
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .nav-button {
+    background-color: #3b3b3b;
+    border: none;
+    border-radius: 1rem;
+    color: white;
+    padding: 0.5rem;
+    width: 9rem;
+    height: 4rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+  }
+
+  .nav-button.active {
+    background-color: var(--active-color);
+    font-size: 1.3rem;
+  }
+
+  .step-text {
+    font-size: 0.75rem;
+    margin-top: 5px;
+    color: #bfbfbf;
+  }
+
+  .step-text.active {
+    color: white;
+  }
+
+  @media screen and (max-width: 991px) {
+    .slider {
+      margin-top: 3rem;
+    }
+
+    .slides {
+      width: 100%;
+      height: 40vh;
+      color:var(--color-text-light);
+      font-size: 1.1rem;
+      text-align: left;
+      margin-bottom: 1.2rem;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      display: none;
+    }
+
+    .nav-button {
+      padding: 0.2rem;
+      width: 5rem;
+      height: 3rem;
+      font-size: 0.8rem;
+      z-index: -1;
+    }
+
+    .nav-button.active {
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+  }
+</style>

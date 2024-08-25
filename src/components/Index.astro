@@ -1,0 +1,94 @@
+---
+import { ManuFosela } from '~/data/config';
+
+const { language } = Astro.props;
+
+const person = ManuFosela[language] || {};
+
+const name = person.name;
+const rol =  person.rol;
+const position =  person.position;
+const bio = person.bio.replace(/\n/g, '<br>');
+---
+
+<div class="pagecontent">
+  <div class="name">{rol}</div>
+  <h1 class="tagline">{name}</h1>
+  <h2 class="tagline2">{position}</h2>
+  <p class="bio" set:html={bio}></p>
+</div>
+
+<style>
+  .name {
+    margin-bottom: 2.5rem;
+    line-height: 100%;
+    letter-spacing: 1px;
+    font-size:2rem;
+
+    @media (--motionOK) {
+      animation: var(--animation-fade-in) forwards;
+    }
+  }
+  .tagline {
+    margin-bottom: 2rem;
+    font-size: 3.7rem;
+    line-height: 100%;
+    font-weight: 600;
+  }
+  .tagline2 {
+    margin-bottom: 2rem;
+    font-size: 2.7rem;
+    line-height: 100%;
+    font-weight: 600;
+  }
+  .bio {
+    white-space: pre-wrap;
+    margin-bottom: 2rem;
+    font-family: Lora, sans-serif;
+    color: var(--color-text-light);
+    font-size: 1.35rem;
+    line-height: 160%;
+  }
+  .bio-links {
+    border-bottom: 1px solid var(--color-text-light);
+    text-decoration: none;
+  }
+  @media screen and (max-width: 991px) {
+    .bio-links {
+      border-bottom: 1px solid var(--color-text-light);
+      text-decoration: none;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .name {
+      font-size:1.2rem;
+      margin-bottom: 2rem;
+    }
+    .tagline {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .tagline2 {
+      font-size: 1.5rem;
+    }
+    .bio {
+      font-size: 1.2rem;
+    }
+  }
+  @media screen and (max-width: 479px) {
+    .name {
+      font-size:1rem;
+      margin-bottom: 2rem;
+    }
+    .tagline {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .tagline2 {
+      font-size: 1.2rem;
+    }
+    .bio {
+      font-size: 1rem;
+    }
+  }
+  </style>

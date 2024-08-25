@@ -1,0 +1,34 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import MediaContent from '~/components/Media.astro';
+import SocialNets from '~/components/SocialNets.astro';
+import Footer from '~/components/Footer.astro';
+
+import { Site, mediaDesc } from '~/data/config';
+const title = Site.title;
+const language = "es";
+const mediaDescription = mediaDesc[language];
+---
+
+<Layout {title}>
+  <main>
+    <figure class="responsive-image-container">
+      <picture>
+        <source srcset="/images/media1280.webp" media="(min-width: 1280px)" type="image/webp">
+        <source srcset="/images/media768.webp" media="(min-width: 768px)" type="image/webp">
+        <source srcset="/images/media480.webp" media="(min-width: 480px)" type="image/webp">
+        <img src="/images/media320.webp" srcset="/images/media320.webp 1x, /images/media320@2x.webp 2x" alt={mediaDescription} class="responsive-image" width="320" height="320">
+      </picture>
+      <figcaption>{mediaDescription}</figcaption>
+    </figure>
+
+
+    <div class="maincontent w-col w-col-6 w-col-stack">
+      <Header class="header" title={title} active="Media" language={language} />
+      <MediaContent language={language}  />
+      <SocialNets language={language}  />
+      <Footer language={language}  />
+    </div>
+  </main>
+</Layout>

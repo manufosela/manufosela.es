@@ -1,0 +1,226 @@
+:root {
+  --primary-color: #4ac;
+  --color-text-light: hsl(12, 5%, 4%);
+  --color-text-dark: hsl(10, 21%, 95%);
+  --background-light: hsl(10, 21%, 95%);
+  --background-dark: hsl(12, 5%, 4%);
+  --transition-time: 0.5s;
+  --active-color: #128edf;
+  --link-color: #02518d;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  color: var(--color-text-light);
+  background-color: var(--background-light);
+  transition: background-color var(--transition-time) ease, color var(--transition-time) ease-in-out;
+}
+
+body, main, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
+  margin: 0; padding: 0;
+}
+
+body[data-theme="dark"] {
+  --primary-color: #4ac;
+  --color-text-light: hsl(10, 21%, 95%);
+  --color-text-dark: hsl(12, 5%, 4%);
+  --background-light: hsl(12, 5%, 4%);
+  --background-dark: hsl(10, 21%, 95%);
+  --active-color: #128edf;
+  --link-color: #128edf;
+}
+
+body, html {
+  width: 100vw;
+  height: 100%;
+  overflow:hidden;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;
+}
+
+ul[role='list'], ol[role='list'] {
+  list-style: none;
+  padding-left: 0;
+}
+
+a { color: var(--link-color); font-size:1.2rem; font-weight: 600; }
+
+img, picture {
+  max-width: 100%;
+  display: block;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  width: 100%;;
+}
+
+.responsive-image-container {
+  max-width: 50%;
+  margin: 0;
+  text-align: left;
+}
+
+.responsive-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+.image {
+  @media (--motionOK) {
+    animation: var(--animation-fade-in) forwards;
+    transition: all .25s linear;
+  }
+  cursor: none;
+}
+
+.image {
+  position: sticky;
+  top: 0;
+  display: block;
+  min-height: 100vh;
+  min-width: 100%;
+  align-self: flex-start;
+  flex: 0 auto;
+  background-position: 50% 50%;
+  background-size: cover;
+  object-fit: cover;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.maincontent {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  align-self: center;
+  height: 100vh;
+  padding: 0 4vw;
+  width:50%;
+  @media (--motionOK) {
+    animation: var(--animation-fade-in);
+  }
+}
+
+.pagecontent {
+  display: flex;
+  width:100%;
+  height:45vh;
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* mediaquery mobile*/
+@media screen and (max-width: 991px) {
+  main {
+    flex-direction: column;
+    overflow: auto;
+  }
+  .image {
+    min-height: 80vh;
+  }
+  .responsive-image-container {
+    height:80vh;
+    max-width: 100%;
+  }
+  .maincontent {
+    width:100%;
+    padding: 0 1rem;
+    padding-top: 1rem;
+  }
+  .pagecontent {
+    margin-top: 1rem;
+  }
+
+  .column, .column-2 {
+    margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: 767px) {
+  body {
+    font-size: 10px;
+  }
+  main {
+    flex-direction: column;
+  }
+  .responsive-image-container {
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 479px) {
+  .bold-text {
+    font-size: 42px;
+    line-height: 42px;
+  }
+  .credit {
+    font-size: 12px;
+  }
+}

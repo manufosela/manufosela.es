@@ -1,0 +1,100 @@
+---
+
+---
+<section class="lightdarkmode">
+  <input type="checkbox" id="toggle-theme" class="toggle">
+  <label for="toggle-theme" class="button" aria-label="Toggle dark and light mode"></label>
+</section>
+
+<script>
+import { getTheme, setTheme } from '~/state.js';
+
+let toggleThemeButton: HTMLInputElement;
+const bodyElement = document.querySelector('body');
+
+function init() {
+  const theme = getTheme();
+  toggleThemeButton = document.querySelector('#toggle-theme') as HTMLInputElement;
+  if (toggleThemeButton) {
+    toggleThemeButton.addEventListener('change', toggleThemeHandler);
+    toggleThemeButton.checked = theme === 'dark';
+    toggleThemeHandler();
+  }
+}
+
+function toggleThemeHandler() {
+  if (bodyElement) {
+    if (toggleThemeButton.checked) {
+      bodyElement.dataset.theme = 'dark';
+    } else {
+      bodyElement.removeAttribute('data-theme');
+    }
+  }
+  setTheme(toggleThemeButton.checked ? 'dark' : 'light');
+  addTransitionToButtonAfter();
+}
+
+function addTransitionToButtonAfter() {
+  requestAnimationFrame(() => {
+    const buttonElement = document.querySelector('.lightdarkmode .button');
+    if (buttonElement) {
+      buttonElement.classList.add('transition-enabled');
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+
+
+<style>
+  :root {
+    --button-width: 90script  --button-height: 35px;
+    --button-border-radius: 30px;
+    --button-sunmoon-size: 40px;
+    --button-sunmoon-bg-color: #e03c3c;
+  }
+
+  h1 { color:green }
+
+  .lightdarkmode {
+    padding: 1rem;
+    z-index: 5;
+  }
+  .lightdarkmode .toggle {
+    display: none;
+  }
+  .lightdarkmode .button {
+    display: inline-block;
+    width: 90px;
+    height: 35px;
+    background: #4ac;
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .lightdarkmode .button::after {
+    content: url("https://res.cloudinary.com/dli1azgd6/image/upload/v1650653110/sun_1_ypolxs.svg");
+    transform: scale(0.08);
+    width: 40px;
+    height: 45px;
+    position: absolute;
+    top: -5px;
+    left: 0;
+    display: grid;
+    place-content: center;
+    line-height: 0;
+    /* transition: background-color 1s, transform 1s ease-in; */
+  }
+
+  .transition-enabled::after {
+    transition: background-color 1s, transform 1s ease-in;
+  }
+
+  .lightdarkmode .toggle:checked + .button::after {
+    content: url("https://res.cloudinary.com/dli1azgd6/image/upload/v1650651638/moon_jt9f1f.svg");
+    transform: scale(0.08) translateX(650px) rotate(360deg);
+  }
+</style>

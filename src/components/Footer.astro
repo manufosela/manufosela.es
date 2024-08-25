@@ -1,0 +1,35 @@
+---
+import { Footer as LocalFooter} from '~/data/config';
+const currentYear = new Date().getFullYear()
+---
+
+<footer class="credit">
+  <!-- Thanks for using Astro-Split. Please keep this line to support the project :) -->
+  <span class="yearauthor">© {currentYear} {LocalFooter.name} &middot;</span>
+  Inspired by the <a href="https://astro-split.vercel.app" target="_blank" class="credit-links">Split Template</a> by <a href="https://astro.build/" target="_blank" class="credit-links">Astro Build</a>
+</footer>
+
+<style>
+  footer {
+    margin:0;
+    z-index: 10;
+  }
+
+  .credit {
+    color: var(--color-text-light);
+    font-size: 1rem;
+  }
+
+  @media screen and (max-width: 991px) {
+    .credit {
+      font-size: 0.7rem;
+
+    }
+    .yearauthor {
+      display: block;
+    }
+    a {
+      font-size: 0.9rem;
+    }
+  }
+</style>

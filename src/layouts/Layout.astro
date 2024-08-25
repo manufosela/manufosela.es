@@ -1,0 +1,42 @@
+---
+import BaseHead from '~/components/BaseHead.astro';
+
+import '~/styles/layout.css';
+
+interface Props {
+  title: string,
+}
+
+const { title } = Astro.props
+
+const isProduction = import.meta.env.PROD;
+---
+
+<html>
+  <head>
+    <BaseHead title={title} />
+    <style>
+      @font-face {
+        font-family: "Inter";
+        font-display: swap;
+        font-style: normal;
+        src: url("/fonts/inter-subset.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Lora";
+        font-display: swap;
+        font-style: normal;
+        src: url("/fonts/lora-subset.woff2") format("woff2");
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+    {isProduction && (
+      <a href="https://librecounter.org/referer/show">
+        <img src="https://librecounter.org/counter.svg" referrerpolicy="unsafe-url" alt="Counter"/>
+      </a>
+    )}
+  </body>
+</html>
+

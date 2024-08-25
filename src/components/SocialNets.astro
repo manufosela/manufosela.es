@@ -1,0 +1,66 @@
+---
+import { Links } from '~/data/config'
+---
+<div class="links">
+  {Object.entries(Links).map(([category, links]) => (
+    <div class="column">
+      <div class="text-block-2">{category}</div>
+      <ul role="list">
+        {links.map((link: { url: string | URL | null | undefined; name: unknown }) => (
+          <li><a href={link.url}>{link.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
+
+<style>
+  .text-block-2 {
+    margin-bottom: 20px;
+    color: var(--color-text-light);
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  ul[role='list'] {
+    font-family: Lora, sans-serif;
+    color: var(--color-text-light);
+    font-size: 16px;
+    line-height: 160%;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 1rem 0;
+    padding: 0;
+    gap: 16rem;
+  }
+  .credit-links {
+    color: var(--color-text-dark);
+  }
+
+  .simpleLink {
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 991px) {
+    .links {
+      gap: 0;
+      justify-content: space-between;
+    }
+    .links a {
+      font-size: 1rem;
+    }
+    .column, .column-2 {
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+  }
+</style>

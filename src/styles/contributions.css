@@ -1,0 +1,10 @@
+
+.contributions {
+  background-image: url(/images/projects.webp);
+}
+
+@media screen and (max-width: 991px) {
+  .links {
+    flex-direction: column;
+  }
+}

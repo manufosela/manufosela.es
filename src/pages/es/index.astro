@@ -1,0 +1,33 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import Header from '~/components/Header.astro'
+import Card from '~/components/Index.astro'
+import SocialNets from '~/components/SocialNets.astro'
+import Footer from '~/components/Footer.astro'
+
+import { Site, indexDesc } from '~/data/config';
+const title = Site.title;
+const language = "es";
+const indexDescription = indexDesc[language];
+---
+
+<Layout {title}>
+  <main>
+    <figure class="responsive-image-container">
+      <picture>
+        <source srcset="/images/manufosela1280.webp" media="(min-width: 1280px)" type="image/webp">
+        <source srcset="/images/manufosela768.webp" media="(min-width: 768px)" type="image/webp">
+        <source srcset="/images/manufosela480.webp" media="(min-width: 480px)" type="image/webp">
+        <img src="/images/manufosela320.webp" srcset="/images/manufosela320.webp 1x, /images/manufosela320@2x.webp 2x" alt={indexDescription} class="responsive-image" width="320" height="320">
+      </picture>
+      <figcaption>{indexDescription}</figcaption>
+    </figure>
+
+    <section class="maincontent">
+      <Header class="header" title={title} active="Inicio" language={language} />
+      <Card language={language} />
+      <SocialNets language={language} />
+      <Footer language={language} />
+    </section>
+  </main>
+</Layout>

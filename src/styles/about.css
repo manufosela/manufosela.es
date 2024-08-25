@@ -1,0 +1,7 @@
+.collage {
+  background-image: url(/images/collage.webp);
+}
+
+@media screen and (max-width: 991px) {
+
+}

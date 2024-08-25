@@ -1,0 +1,40 @@
+---
+import LightDarkToggle from './LightDarkToggle.astro';
+import Navigation from './Navigation.astro';
+import EsEnToogle from './EsEnToggle.astro';
+
+const { active, language } = Astro.props
+---
+<section class="header">
+  <div class="header__controls">
+    <LightDarkToggle />
+    <EsEnToogle />
+  </div>
+  <Navigation active={active} language={language} />
+</section>
+
+<style>
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:0;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .header__controls {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 991px) {
+    .header {
+      padding:0;
+      flex-direction: row-reverse;
+    }
+  }
+</style>

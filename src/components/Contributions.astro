@@ -1,0 +1,38 @@
+---
+import { contributionsData } from '~/data/config';
+
+const { language } = Astro.props;
+
+const slides = contributionsData[language] || [];
+---
+
+<div class="pagecontent">
+  <p class="textContent"><span class="title">{slides[0].title}: </span>{slides[0].description}</p>
+  <p class="textContent"><span class="title">{slides[1].title}: </span>{slides[1].description}</p>
+  <p class="textContent"><span class="title">{slides[2].title}: </span>{slides[2].description}</p>
+  <p class="textContent"><span class="title">{slides[3].title}: </span>{slides[3].description}</p>
+  <p class="textContent"><span class="title">{slides[4].title}: </span>{slides[4].description}</p>
+</div>
+
+<style>
+  .title {
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  .textContent {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    white-space: pre-wrap;
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (max-width: 991px) {
+    .title {
+      display: block;
+    }
+    .textContent {
+      font-size: 1rem;
+    }
+  }
+
+</style>

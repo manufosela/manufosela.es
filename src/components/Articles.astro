@@ -1,0 +1,90 @@
+---
+import { articlesData } from '~/data/config';
+
+const { language } = Astro.props;
+
+const articles = articlesData[language] || [];
+---
+<div class="pagecontent">
+  {Object.keys(articles).map((key) => (
+    <nav class="nav">
+      <h2>{key}</h2>
+      <ul>
+        {articles[key].map((article, index) => (
+          <li>
+            <a href={article.link}>
+              {article.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  ))}
+</div>
+
+<style>
+  .nav {
+    flex: 1 1 calc(50% - 1rem);
+    box-sizing: border-box;
+  }
+
+  .nav h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .nav ul li a {
+    transition: color 0.3s ease;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    text-decoration: none;
+  }
+
+  .nav ul li a:hover {
+    text-decoration: underline;
+  }
+  .title {
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  .textContent {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    white-space: pre-wrap;
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (max-width: 991px) {
+    .title {
+      display: block;
+    }
+    .textContent {
+      font-size: 1rem;
+    }
+    .nav-container {
+      flex-direction: column;
+      margin-top:3rem;
+    }
+    .nav {
+      flex: 1 1 auto;
+      width:100%;
+    }
+    .nav ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav ul li a {
+      font-size: 1rem;
+      text-decoration: none;
+    }
+  }
+</style>
