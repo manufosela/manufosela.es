@@ -207,7 +207,7 @@ Desde 2016 en la aventura del liderazgo, ayudando a mis compañeros a desarrolla
 Después estuve en Eresmas del grupo Auna, que compró después France Telecom, y que pasó a ser Orange.\n
 Pase al sector de viajes y hoteles, en Mundicolor, del grupo Marsans.\n
 El siguiente reto en una pequeña, por aquel entonces, empresa de reservas hoteleras llamada Mirai.\n
-Volví a Orange, al departamento de I+D, el que estuve 4 años, para después pasar al equipo de desarrollo de la web de Orange.\n
+Volví a Orange, al departamento de I+D, en el que estuve 4 años, para después pasar al equipo de desarrollo de la web de Orange.\n
 En 2015 me uní a Kairós DS, siendo el empleado 23 y donde comencé a dar el giro hacia el liderazgo de equipos y proyectos.\n
 Actualmente, desde octubre de 2023, soy Director de Operaciones en Lean Mind.
       `
