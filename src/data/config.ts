@@ -177,13 +177,14 @@ export const Links = {
       url: 'https://github.com/manufosela',
     },
     {
+      name: 'StackOverflow',
+      url: 'https://stackoverflow.com/users/1833198/manufosela',
+    },
+    {
       name: 'Codepen',
       url: 'https://codepen.io/manufosela',
     }, {
-      name: 'StackOverflow',
-      url: 'https://stackoverflow.com/users/1833198/manufosela',
-    }, {
-      name: 'npm',
+      name: 'Npm',
       url: 'https://www.npmjs.com/~manufosela',
     }
   ],
@@ -265,10 +266,10 @@ export const contributionsData = {
       description: 'Co-organizo meetups de NodeJSMadrid y Codify Meetup para la comunidad de desarrolladores en Madrid. He co-organizado eventos como el JSDay de Madrid y el Polymer Day.',
     }, {
       title: 'Mentor',
-      description: 'Ayudo a personas que quieren empezar en el mundo de la programación y a personas que quieren dar el salto al liderazgo',
+      description: 'Ayudo a personas que quieren empezar en el mundo de la programación y a personas que quieren dar el salto al liderazgo.',
     }, {
       title: 'Contribuciones al Open Source',
-      description: 'Tengo unos proyectos en GitHub, incluyendo herramientas para validación automática de formularios en JavaScript, introducción a docker y generadores de componentes web usando Lit-Element entre otros',
+      description: 'Tengo varios proyectos en GitHub, Codepen y Stackoverflow, incluyendo herramientas para validación automática de formularios en JavaScript, introducción a docker y generadores de componentes web usando Lit-Element entre otros.',
     },
   ],
   'en': [
@@ -286,10 +287,10 @@ export const contributionsData = {
       description: 'I co-organize meetups for the NodeJSMadrid and Codify Meetup communities of developers in Madrid. I have co-organized events such as JSDay Madrid and Polymer Day.',
     }, {
       title: 'Mentor',
-      description: 'I help people who want to start in the world of programming and people who want to make the leap to leadership',
+      description: 'I help people who want to start in the world of programming and people who want to make the leap to leadership.',
     }, {
       title: 'Open Source contributions',
-      description: 'I have some projects on GitHub, including tools for automatic form validation in JavaScript, an introduction to docker, and web component generators using Lit-Element, among others',
+      description: 'I have some projects on GitHub, Codepen and Stackoverflow, including tools for automatic form validation in JavaScript, an introduction to docker, and web component generators using Lit-Element, among others.',
     },
   ],
 } as Contributions
