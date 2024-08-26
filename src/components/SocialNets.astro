@@ -5,7 +5,7 @@ import { Links } from '~/data/config'
   {Object.entries(Links).map(([category, links]) => (
     <div class="column">
       <div class="text-block-2">{category}</div>
-      <ul role="list">
+      <ul role="list" class={category === "software" ? "twoColsLinks" : ""}>
         {links.map((link: { url: string | URL | null | undefined; name: unknown }) => (
           <li><a href={link.url}>{link.name}</a></li>
         ))}
@@ -33,12 +33,11 @@ import { Links } from '~/data/config'
   .links {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: space-between;
+    align-items: baseline;
     width: 100%;
     margin: 1rem 0;
     padding: 0;
-    gap: 16rem;
   }
   .credit-links {
     color: var(--color-text-dark);
@@ -46,6 +45,12 @@ import { Links } from '~/data/config'
 
   .simpleLink {
     cursor: pointer;
+  }
+  .twoColsLinks {
+    display: grid;
+    gap: 0 1rem;
+    grid-template-columns:  repeat(2, 1fr);
+    grid-template-rows: auto auto;
   }
 
   @media screen and (max-width: 991px) {
@@ -58,6 +63,9 @@ import { Links } from '~/data/config'
     }
     .column, .column-2 {
       margin-bottom: 1rem;
+    }
+    .twoColsLinks {
+      grid-template-columns: 1fr;
     }
   }
 
