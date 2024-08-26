@@ -179,7 +179,13 @@ export const Links = {
     {
       name: 'Codepen',
       url: 'https://codepen.io/manufosela',
-    },
+    }, {
+      name: 'StackOverflow',
+      url: 'https://stackoverflow.com/users/1833198/manufosela',
+    }, {
+      name: 'npm',
+      url: 'https://www.npmjs.com/~manufosela',
+    }
   ],
 } as Links
 

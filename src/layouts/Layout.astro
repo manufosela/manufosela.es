@@ -5,16 +5,17 @@ import '~/styles/layout.css';
 
 interface Props {
   title: string,
+  includeSchema?: boolean,
 }
 
-const { title } = Astro.props
+const { title, includeSchema = false } = Astro.props;
 
 const isProduction = import.meta.env.PROD;
 ---
 
 <html>
   <head>
-    <BaseHead title={title} />
+    <BaseHead title={title} includeSchema={includeSchema} />
     <style>
       @font-face {
         font-family: "Inter";
