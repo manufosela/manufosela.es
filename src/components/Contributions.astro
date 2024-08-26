@@ -7,11 +7,11 @@ const slides = contributionsData[language] || [];
 ---
 
 <div class="pagecontent">
-  <p class="textContent"><span class="title">{slides[0].title}: </span>{slides[0].description}</p>
-  <p class="textContent"><span class="title">{slides[1].title}: </span>{slides[1].description}</p>
-  <p class="textContent"><span class="title">{slides[2].title}: </span>{slides[2].description}</p>
-  <p class="textContent"><span class="title">{slides[3].title}: </span>{slides[3].description}</p>
-  <p class="textContent"><span class="title">{slides[4].title}: </span>{slides[4].description}</p>
+  {slides.map((slide, index) => (
+    <p class="textContent" id={`slide${index}`}>
+      <span class="title">{slide.title}: </span>{slide.description}
+    </p>
+  ))}
 </div>
 
 <style>
@@ -22,7 +22,6 @@ const slides = contributionsData[language] || [];
   .textContent {
     font-size: 1.5rem;
     letter-spacing: 2px;
-    white-space: pre-wrap;
     margin-bottom: 1rem;
   }
 
