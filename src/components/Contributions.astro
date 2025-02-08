@@ -1,17 +1,20 @@
 ---
-import { contributionsData } from '~/data/config';
+import { contributionsData } from '~/data/contributions'
 
-const { language } = Astro.props;
+const { language } = Astro.props
 
-const slides = contributionsData[language] || [];
+const slides = contributionsData[language] || []
 ---
 
 <div class="pagecontent">
-  {slides.map((slide, index) => (
-    <p class="textContent" id={`slide${index}`}>
-      <span class="title">{slide.title}: </span>{slide.description}
-    </p>
-  ))}
+  {
+    slides.map((slide, index) => (
+      <p class="textContent" id={`slide${index}`}>
+        <span class="title">{slide.title}: </span>
+        {slide.description}
+      </p>
+    ))
+  }
 </div>
 
 <style>
@@ -33,5 +36,4 @@ const slides = contributionsData[language] || [];
       font-size: 1rem;
     }
   }
-
 </style>

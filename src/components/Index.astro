@@ -1,29 +1,45 @@
 ---
-import { ManuFosela } from '~/data/config';
+import { marked } from 'marked';
+import { ManuFosela } from '~/data/index';
 
 const { language } = Astro.props;
 
 const person = ManuFosela[language] || {};
 
 const name = person.name;
-const rol =  person.rol;
-const position =  person.position;
+const rol = person.rol;
+const liderazgo_afectivo = person.liderazgo_afectivo;
+const position = person.position;
 const bio = person.bio.replace(/\n/g, '<br>');
 ---
 
 <div class="pagecontent">
-  <div class="name">{rol}</div>
+  <div class="name">
+    <p class="rol">
+      <span>{rol}</span>
+      <img class="logoLA" src={liderazgo_afectivo} alt="Liderazgo afectivo" width="32" height="32" />
+    </p>
+  </div>
   <h1 class="tagline">{name}</h1>
   <h2 class="tagline2">{position}</h2>
   <p class="bio" set:html={bio}></p>
 </div>
 
 <style>
+  .rol {
+    display: flex;
+  }
+  .logoLA {
+    margin-left: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    display: inline;
+  }
   .name {
     margin-bottom: 2.5rem;
     line-height: 100%;
     letter-spacing: 1px;
-    font-size:2rem;
+    font-size: 2rem;
 
     @media (--motionOK) {
       animation: var(--animation-fade-in) forwards;
@@ -61,7 +77,7 @@ const bio = person.bio.replace(/\n/g, '<br>');
   }
   @media screen and (max-width: 767px) {
     .name {
-      font-size:1.2rem;
+      font-size: 1.2rem;
       margin-bottom: 2rem;
     }
     .tagline {
@@ -77,7 +93,7 @@ const bio = person.bio.replace(/\n/g, '<br>');
   }
   @media screen and (max-width: 479px) {
     .name {
-      font-size:1rem;
+      font-size: 1rem;
       margin-bottom: 2rem;
     }
     .tagline {
@@ -91,4 +107,4 @@ const bio = person.bio.replace(/\n/g, '<br>');
       font-size: 1rem;
     }
   }
-  </style>
+</style>

@@ -8,7 +8,11 @@ import robotsTxt from 'astro-robots-txt'
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [sitemap(), compress(), compressor(), robotsTxt({
+  integrations: [sitemap({
+    changefreq: 'weekly',
+    priority: 0.8,
+    exclude: ['/404', '/offline', '/offline.html', '/sitemap.xml', '/robots.txt']
+  }), compress(), compressor(), robotsTxt({
     policy: [{ userAgent: '*', allow: '/' }],
     sitemap: `https://${Site.url}/sitemap.xml`,
   })],

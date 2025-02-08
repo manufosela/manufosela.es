@@ -1,0 +1,14 @@
+# Content Security Policy (ajusta según tus necesidades)
+Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://apis.example.com; style-src 'self' 'unsafe-inline'"
+
+# Strict Transport Security (HSTS)
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+# X-Content-Type-Options
+Header set X-Content-Type-Options "nosniff"
+
+# X-Frame-Options
+Header set X-Frame-Options "DENY"
+
+# X-XSS-Protection (opcional, obsoleto)
+Header set X-XSS-Protection "1; mode=block"

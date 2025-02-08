@@ -1,25 +1,26 @@
 ---
-import { articlesData } from '~/data/config';
+import { articlesData } from '~/data/articles'
 
-const { language } = Astro.props;
+const { language } = Astro.props
 
-const articles = articlesData[language] || [];
+const articles = articlesData[language] || []
 ---
+
 <div class="pagecontent">
-  {Object.keys(articles).map((key) => (
-    <nav class="nav">
-      <h2>{key}</h2>
-      <ul>
-        {articles[key].map((article, index) => (
-          <li>
-            <a href={article.link}>
-              {article.title}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  ))}
+  {
+    Object.keys(articles).map((key) => (
+      <nav class="nav">
+        <h2>{key}</h2>
+        <ul>
+          {articles[key].map((article, index) => (
+            <li>
+              <a href={article.link}>{article.title}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    ))
+  }
 </div>
 
 <style>
@@ -72,11 +73,11 @@ const articles = articlesData[language] || [];
     }
     .nav-container {
       flex-direction: column;
-      margin-top:3rem;
+      margin-top: 3rem;
     }
     .nav {
       flex: 1 1 auto;
-      width:100%;
+      width: 100%;
     }
     .nav ul li {
       margin-bottom: 0.5rem;

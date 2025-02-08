@@ -1,25 +1,28 @@
 ---
-import { mediaData } from '~/data/config';
+import { mediaData } from '~/data/media'
 
-const { language } = Astro.props;
+const { language } = Astro.props
 
-const medias = mediaData[language] || [];
+const medias = mediaData[language] || []
 ---
+
 <div class="pagecontent">
-  {Object.keys(medias).map((key) => (
-    <nav class="nav">
-      <h2>{key}</h2>
-      <ul>
-        {medias[key].map((media: { link: string | URL | null | undefined; title: unknown; }, index: number) => (
-          <li>
-            <a href={media.link} target="_blank">
-              {media.title}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  ))}
+  {
+    Object.keys(medias).map((key) => (
+      <nav class="nav">
+        <h2>{key}</h2>
+        <ul>
+          {medias[key].map((media: { link: string | URL | null | undefined; title: unknown }, index: number) => (
+            <li>
+              <a href={media.link} target="_blank">
+                {media.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    ))
+  }
 </div>
 
 <style>
@@ -85,11 +88,11 @@ const medias = mediaData[language] || [];
     }
     .nav-container {
       flex-direction: column;
-      margin-top:3rem;
+      margin-top: 3rem;
     }
     .nav {
       flex: 1 1 auto;
-      width:100%;
+      width: 100%;
     }
     .nav ul li {
       margin-bottom: 0.5rem;

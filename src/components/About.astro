@@ -1,62 +1,68 @@
 ---
-import { aboutData } from '~/data/config';
+import { aboutData } from '~/data/about'
 
-const { language } = Astro.props;
+const { language } = Astro.props
 
-const slides = aboutData[language]?.slides || [];
+const slides = aboutData[language]?.slides || []
 ---
 
 <script>
-  let currentIndex = 0;
+  let currentIndex = 0
 
   /**
    * Cambia el slide actual según el índice.
    * @param {number} index - Índice del slide a mostrar.
    */
   function goToSlide(index: number) {
-    currentIndex = index;
+    currentIndex = index
 
     document.querySelectorAll('.slides').forEach((slide, slideIndex) => {
-      slide.classList.toggle('slideActive', slideIndex === index);
-    });
+      slide.classList.toggle('slideActive', slideIndex === index)
+    })
 
     document.querySelectorAll('.nav-button').forEach((button, buttonIndex) => {
-      button.classList.toggle('active', buttonIndex === index);
-    });
+      button.classList.toggle('active', buttonIndex === index)
+    })
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.nav-button').forEach((button, index) => {
       button.addEventListener('click', () => {
-        goToSlide(index);
-      });
-    });
+        goToSlide(index)
+      })
+    })
 
     // Inicializar el primer slide
-    goToSlide(0);
-  });
+    goToSlide(0)
+  })
 </script>
 
 <div class="pagecontent">
   <div class="nav-buttons">
-    {slides.map((slide, index) => (
-      <div>
-        <button class={`nav-button ${index === 0 ? 'active' : ''}`}>
-          {slide.subtitle}
-        </button>
-      </div>
-    ))}
+    {
+      slides.map((slide, index) => (
+        <div>
+          <button class={`nav-button ${index === 0 ? 'active' : ''}`}>{slide.subtitle}</button>
+        </div>
+      ))
+    }
   </div>
-  {slides.map((slide, index) => (
-    <div id={`slide${index}`} class={`slides ${index === 0 ? 'slideActive': ''}`} set:html={slide.description.replace(/\n/g, '<br>')}></div>
-  ))}
+  {
+    slides.map((slide, index) => (
+      <div
+        id={`slide${index}`}
+        class={`slides ${index === 0 ? 'slideActive' : ''}`}
+        set:html={slide.description.replace(/\n/g, '<br>')}
+      />
+    ))
+  }
 </div>
 
 <style>
   .slides {
     height: 40vh;
     width: 100%;
-    color:var(--color-text-light);
+    color: var(--color-text-light);
     font-size: 1.5rem;
     text-align: left;
     margin-bottom: 1.2rem;
@@ -112,7 +118,7 @@ const slides = aboutData[language]?.slides || [];
     .slides {
       width: 100%;
       height: 40vh;
-      color:var(--color-text-light);
+      color: var(--color-text-light);
       font-size: 1.1rem;
       text-align: left;
       margin-bottom: 1.2rem;

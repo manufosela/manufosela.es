@@ -1,20 +1,28 @@
 ---
-import { Links } from '~/data/config'
+import { Links } from '~/data/media'
 ---
+
 <div class="links">
-  {Object.entries(Links).map(([category, links]) => (
-    <div class="column">
-      <div class="text-block-2">{category}</div>
-      <ul role="list" class={category === "software" ? "twoColsLinks" : ""}>
-        {links.map((link: { url: string | URL | null | undefined; name: unknown }) => (
-          <li><a href={link.url}>{link.name}</a></li>
-        ))}
-      </ul>
-    </div>
-  ))}
+  {
+    Object.entries(Links).map(([category, links]) => (
+      <div class="column">
+        <div class="text-block-2">{category}</div>
+        <ul role="list" class={category === 'software' || category == 'social'  ? 'twoColsLinks' : ''}>
+          {links.map((link: { url: string | URL | null | undefined; name: unknown }) => (
+            <li>
+              <a href={link.url}>{link.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
 </div>
 
 <style>
+  .column {
+    width: 33%;
+  }
   .text-block-2 {
     margin-bottom: 20px;
     color: var(--color-text-light);
@@ -49,7 +57,7 @@ import { Links } from '~/data/config'
   .twoColsLinks {
     display: grid;
     gap: 0 1rem;
-    grid-template-columns:  repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto auto;
   }
 
@@ -61,7 +69,8 @@ import { Links } from '~/data/config'
     .links a {
       font-size: 1rem;
     }
-    .column, .column-2 {
+    .column,
+    .column-2 {
       margin-bottom: 1rem;
     }
     .twoColsLinks {

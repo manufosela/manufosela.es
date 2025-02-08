@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://https://manufosela.es/sitemap-index.xml
