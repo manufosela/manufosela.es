@@ -26,7 +26,7 @@ export default defineConfig({
   },
   security: {
     headers: {
-      'Content-Security-Policy': "default-src 'self'; img-src 'self' https://librecounter.org; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+      'Content-Security-Policy': "default-src 'self'; img-src 'self' https://librecounter.org https://res.cloudinary.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.growthbook.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://cdn.growthbook.io;"
     }
   }
 })
