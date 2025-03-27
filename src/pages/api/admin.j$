@@ -1,0 +1,27 @@
+import {
+  loadPagesList,
+  loadPageContent,
+  saveContent,
+  buildProject,
+  deployProject
+} from '../../scripts/adminFunctions.js'
+
+export async function get() {
+  const pages = await loadPagesList()
+  return new Response(JSON.stringify(pages), { headers: { 'Content-Type': 'application/json' } })
+}
+
+export async function post({ request }) {
+  const { action, data } = await request.json()
+
+  // Ejecuta acciones según el tipo
+  if (action === 'save') {
+    await saveContent(data.page, data.content)
+  } else if (action === 'build') {
+    await buildProject()
+  } else if (action === 'deploy') {
+    await deployProject()
+  }
+
+  return new Response('Action executed', { status: 200 })
+}
