@@ -1,0 +1,57 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.admin-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  flex-direction: row;
+}
+.button-container button {
+  margin: 0 1rem;
+  width: 15rem;
+}
+
+header,
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--background-color);
+}
+
+.sidebar {
+  overflow-y: auto;
+  padding: 10px;
+  background-color: var(--surface-color);
+  max-height: calc(100vh - 150px);
+}
+
+.content {
+  overflow-y: auto;
+  padding: 20px;
+  background-color: var(--background-color);
+}
+
+header h1 {
+  margin: 0;
+}
+
+button {
+  margin-left: 1rem;
+}
+
+[data-ref] {
+  border: 1px dashed #007acc;
+  padding: 0.25rem;
+  border-radius: 4px;
+}

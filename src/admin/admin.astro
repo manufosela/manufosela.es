@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Astrodmin</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.5.5/css/pico.min.css" />
+    <link rel="stylesheet" href="/src/styles/admin-styles.css" />
+  </head>
+  <body>
+    <div class="admin-container">
+      <header>
+        <h1>Astrodmin</h1>
+        <div class="button-container">
+          <button id="saveButton">Guardar</button>
+          <button id="buildButton">Build</button>
+          <button id="deployButton">Deploy</button>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <aside class="sidebar">
+          <h2>Páginas</h2>
+          <ul id="pagesList">
+            <!-- Lista de páginas cargada dinámicamente -->
+          </ul>
+        </aside>
+        <main class="content" id="content">
+          <!-- Vista previa de la página seleccionada cargada dinámicamente -->
+        </main>
+      </div>
+
+      <footer>
+        <p>© 2023 Astrodmin</p>
+      </footer>
+    </div>
+
+    <script type="module">
+      import {
+        loadPagesList,
+        loadPageContent,
+        saveContent,
+        buildProject,
+        deployProject
+      } from '/scripts/adminFunctions.js'
+
+      document.addEventListener('DOMContentLoaded', async () => {
+        const pages = await loadPagesList()
+        const pagesList = document.getElementById('pagesList')
+        pages.forEach((page) => {
+          const listItem = document.createElement('li')
+          listItem.textContent = page
+          listItem.onclick = () => loadPageContent(page)
+          pagesList.appendChild(listItem)
+        })
+
+        document.getElementById('saveButton').onclick = saveContent
+        document.getElementById('buildButton').onclick = buildProject
+        document.getElementById('deployButton').onclick = deployProject
+      })
+    </script>
+  </body>
+</html>

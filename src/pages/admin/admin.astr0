@@ -1,0 +1,107 @@
+---
+import { Site, indexDesc } from '~/data/config';
+
+// Convertir el contenido JSON en un string para usar en el script
+const contentData = JSON.stringify(config.contents);
+---
+
+<html lang="es">
+<head>
+    <title>Administrador de Contenidos</title>
+    <meta charset="UTF-8" />
+    <style>
+        /* Añade aquí tu CSS para el layout */
+        header, footer, aside, main {
+          padding: 1rem;
+        }
+        #preview {
+          width: 100%;
+          height: 600px;
+          border: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+      <h1>Administración de Contenidos</h1>
+      <button onclick="saveChanges()">Guardar</button>
+      <button onclick="buildSite()">Build</button>
+      <button onclick="deploySite()">Deploy</button>
+    </header>
+
+    <aside>
+
+    </aside>
+
+    <main>
+      <iframe id="preview" src="/index"></iframe>
+    </main>
+
+    <footer>
+       <p>Administrador de Contenidos</p>
+    </footer>
+
+    <script>
+        const contentData = JSON.parse(`{{contentData}}`);
+        let updatedContent = { ...contentData };
+
+        document.addEventListener('DOMContentLoaded', () => {
+          const iframe = document.getElementById('preview');
+          if (iframe instanceof HTMLIFrameElement) {
+            iframe.addEventListener('load', initializeEditableContent);
+          } else {
+            console.error("El elemento 'preview' no es un iframe o no se ha encontrado en el DOM.");
+          }
+        });
+
+        function initializeEditableContent() {
+          const iframeElement = document.getElementById('preview');
+          let iframe = null;
+          if (iframeElement instanceof HTMLIFrameElement) {
+            iframe = iframeElement?.contentDocument || iframeElement?.contentWindow?.document;
+          }
+
+          Object.keys(updatedContent).forEach(key => {
+            const element = iframe.querySelector(`[data-content-key="${key}"]`);
+            if (element) {
+              element.setAttribute('contenteditable', 'true');
+              element.addEventListener('input', () => {
+                updatedContent[key] = element.innerText;
+                localStorage.setItem('contentBackup', JSON.stringify(updatedContent));
+              });
+            }
+          });
+        }
+
+        // Guardar cambios en el JSON
+        async function saveChanges() {
+            try {
+                const response = await fetch('/scripts/updateContent.js', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedContent)
+                });
+                if (response.ok) {
+                    alert('Contenido guardado exitosamente');
+                } else {
+                    alert('Error al guardar el contenido');
+                }
+            } catch (error) {
+                console.error('Error en guardar:', error);
+            }
+        }
+
+        // Ejecutar build
+        async function buildSite() {
+            await fetch('/scripts/build.js', { method: 'POST' });
+            alert('Build iniciado');
+        }
+
+        // Ejecutar deploy con Firebase
+        async function deploySite() {
+            await fetch('/scripts/deploy.js', { method: 'POST' });
+            alert('Deploy iniciado');
+        }
+    </script>
+</body>
+</html>
