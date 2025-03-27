@@ -1,0 +1,68 @@
+import { Theme } from '~/data/config'
+import { getTheme } from '~/utils/theme'
+
+const theme = await getTheme()
+
+<button class="theme-toggle" aria-label="Toggle theme">
+  <img class="sun" src="/api/images/theme/sun" alt="Sun icon" />
+  <img class="moon" src="/api/images/theme/moon" alt="Moon icon" />
+</button>
+
+<script>
+  const themeToggle = document.querySelector('.theme-toggle')
+  const sunIcon = document.querySelector('.sun')
+  const moonIcon = document.querySelector('.moon')
+
+  // Set initial theme
+  document.documentElement.setAttribute('data-theme', theme)
+
+  // Toggle theme
+  themeToggle?.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light'
+
+    document.documentElement.setAttribute('data-theme', newTheme)
+    localStorage.setItem('theme', newTheme)
+
+    // Log theme change
+    console.log('Tema actual:', newTheme)
+  })
+</script>
+
+<style>
+  .theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    position: relative;
+  }
+
+  .theme-toggle img {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+  }
+
+  .theme-toggle .sun {
+    opacity: 1;
+  }
+
+  .theme-toggle .moon {
+    opacity: 0;
+  }
+
+  [data-theme='dark'] .theme-toggle .sun {
+    opacity: 0;
+  }
+
+  [data-theme='dark'] .theme-toggle .moon {
+    opacity: 1;
+  }
+</style>
