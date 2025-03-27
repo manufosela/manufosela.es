@@ -1,5 +1,6 @@
 ---
 import { contributionsData } from '~/data/contributions'
+import { convertMarkdownLinks } from '~/utils/markdown'
 
 const { language } = Astro.props
 
@@ -11,7 +12,7 @@ const slides = contributionsData[language] || []
     slides.map((slide, index) => (
       <p class="textContent" id={`slide${index}`}>
         <span class="title">{slide.title}: </span>
-        {slide.description}
+        <span set:html={convertMarkdownLinks(slide.description)} />
       </p>
     ))
   }
