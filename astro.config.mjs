@@ -16,7 +16,7 @@ export default defineConfig({
     policy: [{ userAgent: '*', allow: '/' }],
     sitemap: `${Site.url}/sitemap-index.xml`,
   })],
-  output: 'static',
+  output: 'server',
   vite: {
     build: {
       rollupOptions: {
