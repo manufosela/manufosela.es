@@ -36,11 +36,6 @@ const isProduction = import.meta.env.PROD;
   </head>
   <body>
     <slot />
-    {isProduction && (
-      <a href="https://librecounter.org/referer/show">
-        <img src="https://librecounter.org/counter.svg" referrerpolicy="unsafe-url" alt="Counter"/>
-      </a>
-    )}
   </body>
 </html>
 
