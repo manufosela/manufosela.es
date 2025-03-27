@@ -14,8 +14,15 @@ export default defineConfig({
     exclude: ['/404', '/offline', '/offline.html', '/sitemap.xml', '/robots.txt']
   }), compress(), compressor(), robotsTxt({
     policy: [{ userAgent: '*', allow: '/' }],
-    sitemap: `https://${Site.url}/sitemap.xml`,
+    sitemap: `https://${Site.url}/sitemap-index.xml`,
   })],
   site: Site.url,
-  output: 'static'
+  output: 'static',
+  vite: {
+    build: {
+      rollupOptions: {
+        external: ['scripts/**', 'functions/**', 'admin/**']
+      }
+    }
+  }
 })
