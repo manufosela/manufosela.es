@@ -17,8 +17,8 @@ interface Persons {
 export const ManuFosela = {
   es: {
     name: ' Mánu Fosela',
-    rol: 'Líder Afectivo',
-    liderazgo_afectivo: '/images/liderazgo_afectivo.png',
+    rol: 'Liderazgo Afectivo',
+    liderazgo_afectivo: '/images/liderazgo_afectivo.svg',
     position: 'Head of Engineering en Geniova Technologies',
     bio: `Ingeniero de Telecomunicaciones de formación.
 Liderazgo de equipos tecnológicos.
@@ -32,8 +32,8 @@ Apoyo a los Juniors.`
   },
   en: {
     name: ' Mánu Fosela',
-    rol: 'Affective Leader',
-    liderazgo_afectivo: '/images/liderazgo_afectivo.png',
+    rol: 'Affective Leadership',
+    liderazgo_afectivo: '/images/liderazgo_afectivo.svg',
     position: 'Head of Engineering at Geniova Technologies',
     bio: `Telecommunications Engineer by training.
 Leadership of technological teams.
