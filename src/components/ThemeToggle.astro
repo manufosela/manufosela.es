@@ -1,11 +1,11 @@
 import { Theme } from '~/data/config'
 import { getTheme } from '~/utils/theme'
 
-const theme = await getTheme()
+const theme = localStorage?.getItem('theme') ?? 'light'
 
 <button class="theme-toggle" aria-label="Toggle theme">
-  <img class="sun" src="/api/images/theme/sun" alt="Sun icon" />
-  <img class="moon" src="/api/images/theme/moon" alt="Moon icon" />
+  <img class="sun" src="/images/theme/sun.svg" alt="Sun icon" />
+  <img class="moon" src="/images/theme/moon.svg" alt="Moon icon" />
 </button>
 
 <script>
@@ -14,7 +14,8 @@ const theme = await getTheme()
   const moonIcon = document.querySelector('.moon')
 
   // Set initial theme
-  document.documentElement.setAttribute('data-theme', theme)
+  const savedTheme = localStorage.getItem('theme') ?? 'light'
+  document.documentElement.setAttribute('data-theme', savedTheme)
 
   // Toggle theme
   themeToggle?.addEventListener('click', () => {

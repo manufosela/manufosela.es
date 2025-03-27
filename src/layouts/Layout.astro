@@ -1,14 +1,17 @@
 ---
 import BaseHead from '~/components/BaseHead.astro';
-
+import { Site } from '~/data/config'
 import '~/styles/layout.css';
+import '~/styles/fonts.css'
 
 interface Props {
   title: string,
   includeSchema?: boolean,
+  description?: string,
+  image?: string,
 }
 
-const { title, includeSchema = false } = Astro.props;
+const { title, includeSchema = false, description = Site.description, image = '/manufosela.png' } = Astro.props;
 
 const isProduction = import.meta.env.PROD;
 ---
