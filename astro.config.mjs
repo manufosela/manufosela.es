@@ -8,21 +8,25 @@ import robotsTxt from 'astro-robots-txt'
 
 // https://astro.build/config
 export default defineConfig({
+  site: Site.url,
   integrations: [sitemap({
-    changefreq: 'weekly',
-    priority: 0.8,
-    exclude: ['/404', '/offline', '/offline.html', '/sitemap.xml', '/robots.txt']
+    filter: (page) => !page.includes('admin') && !page.includes('api'),
+    lastmod: new Date()
   }), compress(), compressor(), robotsTxt({
     policy: [{ userAgent: '*', allow: '/' }],
-    sitemap: `https://${Site.url}/sitemap-index.xml`,
+    sitemap: `${Site.url}/sitemap-index.xml`,
   })],
-  site: Site.url,
   output: 'static',
   vite: {
     build: {
       rollupOptions: {
         external: ['scripts/**', 'functions/**', 'admin/**']
       }
+    }
+  },
+  security: {
+    headers: {
+      'Content-Security-Policy': "default-src 'self'; img-src 'self' https://librecounter.org; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
     }
   }
 })
