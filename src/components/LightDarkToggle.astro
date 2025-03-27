@@ -1,67 +1,99 @@
 ---
 ---
-
-<button class="theme-toggle" aria-label="Toggle theme">
-  <img class="sun" src="/images/theme/sun.svg" alt="Sun icon" />
-  <img class="moon" src="/images/theme/moon.svg" alt="Moon icon" />
-</button>
+<section class="lightdarkmode">
+  <input type="checkbox" id="toggle-theme" class="toggle">
+  <label for="toggle-theme" class="button" aria-label="Toggle dark and light mode"></label>
+</section>
 
 <script>
-  const themeToggle = document.querySelector('.theme-toggle')
-  const sunIcon = document.querySelector('.sun')
-  const moonIcon = document.querySelector('.moon')
+  import { getTheme, setTheme } from '~/state.js';
 
-  // Set initial theme
-  const savedTheme = localStorage.getItem('theme') ?? 'light'
-  document.documentElement.setAttribute('data-theme', savedTheme)
+  let toggleThemeButton: HTMLInputElement;
+  const bodyElement = document.querySelector('body');
 
-  // Toggle theme
-  themeToggle?.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme')
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light'
+  function init() {
+    const theme = getTheme();
+    toggleThemeButton = document.querySelector('#toggle-theme') as HTMLInputElement;
+    if (toggleThemeButton) {
+      toggleThemeButton.addEventListener('change', toggleThemeHandler);
+      toggleThemeButton.checked = theme === 'dark';
+      toggleThemeHandler();
+    }
+  }
 
-    document.documentElement.setAttribute('data-theme', newTheme)
-    localStorage.setItem('theme', newTheme)
+  function toggleThemeHandler() {
+    if (bodyElement) {
+      if (toggleThemeButton.checked) {
+        bodyElement.dataset.theme = 'dark';
+      } else {
+        bodyElement.removeAttribute('data-theme');
+      }
+    }
+    setTheme(toggleThemeButton.checked ? 'dark' : 'light');
+    addTransitionToButtonAfter();
+  }
 
-    // Log theme change
-    console.log('Tema actual:', newTheme)
-  })
+  function addTransitionToButtonAfter() {
+    requestAnimationFrame(() => {
+      const buttonElement = document.querySelector('.lightdarkmode .button');
+      if (buttonElement) {
+        buttonElement.classList.add('transition-enabled');
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
 </script>
 
 <style>
-  .theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    width: 30px;
-    height: 30px;
+  :root {
+    --button-width: 90px;
+    --button-height: 35px;
+    --button-border-radius: 30px;
+    --button-sunmoon-size: 40px;
+    --button-sunmoon-bg-color: #e03c3c;
+  }
+
+  h1 { color:green }
+
+  .lightdarkmode {
+    padding: 1rem;
+    z-index: 5;
+  }
+  .lightdarkmode .toggle {
+    display: none;
+  }
+  .lightdarkmode .button {
+    display: inline-block;
+    width: var(--button-width);
+    height: var(--button-height);
+    background: #4ac;
+    border-radius: var(--button-border-radius);
     position: relative;
+    cursor: pointer;
   }
 
-  .theme-toggle img {
-    width: 20px;
-    height: 20px;
+  .lightdarkmode .button::after {
+    content: "";
+    background-image: url("/images/theme/sun.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: var(--button-sunmoon-size);
+    height: var(--button-sunmoon-size);
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s ease;
+    top: -2px;
+    left: 0;
+    display: grid;
+    place-content: center;
+    line-height: 0;
   }
 
-  .theme-toggle .sun {
-    opacity: 1;
+  .transition-enabled::after {
+    transition: background-color 1s, transform 1s ease-in;
   }
 
-  .theme-toggle .moon {
-    opacity: 0;
-  }
-
-  [data-theme='dark'] .theme-toggle .sun {
-    opacity: 0;
-  }
-
-  [data-theme='dark'] .theme-toggle .moon {
-    opacity: 1;
+  .lightdarkmode .toggle:checked + .button::after {
+    background-image: url("/images/theme/moon.svg");
+    transform: translateX(calc(var(--button-width) - var(--button-sunmoon-size))) rotate(360deg);
   }
 </style>
