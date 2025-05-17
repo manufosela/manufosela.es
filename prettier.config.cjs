@@ -9,7 +9,8 @@ module.exports = {
     }
   ],
   printWidth: 120,
-  semi: false,
+  semi: true,
   singleQuote: true,
-  trailingComma: 'none'
+  trailingComma: 'none',
+  arrowParens: 'avoid'
 }

@@ -1,0 +1,82 @@
+:root {
+  --primary-color: #333;
+  --text-color: #333;
+  --background-color: #fff;
+  --font-size-base: 16px;
+}
+
+body {
+  font-size: var(--font-size-base);
+  margin: 0;
+  padding: 0;
+  font-family: 'Lora', serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+a:hover {
+  transform: translateX(5px);
+  color: #ffffff;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+/* Estilos específicos para enlaces con clases especiales */
+.book-link,
+.blog-link,
+.credit-links {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.book-link:hover,
+.blog-link:hover,
+.credit-links:hover {
+  transform: translateX(5px);
+  color: #ffffff;
+}
+
+.book-link::after,
+.blog-link::after,
+.credit-links::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.book-link:hover::after,
+.blog-link:hover::after,
+.credit-links:hover::after {
+  width: 100%;
+}
