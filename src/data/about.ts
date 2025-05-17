@@ -44,7 +44,7 @@ export const aboutData = {
 Empecé a desarrollar con 14 años, allá por el año 1985, escribiendo los programas en un cuaderno y luego iba a teclearlo a un ZX-Spectrum 48K de un amigo.\n
 Estudié B.U.P., C.O.U., FP de Electrónica Industrial y después cursé dos especialidades de Ingenieria de Telecomunicaciones, Sistemas de telecomunicación y Telemática.\n
 Por azares del destino entré a trabajar en una startup, plus.es, y arranqué mi andadura como desarrollador web.\n
-He trabajado con ASP, Java, PHP, Perl, ShellScript, Javascript, desde vanilla ES1 hasta VueJS, pasando por dojo, prototype, scriptaculous, jquery, backbone, AngularJS, React, Angular 2, Polymer, Lit-Element...\n
+He trabajado con ASP, Java, PHP, Perl, ShellScript, Javascript, desde vanilla ES1 hasta VueJS, pasando por dojo, prototype, scriptaculous, jquery, backbone, AngularJS, React, Angular 2, Polymer, Lit...\n
 Y me he pegado con sistemas Windows y Linux. Apache, Nginx. MySQL, Oracle, PostgreSQL, IBMDb2, mongoDB...\n
 En total mas de 20 años de experiencia en el mundo del desarrollo de software web.\n
 Desde 2016 mas enfocado en liderar equipos de ingeniería que cumplan con los objetivos a la vez que a velar por su desarrollo profesional y bienestar. A organizar departamentos técnicos, mentorizar y hacer coaching.\n`
@@ -76,7 +76,7 @@ Actualmente, desde enero de 2025, estoy enfocado en montar un equipo de ingenier
 I started developing at the age of 14, back in 1985, writing programs in a notebook and then typing them into a friend's ZX-Spectrum 48K.\n
 I studied B.U.P., C.O.U., Industrial Electronics FP, and then pursued two specializations in Telecommunications Engineering: Telecommunication Systems and Telematics.\n
 By chance, I began working at a startup, plus.es, and started my journey as a web developer.\n
-I have worked with ASP, Java, PHP, Perl, ShellScript, JavaScript, from vanilla ES1 to VueJS, including dojo, prototype, scriptaculous, jquery, backbone, AngularJS, React, Angular 2, Polymer, Lit-Element...\n
+I have worked with ASP, Java, PHP, Perl, ShellScript, JavaScript, from vanilla ES1 to VueJS, including dojo, prototype, scriptaculous, jquery, backbone, AngularJS, React, Angular 2, Polymer, Lit...\n
 I have also dealt with Windows and Linux systems. Apache, Nginx. MySQL, Oracle, PostgreSQL, IBMDb2, mongoDB...\n
 In total, 20 years of experience in the world of web software development.\n
 Since 2016, I have been more focused on leading engineering teams to meet objectives while ensuring their professional development and well-being. I organize technical departments, mentor, and coach.\n`

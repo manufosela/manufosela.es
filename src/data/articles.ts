@@ -42,6 +42,10 @@ export const articles: Articles = {
           {
             title: 'Disculpa, ¿Tienes F.O.G.O.?',
             url: 'https://www.linkedin.com/feed/update/urn:li:activity:7321163293581041668/'
+          },
+          {
+            title: 'Todo lo que no se mide no se puede mejorar... ¿o sí?',
+            url: 'https://manufosela.substack.com/p/todo-lo-que-no-se-mide-no-se-puede'
           }
         ],
         '2024': [
