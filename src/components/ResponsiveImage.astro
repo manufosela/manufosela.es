@@ -1,0 +1,59 @@
+---
+interface Props {
+  imagePath: string;
+  description: string;
+}
+
+const { imagePath, description } = Astro.props;
+
+// Asegurarnos de que la ruta comience con /
+const basePath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+---
+
+<figure class="responsive-image-container">
+  <picture>
+    <source srcset={`${basePath}1280.webp`} media="(min-width: 1280px)" type="image/webp" />
+    <source srcset={`${basePath}768.webp`} media="(min-width: 768px)" type="image/webp" />
+    <source srcset={`${basePath}480.webp`} media="(min-width: 480px)" type="image/webp" />
+    <img
+      src={`${basePath}320.webp`}
+      srcset={`${basePath}320.webp 1x, ${basePath}320@2x.webp 2x`}
+      alt={description}
+      class="responsive-image"
+      width="320"
+      height="320"
+    />
+  </picture>
+  <figcaption>{description}</figcaption>
+</figure>
+
+<style>
+  .responsive-image-container {
+    width: 50%;
+    text-align: center;
+    margin: 0;
+    padding: 2rem;
+    position: sticky;
+    top: 0;
+  }
+
+  .responsive-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  figcaption {
+    margin-top: 1rem;
+    color: var(--color-text);
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .responsive-image-container {
+      width: 100%;
+      padding: 1rem;
+      position: relative;
+    }
+  }
+</style>

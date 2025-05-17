@@ -1,0 +1,94 @@
+---
+import { Book } from '~/data/book';
+
+interface Props {
+  language: 'es' | 'en';
+}
+
+const { language } = Astro.props;
+const bookData = Book[language];
+---
+
+<div class="book-promotion">
+  <h2>{bookData.title}</h2>
+  <p>{bookData.description}</p>
+  <div class="book-links">
+    <a href={bookData.bookLink} class="book-link" target="_blank" rel="noopener noreferrer">{bookData.bookButton}</a>
+    <a href={bookData.blogLink} class="blog-link" target="_blank" rel="noopener noreferrer">{bookData.blogButton}</a>
+  </div>
+</div>
+
+<style>
+  .book-promotion {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: #44aacc;
+    border-radius: 8px;
+  }
+
+  .book-promotion h2 {
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  .book-promotion p {
+    color: #333;
+  }
+
+  .book-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .book-link,
+  .blog-link {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .book-link:hover,
+  .blog-link:hover {
+    transform: translateY(-2px);
+  }
+
+  .book-link:hover {
+    color: #000;
+    background-color: #e6c824;
+  }
+
+  .blog-link:hover {
+    color: #000;
+    background-color: #f3d229;
+  }
+
+  body[data-theme='dark'] .book-promotion {
+    background: rgba(243, 210, 41, 0.15);
+  }
+
+  body[data-theme='dark'] .book-promotion h2 {
+    color: #f3f3f3;
+  }
+
+  body[data-theme='dark'] .book-promotion p {
+    color: #e0e0e0;
+  }
+
+  body[data-theme='dark'] .blog-link {
+    color: #fff;
+    border-color: #f3d229;
+  }
+
+  body[data-theme='dark'] .blog-link:hover {
+    background-color: #f3d229;
+    color: #000;
+  }
+</style>
