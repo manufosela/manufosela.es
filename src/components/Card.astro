@@ -1,0 +1,58 @@
+---
+import { indexDesc } from '~/data/index';
+import Header from '~/components/Header.astro';
+import Bio from '~/components/Bio.astro';
+import SocialNets from '~/components/SocialNets.astro';
+import Footer from '~/components/Footer.astro';
+import ResponsiveImage from '~/components/ResponsiveImage.astro';
+import BookPromotion from '~/components/BookPromotion.astro';
+
+interface Props {
+  language: 'es' | 'en';
+  title: string;
+}
+
+const { language, title } = Astro.props;
+const indexDescription = indexDesc[language];
+---
+
+<main>
+  <ResponsiveImage imagePath="/images/manufosela/manufosela" description={indexDescription} />
+
+  <section class="maincontent">
+    <Header class="header" title={title} active="Inicio" language={language} />
+    <div class="pagecontent">
+      <Bio language={language} />
+      <BookPromotion language={language} />
+    </div>
+    <SocialNets language={language} />
+    <Footer language={language} />
+  </section>
+</main>
+
+<style>
+  main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .maincontent {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    main {
+      flex-direction: column;
+    }
+
+    .maincontent {
+      width: 100%;
+      padding: 1rem;
+    }
+  }
+</style>
