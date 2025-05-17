@@ -1,27 +1,16 @@
 ---
-import { articlesData } from '~/data/articles'
+import { articles } from '~/data/articles';
+import ArticleTabs from '~/components/ArticleTabs.astro';
 
-const { language } = Astro.props
+interface Props {
+  language: string;
+}
 
-const articles = articlesData[language] || []
+const { language } = Astro.props;
+const articlesData = articles[language];
 ---
 
-<div class="pagecontent">
-  {
-    Object.keys(articles).map((key) => (
-      <nav class="nav">
-        <h2>{key}</h2>
-        <ul>
-          {articles[key].map((article, index) => (
-            <li>
-              <a href={article.link}>{article.title}</a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    ))
-  }
-</div>
+<ArticleTabs tabs={articlesData} />
 
 <style>
   .nav {
@@ -53,10 +42,20 @@ const articles = articlesData[language] || []
   .nav ul li a:hover {
     text-decoration: underline;
   }
+
+  .year-title {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+  }
+
   .title {
     font-weight: bold;
     color: var(--primary-color);
   }
+
   .textContent {
     font-size: 1.5rem;
     letter-spacing: 2px;
@@ -86,6 +85,9 @@ const articles = articlesData[language] || []
     .nav ul li a {
       font-size: 1rem;
       text-decoration: none;
+    }
+    .year-title {
+      font-size: 1.4rem;
     }
   }
 </style>

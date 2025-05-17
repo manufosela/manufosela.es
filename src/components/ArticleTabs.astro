@@ -1,0 +1,220 @@
+---
+interface Article {
+  title: string;
+  link: string;
+}
+
+interface ArticlesByYear {
+  [year: string]: Article[];
+}
+
+interface Tab {
+  title: string;
+  articles: ArticlesByYear;
+}
+
+interface Props {
+  tabs: Tab[];
+}
+
+const { tabs } = Astro.props;
+---
+
+<div class="tabs-container pagecontent">
+  <div class="tabs-header">
+    {
+      tabs.map((tab, index) => (
+        <button class={`tab-button ${index === 0 ? 'active' : ''}`} data-tab={index}>
+          {tab.title}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="tabs-content">
+    {
+      tabs.map((tab, tabIndex) => (
+        <div class={`tab-panel ${tabIndex === 0 ? 'active' : ''}`} data-tab={tabIndex}>
+          {Object.entries(tab.articles)
+            .sort(([yearA], [yearB]) => parseInt(yearB) - parseInt(yearA))
+            .map(([year, articles]) => (
+              <div class="year-section">
+                <h3 class="year-title">{year}</h3>
+                <ul>
+                  {articles.map((article) => (
+                    <li>
+                      <a href={article.link} target="_blank" rel="noopener noreferrer">
+                        {article.title}
+                        <span class="external-link">↗</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+
+  tabButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const tabIndex = button.getAttribute('data-tab');
+      if (!tabIndex) return;
+
+      const index = parseInt(tabIndex);
+      if (isNaN(index)) return;
+
+      // Remove active class from all buttons and panels
+      tabButtons.forEach((btn) => btn.classList.remove('active'));
+      tabPanels.forEach((panel) => panel.classList.remove('active'));
+
+      // Add active class to clicked button and corresponding panel
+      button.classList.add('active');
+      tabPanels[index].classList.add('active');
+    });
+  });
+</script>
+
+<style>
+  .tabs-container {
+    width: 100%;
+  }
+
+  .tabs-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .tab-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    position: relative;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+
+  .tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+  }
+
+  .tab-button:hover::after,
+  .tab-button.active::after {
+    width: 100%;
+  }
+
+  .tab-button.active {
+    font-weight: 700;
+  }
+
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
+  .year-section {
+    margin-bottom: 2rem;
+  }
+
+  .year-title {
+    color: #ff00ff;
+    font-size: 1.8rem;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ff00ff;
+    font-weight: 700;
+  }
+
+  .year-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .year-section ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .year-section ul li a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+    cursor: pointer !important;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  .year-section ul li a:hover {
+    transform: translateX(5px);
+    color: #ffffff !important;
+  }
+
+  .year-section ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+  }
+
+  .year-section ul li a:hover::after {
+    width: 100%;
+  }
+
+  .external-link {
+    margin-left: 0.3rem;
+    font-size: 0.9em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-weight: 400;
+  }
+
+  .year-section ul li a:hover .external-link {
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 991px) {
+    .tabs-header {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .tab-button {
+      font-size: 1.1rem;
+      padding: 0.5rem 0.8rem;
+    }
+
+    .year-section ul li a {
+      font-size: 1.1rem;
+    }
+
+    .year-title {
+      font-size: 1.4rem;
+    }
+  }
+</style>
