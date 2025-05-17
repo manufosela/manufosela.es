@@ -1,5 +1,5 @@
 ---
-import { Links } from '~/data/media'
+import { Links } from '~/data/media';
 ---
 
 <div class="links">
@@ -7,7 +7,7 @@ import { Links } from '~/data/media'
     Object.entries(Links).map(([category, links]) => (
       <div class="column">
         <div class="text-block-2">{category}</div>
-        <ul role="list" class={category === 'software' || category == 'social'  ? 'twoColsLinks' : ''}>
+        <ul role="list" class={category === 'software' || category == 'social' ? 'twoColsLinks' : ''}>
           {links.map((link: { url: string | URL | null | undefined; name: unknown }) => (
             <li>
               <a href={link.url}>{link.name}</a>
@@ -43,7 +43,6 @@ import { Links } from '~/data/media'
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    width: 100%;
     margin: 1rem 0;
     padding: 0;
   }

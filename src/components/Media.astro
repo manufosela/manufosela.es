@@ -1,106 +1,217 @@
 ---
-import { mediaData } from '~/data/media'
+import { mediaData } from '~/data/media';
 
-const { language } = Astro.props
+const { language } = Astro.props;
 
-const medias = mediaData[language] || []
+const medias = mediaData[language] || [];
+const charlasKey = language === 'es' ? 'Charlas' : 'Talks';
+const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
 ---
 
 <div class="pagecontent">
-  {
-    Object.keys(medias).map((key) => (
-      <nav class="nav">
-        <h2>{key}</h2>
-        <ul>
-          {medias[key].map((media: { link: string | URL | null | undefined; title: unknown }, index: number) => (
-            <li>
-              <a href={media.link} target="_blank">
-                {media.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    ))
-  }
+  <div class="tabs-header">
+    <button class="tab-button active" data-tab="0">{charlasKey}</button>
+    <button class="tab-button" data-tab="1">{entrevistasKey}</button>
+  </div>
+
+  <div class="tabs-content">
+    <div class="tab-panel active" data-tab="0">
+      {
+        Object.entries(medias[charlasKey] || {})
+          .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
+          .map(([year, items]) => (
+            <div class="year-section">
+              <h3 class="year-title">{year}</h3>
+              <ul class="media-list">
+                {items.map((media) => (
+                  <li>
+                    <a href={media.link} target="_blank" rel="noopener noreferrer">
+                      {media.title}
+                      <span class="external-link">↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+      }
+    </div>
+    <div class="tab-panel" data-tab="1">
+      {
+        Object.entries(medias[entrevistasKey] || {})
+          .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
+          .map(([year, items]) => (
+            <div class="year-section">
+              <h3 class="year-title">{year}</h3>
+              <ul class="media-list">
+                {items.map((media) => (
+                  <li>
+                    <a href={media.link} target="_blank" rel="noopener noreferrer">
+                      {media.title}
+                      <span class="external-link">↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+      }
+    </div>
+  </div>
 </div>
 
+<script>
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabPanels = document.querySelectorAll<HTMLElement>('.tab-panel');
+
+  tabButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const tabIndex = button.getAttribute('data-tab');
+
+      // Update buttons
+      tabButtons.forEach((btn) => {
+        btn.classList.remove('active');
+      });
+      button.classList.add('active');
+
+      // Update panels
+      tabPanels.forEach((panel) => {
+        panel.classList.remove('active');
+      });
+      document.querySelector<HTMLElement>(`.tab-panel[data-tab="${tabIndex}"]`)?.classList.add('active');
+    });
+  });
+</script>
+
 <style>
-  .nav-container {
-    margin-top: 3rem;
-    padding-top: 0;
+  .tabs-header {
     display: flex;
-    flex-direction: column;
-    height: 70vh;
-    overflow-y: auto;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
   }
 
-  .nav {
-    flex: 1 1 calc(50% - 1rem);
-    box-sizing: border-box;
+  .tab-button {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+    position: relative;
+    font-weight: 500;
   }
 
-  .nav h2 {
-    margin-bottom: 0.5rem;
+  .tab-button.active {
+    color: #007bff;
+    font-weight: 700;
+    background-color: #f8f9fa;
   }
 
-  .nav + .nav h2 {
-    margin-top: 1rem;
+  .tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background-color: #007bff;
+    border-radius: 3px;
   }
 
-  .nav ul {
+  .tab-button:hover {
+    color: #007bff;
+  }
+
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
+  .year-section {
+    margin-bottom: 2rem;
+  }
+
+  .year-title {
+    color: #ff00ff;
+    font-size: 1.8rem;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ff00ff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .media-list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  .nav ul li {
-    margin-bottom: 0.5rem;
-  }
-
-  .nav ul li a {
-    transition: color 0.3s ease;
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    text-decoration: none;
-  }
-
-  .nav ul li a:hover {
-    text-decoration: underline;
-  }
-  .title {
-    font-weight: bold;
-    color: var(--primary-color);
-  }
-  .textContent {
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-    white-space: pre-wrap;
+  .media-list li {
     margin-bottom: 1rem;
   }
 
-  @media screen and (max-width: 991px) {
-    .title {
-      display: block;
-    }
-    .textContent {
-      font-size: 1rem;
-    }
-    .nav-container {
-      flex-direction: column;
-      margin-top: 3rem;
-    }
-    .nav {
-      flex: 1 1 auto;
-      width: 100%;
-    }
-    .nav ul li {
-      margin-bottom: 0.5rem;
-    }
+  .media-list a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+    cursor: pointer !important;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
 
-    .nav ul li a {
-      font-size: 1rem;
-      text-decoration: none;
+  .media-list a:hover {
+    transform: translateX(5px);
+    color: #ffffff !important;
+  }
+
+  .media-list a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+  }
+
+  .media-list a:hover::after {
+    width: 100%;
+  }
+
+  .external-link {
+    margin-left: 0.3rem;
+    font-size: 0.9em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-weight: 400;
+  }
+
+  .media-list a:hover .external-link {
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 991px) {
+    .tab-button {
+      font-size: 1.1rem;
+      padding: 0.5rem 0.8rem;
+    }
+    .media-list a {
+      font-size: 1.1rem;
+    }
+    .year-title {
+      font-size: 1.4rem;
     }
   }
 </style>

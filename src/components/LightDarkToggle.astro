@@ -1,7 +1,9 @@
 ---
+
 ---
+
 <section class="lightdarkmode">
-  <input type="checkbox" id="toggle-theme" class="toggle">
+  <input type="checkbox" id="toggle-theme" class="toggle" />
   <label for="toggle-theme" class="button" aria-label="Toggle dark and light mode"></label>
 </section>
 
@@ -54,7 +56,9 @@
     --button-sunmoon-bg-color: #e03c3c;
   }
 
-  h1 { color:green }
+  h1 {
+    color: green;
+  }
 
   .lightdarkmode {
     padding: 1rem;
@@ -74,8 +78,8 @@
   }
 
   .lightdarkmode .button::after {
-    content: "";
-    background-image: url("/images/theme/sun.svg");
+    content: '';
+    background-image: url('/images/theme/sun.svg');
     background-size: contain;
     background-repeat: no-repeat;
     width: var(--button-sunmoon-size);
@@ -89,11 +93,13 @@
   }
 
   .transition-enabled::after {
-    transition: background-color 1s, transform 1s ease-in;
+    transition:
+      background-color 1s,
+      transform 1s ease-in;
   }
 
   .lightdarkmode .toggle:checked + .button::after {
-    background-image: url("/images/theme/moon.svg");
+    background-image: url('/images/theme/moon.svg');
     transform: translateX(calc(var(--button-width) - var(--button-sunmoon-size))) rotate(360deg);
   }
 </style>

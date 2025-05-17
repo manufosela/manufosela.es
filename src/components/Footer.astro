@@ -1,17 +1,18 @@
 ---
-import { Footer as LocalFooter} from '~/data/config';
-const currentYear = new Date().getFullYear()
+import { Footer as LocalFooter } from '~/data/config';
+const currentYear = new Date().getFullYear();
 ---
 
 <footer class="credit">
   <div class="librecounterLayer">
     <span class="yearauthor">
-      &copy; {currentYear} {LocalFooter.name}
+      &copy; {currentYear}
+      {LocalFooter.name}
     </span>
   </div>
   <div class="dot">&middot;</div>
   <div class="librecounterLayer">
-    <div>Inspired by the </div>
+    <div>Inspired by the</div>
     <a href="https://astro-split.vercel.app" target="_blank" class="credit-links">Split Template</a>
   </div>
   <div class="librecounterLayer">
@@ -20,7 +21,13 @@ const currentYear = new Date().getFullYear()
   <div class="dot">&middot;</div>
   <div class="librecounterLayer">
     <a class="credit-links" href="https://librecounter.org/referer/show" target="_blank">
-      <img style="padding-left: 1rem;" src="https://librecounter.org/counter.svg" alt="Libre Counter" width="30" height="30">
+      <img
+        style="padding-left: 1rem;"
+        src="https://librecounter.org/counter.svg"
+        alt="Libre Counter"
+        width="30"
+        height="30"
+      />
     </a>
   </div>
 </footer>
@@ -28,8 +35,9 @@ const currentYear = new Date().getFullYear()
 <style>
   footer {
     display: flex;
-    margin:0;
+    margin: 0;
     z-index: 10;
+    width: 100%;
   }
 
   .dot {

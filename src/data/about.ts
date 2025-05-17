@@ -1,21 +1,33 @@
-const edad = new Date().getFullYear() - 1971
-const ultimosaños = new Date().getFullYear() - 1997
+const calculateAge = (birthDate: Date): number => {
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  return age;
+};
+
+const edad = calculateAge(new Date(1971, 4, 8)); // May is 4 because months are 0-indexed
+const ultimosaños = new Date().getFullYear() - 1997;
 
 export const aboutDesc = {
   es: 'Collage de 9 fotos. De izquierda a derecha y de arriba a abajo. Foto con el equipo de Kairós en el ultimo JSDay Madrid. Foto con todo el equipo de LeanMind en Tenerife. Selfie de Mánu en la oficina de LeanMind con el logo de la empresa de fondo. Foto del equipo de Madrid en un coworking. Foto con Adrián Ferrera durante un vuelo. Foto comiendo con compañeros de LeanMind en Gran Canaria. Foto del equipo de LeanMind en la Bilbostack 2024. Foto en la que estoy con mi hijo Dani, Carlos Blé y Rei Aguilera en la TRG23. Foto en la que estoy con Jorge del Casar y Rei Aguilera en la TRG23',
   en: 'Collage of 9 photos. From left to right and top to bottom. Photo with the Kairós team at the last JSDay Madrid. Photo with the entire LeanMind team in Tenerife. Selfie of Mánu in the LeanMind office with the company logo in the background. Photo of the Madrid team in a coworking space. Photo with Adrián Ferrera during a flight. Photo eating with LeanMind colleagues in Gran Canaria. Photo of the LeanMind team at Bilbostack 2024. Photo in which I am with my son Dani, Carlos Blé and Rei Aguilera at TRG23. Photo in which I am with Jorge del Casar and Rei Aguilera at TRG23'
-} as { [key: string]: string }
+} as { [key: string]: string };
 
 interface About {
-  title: string
+  title: string;
   slides: {
-    subtitle: string
-    description: string
-  }[]
+    subtitle: string;
+    description: string;
+  }[];
 }
 
 interface Abouts {
-  [key: string]: About
+  [key: string]: About;
 }
 
 export const aboutData = {
@@ -82,4 +94,4 @@ Currently, since January 2025, I am focused on building an engineering team and 
       }
     ]
   }
-} as Abouts
+} as Abouts;

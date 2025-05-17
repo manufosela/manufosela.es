@@ -1,37 +1,23 @@
 ---
-import Layout from '~/layouts/Layout.astro'
-import Header from '~/components/Header.astro'
-import AboutContent from '~/components/About.astro'
-import SocialNets from '~/components/SocialNets.astro'
-import Footer from '~/components/Footer.astro'
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import AboutContent from '~/components/About.astro';
+import SocialNets from '~/components/SocialNets.astro';
+import Footer from '~/components/Footer.astro';
+import ResponsiveImage from '~/components/ResponsiveImage.astro';
 
-import { Site } from '~/data/config'
-import { aboutDesc } from '~/data/about'
-const title = Site.title
-const language = 'en'
-const aboutDescription = aboutDesc[language]
+import { Site } from '~/data/config';
+import { aboutDesc } from '~/data/about';
+const title = Site.title;
+const language = 'en';
+const aboutDescription = aboutDesc[language];
 ---
 
 <Layout {title}>
   <main>
-    <figure class="responsive-image-container">
-      <picture>
-        <source srcset="/images/about1280.webp" media="(min-width: 1280px)" type="image/webp" />
-        <source srcset="/images/about768.webp" media="(min-width: 768px)" type="image/webp" />
-        <source srcset="/images/about480.webp" media="(min-width: 480px)" type="image/webp" />
-        <img
-          src="/images/about320.webp"
-          srcset="/images/about320.webp 1x, /images/about320@2x.webp 2x"
-          alt={aboutDescription}
-          class="responsive-image"
-          width="320"
-          height="320"
-        />
-      </picture>
-      <figcaption>{aboutDescription}</figcaption>
-    </figure>
+    <ResponsiveImage imagePath="/images/about" description={aboutDescription} />
 
-    <div class="maincontent">
+    <div class="maincontent w-col w-col-6 w-col-stack">
       <Header class="header" title={title} active="About" language={language} />
       <AboutContent language={language} />
       <SocialNets language={language} />

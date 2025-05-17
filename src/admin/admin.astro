@@ -39,22 +39,22 @@
         saveContent,
         buildProject,
         deployProject
-      } from '/scripts/adminFunctions.js'
+      } from '/scripts/adminFunctions.js';
 
       document.addEventListener('DOMContentLoaded', async () => {
-        const pages = await loadPagesList()
-        const pagesList = document.getElementById('pagesList')
+        const pages = await loadPagesList();
+        const pagesList = document.getElementById('pagesList');
         pages.forEach((page) => {
-          const listItem = document.createElement('li')
-          listItem.textContent = page
-          listItem.onclick = () => loadPageContent(page)
-          pagesList.appendChild(listItem)
-        })
+          const listItem = document.createElement('li');
+          listItem.textContent = page;
+          listItem.onclick = () => loadPageContent(page);
+          pagesList.appendChild(listItem);
+        });
 
-        document.getElementById('saveButton').onclick = saveContent
-        document.getElementById('buildButton').onclick = buildProject
-        document.getElementById('deployButton').onclick = deployProject
-      })
+        document.getElementById('saveButton').onclick = saveContent;
+        document.getElementById('buildButton').onclick = buildProject;
+        document.getElementById('deployButton').onclick = deployProject;
+      });
     </script>
   </body>
 </html>

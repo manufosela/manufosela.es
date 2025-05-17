@@ -1,37 +1,23 @@
 ---
-import Layout from '~/layouts/Layout.astro'
-import Header from '~/components/Header.astro'
-import ArticlesContent from '~/components/Articles.astro'
-import SocialNets from '~/components/SocialNets.astro'
-import Footer from '~/components/Footer.astro'
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import ArticlesContent from '~/components/Articles.astro';
+import SocialNets from '~/components/SocialNets.astro';
+import Footer from '~/components/Footer.astro';
+import ResponsiveImage from '~/components/ResponsiveImage.astro';
 
-import { Site } from '~/data/config'
-import { articlesDesc } from '~/data/articles'
-const title = Site.title
-const language = 'en'
-const articlesDescription = articlesDesc[language]
+import { Site } from '~/data/config';
+import { articlesDesc } from '~/data/articles';
+const title = Site.title;
+const language = 'en';
+const articlesDescription = articlesDesc[language];
 ---
 
 <Layout {title}>
   <main>
-    <figure class="responsive-image-container">
-      <picture>
-        <source srcset="/images/articles1280.webp" media="(min-width: 1280px)" type="image/webp" />
-        <source srcset="/images/articles768.webp" media="(min-width: 768px)" type="image/webp" />
-        <source srcset="/images/articles480.webp" media="(min-width: 480px)" type="image/webp" />
-        <img
-          src="/images/articles320.webp"
-          srcset="/images/articles320.webp 1x, /images/articles320@2x.webp 2x"
-          alt={articlesDescription}
-          class="responsive-image"
-          width="320"
-          height="320"
-        />
-      </picture>
-      <figcaption>{articlesDescription}</figcaption>
-    </figure>
+    <ResponsiveImage imagePath="/images/articles" description={articlesDescription} />
 
-    <div class="maincontent">
+    <div class="maincontent w-col w-col-6 w-col-stack">
       <Header class="header" title={title} active="Articles" language={language} />
       <ArticlesContent language={language} />
       <SocialNets language={language} />

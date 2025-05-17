@@ -1,37 +1,75 @@
 ---
-import { contributionsData } from '~/data/contributions'
-import { convertMarkdownLinks } from '~/utils/markdown'
+import { contributionsData } from '~/data/contributions';
+import { convertMarkdownLinks } from '~/utils/markdown';
 
-const { language } = Astro.props
+const { language } = Astro.props;
 
-const slides = contributionsData[language] || []
+const slides = contributionsData[language] || [];
 ---
 
 <div class="pagecontent">
   {
     slides.map((slide, index) => (
-      <p class="textContent" id={`slide${index}`}>
-        <span class="title">{slide.title}: </span>
-        <span set:html={convertMarkdownLinks(slide.description)} />
-      </p>
+      <details class="slide" id={`slide${index}`} open={index === 0}>
+        <summary class="title">{slide.title}</summary>
+        <p class="textContent" set:html={convertMarkdownLinks(slide.description)} />
+      </details>
     ))
   }
 </div>
 
+<script>
+  document.querySelectorAll('details.slide').forEach((details) => {
+    details.addEventListener('toggle', () => {
+      if (details.open) {
+        document.querySelectorAll('details.slide').forEach((otherDetails) => {
+          if (otherDetails !== details) {
+            otherDetails.open = false;
+          }
+        });
+      }
+    });
+  });
+</script>
+
 <style>
+  .pagecontent {
+    height: 66dvh;
+  }
+  .slide {
+    margin-bottom: 2rem;
+  }
   .title {
     font-weight: bold;
     color: var(--primary-color);
+    cursor: pointer;
+    list-style: none;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+  .title::-webkit-details-marker {
+    display: none;
+  }
+  .title::before {
+    content: '▶';
+    margin-right: 0.5rem;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  details[open] .title::before {
+    transform: rotate(90deg);
   }
   .textContent {
     font-size: 1.5rem;
     letter-spacing: 2px;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
+    padding-left: 1.5rem;
   }
 
   @media screen and (max-width: 991px) {
     .title {
       display: block;
+      font-size: 1rem;
     }
     .textContent {
       font-size: 1rem;

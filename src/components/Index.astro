@@ -7,22 +7,22 @@ const { language } = Astro.props;
 const person = ManuFosela[language] || {};
 
 const name = person.name;
-const rol = person.rol;
-const liderazgo_afectivo = person.liderazgo_afectivo;
+//const rol = person.rol;
+//const liderazgo_afectivo = person.liderazgo_afectivo;
 const position = person.position;
 const bio = person.bio.replace(/\n/g, '<br>');
 ---
 
 <div class="pagecontent">
-  <div class="name">
+  <!--<div class="name">
     <p class="rol">
       <span>{rol}</span>
       <img class="logoLA" src={liderazgo_afectivo} alt="Liderazgo afectivo" width="32" height="32" />
     </p>
-  </div>
+  </div>-->
   <h1 class="tagline">{name}</h1>
   <h2 class="tagline2">{position}</h2>
-  <p class="bio" set:html={bio}></p>
+  <p class="bio" set:html={bio} />
 </div>
 
 <style>

@@ -1,34 +1,34 @@
-import { link } from 'fs'
-import { describe } from 'node:test'
+import { link } from 'fs';
+import { describe } from 'node:test';
 
 interface Site {
-  title: string
-  description: string
-  url: string
+  title: string;
+  description: string;
+  url: string;
 }
 
 interface Footer {
-  name: string
+  name: string;
 }
 
 interface NavigationData {
-  text: Array<string>
-  links: Array<string>
+  text: Array<string>;
+  links: Array<string>;
 }
 
 interface Navigation {
-  [key: string]: NavigationData
+  [key: string]: NavigationData;
 }
 
 export const Site = {
-  title: 'Mánu Fosela personal page',
-  description: 'Personal page of Mánu Fosela, Chief Operating Officer at LeanMind',
+  title: 'Manu Fosela',
+  description: 'Personal website of Manu Fosela, Head of Engineering at Geniova Technologies',
   url: 'https://manufosela.es'
-} as Site
+} as const;
 
 export const Footer = {
   name: 'Mánu Fosela'
-} as Footer
+} as Footer;
 
 export const Navigation = {
   es: {
@@ -39,4 +39,19 @@ export const Navigation = {
     text: ['Home', 'About', 'Contributions', 'Articles', 'Media'],
     links: ['/', '/about', '/contributions', '/articles', '/media']
   }
-} as Navigation
+} as Navigation;
+
+export const Book = {
+  es: {
+    title: 'Mi nuevo libro: Liderazgo Afectivo',
+    description: 'Descubre mi nuevo libro sobre liderazgo emocional y gestión de equipos.',
+    bookLink: 'https://liderazgoafectivo.com',
+    blogLink: 'https://manufosela.substack.com'
+  },
+  en: {
+    title: 'My new book: Affective Leadership',
+    description: 'Discover my new book about emotional leadership and team management.',
+    bookLink: 'https://liderazgoafectivo.com',
+    blogLink: 'https://manufosela.substack.com'
+  }
+} as const;

@@ -1,40 +1,40 @@
 ---
-import { aboutData } from '~/data/about'
+import { aboutData } from '~/data/about';
 
-const { language } = Astro.props
+const { language } = Astro.props;
 
-const slides = aboutData[language]?.slides || []
+const slides = aboutData[language]?.slides || [];
 ---
 
 <script>
-  let currentIndex = 0
+  let currentIndex = 0;
 
   /**
    * Cambia el slide actual según el índice.
    * @param {number} index - Índice del slide a mostrar.
    */
   function goToSlide(index: number) {
-    currentIndex = index
+    currentIndex = index;
 
     document.querySelectorAll('.slides').forEach((slide, slideIndex) => {
-      slide.classList.toggle('slideActive', slideIndex === index)
-    })
+      slide.classList.toggle('slideActive', slideIndex === index);
+    });
 
     document.querySelectorAll('.nav-button').forEach((button, buttonIndex) => {
-      button.classList.toggle('active', buttonIndex === index)
-    })
+      button.classList.toggle('active', buttonIndex === index);
+    });
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.nav-button').forEach((button, index) => {
       button.addEventListener('click', () => {
-        goToSlide(index)
-      })
-    })
+        goToSlide(index);
+      });
+    });
 
     // Inicializar el primer slide
-    goToSlide(0)
-  })
+    goToSlide(0);
+  });
 </script>
 
 <div class="pagecontent">

@@ -1,139 +1,220 @@
 export const mediaDesc = {
   es: 'Collage de capturas de pantalla de diferentes videos de las charlas de Mánu Fosela',
   en: "Collage of screenshots of different videos of Mánu Fosela's talks"
-} as { [key: string]: string }
+} as { [key: string]: string };
 
 interface Media {
-  title: string
-  link: string
+  title: string;
+  link: string;
+}
+
+interface MediaByYear {
+  [key: string]: Media[];
+}
+
+interface MediaByType {
+  Charlas?: MediaByYear;
+  Entrevistas?: MediaByYear;
+  Talks?: MediaByYear;
+  Interviews?: MediaByYear;
 }
 
 interface Medias {
-  [key: string]: {
-    [key: string]: Media[]
-  }
+  [key: string]: MediaByType;
 }
 
 export const mediaData: Medias = {
   es: {
-    Charlas: [
-      {
-        title: 'Liderar no es coser y cantar (CommitConf 2024)',
-        link: 'https://www.youtube.com/watch?v=WNlaWIQseUo'
-      },
-      {
-        title: 'Liderar o Liderrar (Codemotion 2024)',
-        link: 'https://www.youtube.com/watch?v=4Zen-_UsWis'
-      },
-      {
-        title: 'Cómo refactorizar tu código para que sea sostenible (2024)',
-        link: 'https://www.youtube.com/watch?v=DHypxM3cBFA&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'Lo que no te contaron de los web-components (Salmorejo Tech 2022)',
-        link: 'https://www.youtube.com/watch?v=VAhQRA9NurA'
-      },
-      {
-        title: 'Entre componentes anda el juego (2021)',
-        link: 'https://www.youtube.com/watch?v=P-t9MJ1dGLE&t=13s&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'Principios fundamentales del desarrollo web-components (2021)',
-        link: 'https://www.youtube.com/watch?v=UxsvI_R0qeI&t=12s&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'VueJS y Docker (2019)',
-        link: 'https://www.youtube.com/watch?v=4QaQT1iVSBA&t=29s&pp=ygULbWFudSBmb3NlbGE%3D'
-      }
-    ],
-    Entrevistas: [
-      {
-        title: 'Hablando con Tech Leaders (podcast) (2024)',
-        link: 'https://www.youtube.com/watch?v=yTAEVLwuK-E&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'Commitconf 2024',
-        link: 'https://www.youtube.com/watch?v=VfM7tiwKpMQ&t=8s&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'Ni cero ni uno (podcast) (2023)',
-        link: 'https://savvily.es/podcasts/ni-cero-ni-uno/episodios/e46/'
-      },
-      {
-        title: 'ETSII Job Days URJC (2022)',
-        link: 'https://www.youtube.com/watch?v=eEEZzipbYQc&t=1014s&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'Socra Talks (2021)',
-        link: 'https://www.youtube.com/watch?v=1DbKhCMaR9M&t=45s&pp=ygULbWFudSBmb3NlbGE%3D'
-      }
-    ]
+    Charlas: {
+      '2025': [
+        {
+          title: 'Liderazgo Afectivo: Transformando organizaciones a través de conexiones humanas (Commintconf) (3/3)',
+          link: 'https://www.youtube.com/watch?v=lb0dHsvZyOA'
+        },
+        {
+          title: 'Liderazgo Afectivo: Liderar desde el afecto (Sirviendo Codigo)',
+          link: 'https://www.youtube.com/watch?v=tCvEQM4drIs'
+        },
+        {
+          title: 'Presentación del libro: Liderazgo Afectivo (Celonis)',
+          link: 'https://www.youtube.com/watch?v=7Pa0sjV0EFU'
+        }
+      ],
+      '2024': [
+        {
+          title: 'Liderar no es coser y cantar (CommitConf) (1/3)',
+          link: 'https://www.youtube.com/watch?v=WNlaWIQseUo'
+        },
+        {
+          title: 'Liderar o Liderrar (Codemotion) (2/3)',
+          link: 'https://www.youtube.com/watch?v=4Zen-_UsWis'
+        },
+        {
+          title: 'Cómo refactorizar tu código para que sea sostenible',
+          link: 'https://www.youtube.com/watch?v=DHypxM3cBFA&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ],
+      '2022': [
+        {
+          title: 'Lo que no te contaron de los web-components (Salmorejo Tech)',
+          link: 'https://www.youtube.com/watch?v=VAhQRA9NurA'
+        }
+      ],
+      '2021': [
+        {
+          title: 'Entre componentes anda el juego',
+          link: 'https://www.youtube.com/watch?v=P-t9MJ1dGLE&t=13s&pp=ygULbWFudSBmb3NlbGE%3D'
+        },
+        {
+          title: 'Principios fundamentales del desarrollo web-components',
+          link: 'https://www.youtube.com/watch?v=UxsvI_R0qeI&t=12s&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ],
+      '2019': [
+        {
+          title: 'VueJS y Docker',
+          link: 'https://www.youtube.com/watch?v=4QaQT1iVSBA&t=29s&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ]
+    },
+    Entrevistas: {
+      '2025': [
+        {
+          title: 'Cómo montar equipos técnicos (GetManfred)',
+          link: 'https://www.youtube.com/watch?v=BBDL4i9TaF0'
+        }
+      ],
+      '2024': [
+        {
+          title: 'Podcast: Hablando con Tech Leaders',
+          link: 'https://www.youtube.com/watch?v=yTAEVLwuK-E&pp=ygULbWFudSBmb3NlbGE%3D'
+        },
+        {
+          title: 'Commitconf 2024',
+          link: 'https://www.youtube.com/watch?v=VfM7tiwKpMQ&t=8s&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ],
+      '2023': [
+        {
+          title: 'Podacast: Ni cero ni uno',
+          link: 'https://savvily.es/podcasts/ni-cero-ni-uno/episodios/e46/'
+        }
+      ],
+      '2022': [
+        {
+          title: 'ETSII Job Days URJC (2022)',
+          link: 'https://www.youtube.com/watch?v=eEEZzipbYQc&t=1014s&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ],
+      '2021': [
+        {
+          title: 'Socra Talks (2021)',
+          link: 'https://www.youtube.com/watch?v=1DbKhCMaR9M&t=45s&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ]
+    }
   },
   en: {
-    Talks: [
-      {
-        title: 'Leading is Not a Walk in the Park (CommitConf 2024)',
-        link: 'https://www.youtube.com/watch?v=WNlaWIQseUo'
-      },
-      {
-        title: 'Lead or Bleed (Codemotion 2024)',
-        link: 'https://www.youtube.com/watch?v=4Zen-_UsWis'
-      },
-      {
-        title: 'How to Refactor Your Code for Maintainability (2024)',
-        link: 'https://www.youtube.com/watch?v=DHypxM3cBFA&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: "What They Didn't Tell You About Web Components (Salmorejo Tech 2022)",
-        link: 'https://www.youtube.com/watch?v=VAhQRA9NurA'
-      },
-      {
-        title: 'The Game is in the Components (2021)',
-        link: 'https://www.youtube.com/watch?v=P-t9MJ1dGLE&t=13s&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'Fundamental Principles of Web Components Development (2021)',
-        link: 'https://www.youtube.com/watch?v=UxsvI_R0qeI&t=12s&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'VueJS and Docker (2019)',
-        link: 'https://www.youtube.com/watch?v=4QaQT1iVSBA&t=29s&pp=ygULbWFudSBmb3NlbGE%3D'
-      }
-    ],
-    Interviews: [
-      {
-        title: 'Talking with Tech Leaders (podcast) (2024)',
-        link: 'https://www.youtube.com/watch?v=yTAEVLwuK-E&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'Commitconf 2024',
-        link: 'https://www.youtube.com/watch?v=VfM7tiwKpMQ&t=8s&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'Neither Zero nor One (podcast) (2023)',
-        link: 'https://savvily.es/podcasts/ni-cero-ni-uno/episodios/e46/'
-      },
-      {
-        title: 'ETSII Job Days URJC (2022)',
-        link: 'https://www.youtube.com/watch?v=eEEZzipbYQc&t=1014s&pp=ygULbWFudSBmb3NlbGE%3D'
-      },
-      {
-        title: 'Socra Talks (2021)',
-        link: 'https://www.youtube.com/watch?v=1DbKhCMaR9M&t=45s&pp=ygULbWFudSBmb3NlbGE%3D'
-      }
-    ]
+    Talks: {
+      '2025': [
+        {
+          title: 'Affective Leadership: Transforming organizations through human connections (CommitConf) (3/3)',
+          link: 'https://www.youtube.com/watch?v=lb0dHsvZyOA'
+        },
+        {
+          title: 'Affective Leadership: Leading with affection (Sirviendo Codigo)',
+          link: 'https://www.youtube.com/watch?v=tCvEQM4drIs'
+        },
+        {
+          title: 'Book presentation: Affective Leadership (Celonis)',
+          link: 'https://www.youtube.com/watch?v=7Pa0sjV0EFU'
+        }
+      ],
+      '2024': [
+        {
+          title: 'Leading is Not a Walk in the Park (CommitConf)',
+          link: 'https://www.youtube.com/watch?v=WNlaWIQseUo'
+        },
+        {
+          title: 'Lead or Bleed (Codemotion)',
+          link: 'https://www.youtube.com/watch?v=4Zen-_UsWis'
+        },
+        {
+          title: 'How to Refactor Your Code for Maintainability (2024)',
+          link: 'https://www.youtube.com/watch?v=DHypxM3cBFA&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ],
+      '2022': [
+        {
+          title: "What They Didn't Tell You About Web Components (Salmorejo Tech 2022)",
+          link: 'https://www.youtube.com/watch?v=VAhQRA9NurA'
+        }
+      ],
+      '2021': [
+        {
+          title: 'The Game is in the Components (2021)',
+          link: 'https://www.youtube.com/watch?v=P-t9MJ1dGLE&t=13s&pp=ygULbWFudSBmb3NlbGE%3D'
+        },
+        {
+          title: 'Fundamental Principles of Web Components Development (2021)',
+          link: 'https://www.youtube.com/watch?v=UxsvI_R0qeI&t=12s&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ],
+      '2019': [
+        {
+          title: 'VueJS and Docker (2019)',
+          link: 'https://www.youtube.com/watch?v=4QaQT1iVSBA&t=29s&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ]
+    },
+    Interviews: {
+      '2025': [
+        {
+          title: 'How to build technical teams (GetManfred)',
+          link: 'https://www.youtube.com/watch?v=BBDL4i9TaF0'
+        }
+      ],
+      '2024': [
+        {
+          title: 'Talking with Tech Leaders (podcast) (2024)',
+          link: 'https://www.youtube.com/watch?v=yTAEVLwuK-E&pp=ygULbWFudSBmb3NlbGE%3D'
+        },
+        {
+          title: 'Commitconf 2024',
+          link: 'https://www.youtube.com/watch?v=VfM7tiwKpMQ&t=8s&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ],
+      '2023': [
+        {
+          title: 'Neither Zero nor One (podcast) (2023)',
+          link: 'https://savvily.es/podcasts/ni-cero-ni-uno/episodios/e46/'
+        }
+      ],
+      '2022': [
+        {
+          title: 'ETSII Job Days URJC (2022)',
+          link: 'https://www.youtube.com/watch?v=eEEZzipbYQc&t=1014s&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ],
+      '2021': [
+        {
+          title: 'Socra Talks (2021)',
+          link: 'https://www.youtube.com/watch?v=1DbKhCMaR9M&t=45s&pp=ygULbWFudSBmb3NlbGE%3D'
+        }
+      ]
+    }
   }
-} as Medias
+} as Medias;
 
 interface Link {
-  name: string
-  url: string
+  name: string;
+  url: string;
 }
 
 interface Links {
-  contact: Array<Link>
-  social: Array<Link>
-  software: Array<Link>
+  contact: Array<Link>;
+  social: Array<Link>;
+  software: Array<Link>;
 }
 
 export const Links = {
@@ -179,4 +260,4 @@ export const Links = {
       url: 'https://www.npmjs.com/~manufosela'
     }
   ]
-} as Links
+} as Links;

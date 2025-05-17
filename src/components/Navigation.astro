@@ -2,7 +2,7 @@
 import { Navigation as LocalNavigation } from '~/data/config';
 
 const { active, language } = Astro.props;
-const { text, links }: { text: string[], links: (string | URL | null | undefined)[] } = LocalNavigation[language];
+const { text, links }: { text: string[]; links: (string | URL | null | undefined)[] } = LocalNavigation[language];
 ---
 
 <script>
@@ -45,7 +45,6 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
     }
   }
 
-
   /**
    * Creates and displays rotating letters around a link element.
    * @param {HTMLElement} linkElement - The link element that triggers the rotation.
@@ -55,36 +54,36 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
    * @param {number} yOffset - Y-axis offset for positioning.
    */
   function createRotatingLetters(linkElement: Element, word: string, radius: number, xOffset: any, yOffset: any) {
-    const existingRotatingLetters = document.getElementById("rotatingLetters");
+    const existingRotatingLetters = document.getElementById('rotatingLetters');
     if (existingRotatingLetters) existingRotatingLetters.remove();
 
-    const rotatingLettersElement = document.createElement("div");
-    rotatingLettersElement.id = "rotatingLetters";
-    rotatingLettersElement.style.position = "absolute";
+    const rotatingLettersElement = document.createElement('div');
+    rotatingLettersElement.id = 'rotatingLetters';
+    rotatingLettersElement.style.position = 'absolute';
     document.body.appendChild(rotatingLettersElement);
 
     const linkRect = linkElement.getBoundingClientRect();
     rotatingLettersElement.style.left = `${linkRect.left + linkRect.width / 2}px`;
     rotatingLettersElement.style.top = `${linkRect.top + linkRect.height / 2}px`;
     rotatingLettersElement.style.zIndex = '100';
-    radius = (getTextWidthFromSelector(linkElement) / 2 ) + 10;
+    radius = getTextWidthFromSelector(linkElement) / 2 + 10;
 
     const letterSpacing = 20;
     const circumference = 2 * Math.PI * radius;
     const maxLetters = Math.floor(circumference / letterSpacing);
 
-    const lettersWithSpaces = word.split("").concat(Array(maxLetters - word.length).fill(" "));
+    const lettersWithSpaces = word.split('').concat(Array(maxLetters - word.length).fill(' '));
 
     lettersWithSpaces.forEach((letter: string | null, i: number) => {
       const angle = ((2 * Math.PI) / maxLetters) * i;
-      const letterElement = document.createElement("div");
-      letterElement.className = "rotatingLetter";
+      const letterElement = document.createElement('div');
+      letterElement.className = 'rotatingLetter';
       letterElement.textContent = letter;
 
       const x = radius * Math.cos(angle) - 20;
       const y = radius * Math.sin(angle);
 
-      letterElement.style.position = "absolute";
+      letterElement.style.position = 'absolute';
       letterElement.style.left = `${x}px`;
       letterElement.style.top = `${y}px`;
       letterElement.style.transform = `translate(-50%, -50%) rotate(${angle * (180 / Math.PI) + 90}deg)`;
@@ -93,7 +92,7 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
     });
     rotatingLettersElement.style.transformOrigin = `-20px 0`;
     rotatingLettersElement.style.animation = `rotateLettersAnimation ${rotateVelocity}s linear infinite`;
-    rotatingLettersElement.style.display = "block";
+    rotatingLettersElement.style.display = 'block';
   }
 
   /**
@@ -111,7 +110,7 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
     const y = rect ? rect.top + rect.height / 2 : 0;
     rotatingLettersVisible = true;
     createRotatingLetters(link, link.textContent as string, radius, x, y);
-    (ev.target as HTMLElement).classList.add("hovered");
+    (ev.target as HTMLElement).classList.add('hovered');
   }
 
   /**
@@ -119,12 +118,12 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
    * @param {Event} ev - The event object.
    */
   function handleLinkLeave() {
-    const rotatingLettersElement = document.getElementById("rotatingLetters");
+    const rotatingLettersElement = document.getElementById('rotatingLetters');
     if (rotatingLettersElement) {
-      rotatingLettersElement.style.display = "none";
+      rotatingLettersElement.style.display = 'none';
       rotatingLettersVisible = false;
     }
-    document.querySelectorAll('.centerWord').forEach(link => link.classList.remove('hovered'));
+    document.querySelectorAll('.centerWord').forEach((link) => link.classList.remove('hovered'));
   }
 
   /**
@@ -152,7 +151,8 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
     function handleTouchEnd() {
       const diffX = currentX - startX;
 
-      if (diffX < -threshold) { // Deslizamiento hacia la izquierda
+      if (diffX < -threshold) {
+        // Deslizamiento hacia la izquierda
         nav?.classList.remove('active'); // Cierra el menú
       }
     }
@@ -162,11 +162,11 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
     nav?.addEventListener('touchend', handleTouchEnd);
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const links = document.querySelectorAll(".centerWord");
-    links.forEach(link => {
-      link.addEventListener("mouseenter", event => handleLinkHover(event, link));
-      link.addEventListener("mouseleave", handleLinkLeave);
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('.centerWord');
+    links.forEach((link) => {
+      link.addEventListener('mouseenter', (event) => handleLinkHover(event, link));
+      link.addEventListener('mouseleave', handleLinkLeave);
     });
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     hamburgerMenu?.addEventListener('click', toggleMenu);
@@ -195,11 +195,17 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
 <div class="menu">
   <button class="hamburger-menu">☰</button>
   <nav class="nav">
-    {links.map((link, index) => (
-      <a id={`link${index}`} href={`/${language}${link}`} class={`centerWord ${text[index] === active ? 'active' : ''}`}>
-        {text[index]}
-      </a>
-    ))}
+    {
+      links.map((link, index) => (
+        <a
+          id={`link${index}`}
+          href={`/${language}${link}`}
+          class={`centerWord ${text[index] === active ? 'active' : ''}`}
+        >
+          {text[index]}
+        </a>
+      ))
+    }
   </nav>
 </div>
 
@@ -217,20 +223,22 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
 
   .menu {
     display: flex;
-    padding: 3.7rem 0;
-    width:100%;
+    padding: 1rem 0;
+    width: 100%;
     z-index: 10;
   }
 
   .nav {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width:100vw;
+    width: 100vw;
     background-color: var(--background-light);
-    transition: background-color var(--transition-time) ease, color var(--transition-time) ease-in-out;
+    transition:
+      background-color var(--transition-time) ease,
+      color var(--transition-time) ease-in-out;
   }
 
   .nav a {
@@ -240,12 +248,14 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
     font-weight: 700;
     font-size: 1.2vw;
     padding: 0 2vw 0 0;
-    transition: background-color var(--transition-time) ease, color var(--transition-time) ease-in-out;
-    width:auto;
+    transition:
+      background-color var(--transition-time) ease,
+      color var(--transition-time) ease-in-out;
+    width: auto;
   }
 
   .nav a.active {
-    color: var(--active-color)!important;
+    color: var(--active-color) !important;
   }
 
   .centerWord {
@@ -255,13 +265,15 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
     position: relative;
     cursor: pointer;
     z-index: 30;
-    transition: background-color var(--transition-time) ease, color var(--transition-time) ease-in-out;
+    transition:
+      background-color var(--transition-time) ease,
+      color var(--transition-time) ease-in-out;
   }
 
   #rotatingLetters {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 0;
     height: 0;
     transform-origin: center;
@@ -278,7 +290,7 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
   }
 
   .hovered {
-    color: var(--primary-color)!important;
+    color: var(--primary-color) !important;
   }
 
   .hamburger-menu {
@@ -292,46 +304,45 @@ const { text, links }: { text: string[], links: (string | URL | null | undefined
   }
 
   @media screen and (max-width: 991px) {
-  .menu {
-    padding: 0;
-    margin: 3rem 0;
-  }
+    .menu {
+      padding: 0;
+      margin: 3rem 0;
+    }
 
-  .hamburger-menu {
-    display: block;
-  }
+    .hamburger-menu {
+      display: block;
+    }
 
-  .nav {
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 20rem;
-    height: 100%;
-    background-color: var(--background-light);
-    overflow: hidden;
-    transition: left 0.3s ease-out;
-    z-index: 1000;
-  }
+    .nav {
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 20rem;
+      height: 100%;
+      background-color: var(--background-light);
+      overflow: hidden;
+      transition: left 0.3s ease-out;
+      z-index: 1000;
+    }
 
-  .nav.active {
-    left: 0; /* Cuando está activo, se mueve dentro del viewport */
-  }
+    .nav.active {
+      left: 0; /* Cuando está activo, se mueve dentro del viewport */
+    }
 
-  .nav a {
-    opacity: 0;
-    padding: 1rem;
-    width: 100%;
-    transition: opacity 0.5s ease-out;
-    font-size: 2rem;
-  }
+    .nav a {
+      opacity: 0;
+      padding: 1rem;
+      width: 100%;
+      transition: opacity 0.5s ease-out;
+      font-size: 2rem;
+    }
 
-  .nav.active a {
-    opacity: 1;
-    transition-delay: 0.3s; /* Retarda la aparición del enlace para que coincida con el deslizamiento */
+    .nav.active a {
+      opacity: 1;
+      transition-delay: 0.3s; /* Retarda la aparición del enlace para que coincida con el deslizamiento */
+    }
   }
-}
-
 
   @media screen and (max-width: 479px) {
   }

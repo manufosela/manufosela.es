@@ -1,14 +1,14 @@
 ---
 import BaseHead from '~/components/BaseHead.astro';
-import { Site } from '~/data/config'
+import { Site } from '~/data/config';
 import '~/styles/layout.css';
-import '~/styles/fonts.css'
+import '~/styles/fonts.css';
 
 interface Props {
-  title: string,
-  includeSchema?: boolean,
-  description?: string,
-  image?: string,
+  title: string;
+  includeSchema?: boolean;
+  description?: string;
+  image?: string;
 }
 
 const { title, includeSchema = false, description = Site.description, image = '/manufosela.png' } = Astro.props;
@@ -21,16 +21,16 @@ const isProduction = import.meta.env.PROD;
     <BaseHead title={title} includeSchema={includeSchema} />
     <style>
       @font-face {
-        font-family: "Inter";
+        font-family: 'Inter';
         font-display: swap;
         font-style: normal;
-        src: url("/fonts/inter-subset.woff2") format("woff2");
+        src: url('/fonts/inter-subset.woff2') format('woff2');
       }
       @font-face {
-        font-family: "Lora";
+        font-family: 'Lora';
         font-display: swap;
         font-style: normal;
-        src: url("/fonts/lora-subset.woff2") format("woff2");
+        src: url('/fonts/lora-subset.woff2') format('woff2');
       }
     </style>
   </head>
@@ -39,3 +39,14 @@ const isProduction = import.meta.env.PROD;
   </body>
 </html>
 
+<style>
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+</style>

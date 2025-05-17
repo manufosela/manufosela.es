@@ -1,0 +1,88 @@
+<div class="book-promotion">
+  <h2>Mi nuevo libro: Liderazgo Afectivo</h2>
+  <p>Descubre mi nuevo libro sobre liderazgo emocional y gestión de equipos.</p>
+  <div class="book-links">
+    <a href="https://liderazgoafectivo.com" class="book-link">Conocer más</a>
+    <a href="https://manufosela.substack.com" class="blog-link" target="_blank" rel="noopener noreferrer"
+      >Leer mi blog</a
+    >
+  </div>
+</div>
+
+<style>
+  .book-promotion {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: rgba(243, 210, 41, 0.1);
+    border-radius: 8px;
+  }
+
+  .book-promotion h2 {
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  .book-promotion p {
+    color: #333;
+  }
+
+  .book-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .book-link,
+  .blog-link {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: #f3d229;
+    color: #000;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .blog-link {
+    background-color: #fff;
+    border: 2px solid #f3d229;
+  }
+
+  .book-link:hover,
+  .blog-link:hover {
+    transform: translateY(-2px);
+  }
+
+  .book-link:hover {
+    background-color: #e6c824;
+  }
+
+  .blog-link:hover {
+    background-color: #f3d229;
+  }
+
+  body[data-theme='dark'] .book-promotion {
+    background: rgba(243, 210, 41, 0.15);
+  }
+
+  body[data-theme='dark'] .book-promotion h2 {
+    color: #f3f3f3;
+  }
+
+  body[data-theme='dark'] .book-promotion p {
+    color: #e0e0e0;
+  }
+
+  body[data-theme='dark'] .blog-link {
+    color: #f3f3f3;
+    border-color: #f3d229;
+  }
+
+  body[data-theme='dark'] .blog-link:hover {
+    background-color: #f3d229;
+    color: #000;
+  }
+</style>
