@@ -1,0 +1,69 @@
+---
+import { ManuFosela } from '~/data/index';
+
+interface Props {
+  language: string;
+}
+
+const { language } = Astro.props;
+const person = ManuFosela[language];
+const name = person.name;
+const position = person.position;
+const bio = String.raw`${person.bio}`;
+---
+
+<div>
+  <h1 class="tagline">{name}</h1>
+  <h2 class="tagline2">{position}</h2>
+  <p class="bio-text" set:html={bio} />
+</div>
+
+<style>
+  .tagline {
+    margin-bottom: 2rem;
+    font-size: 3.7rem;
+    line-height: 100%;
+    font-weight: 600;
+  }
+
+  .tagline2 {
+    margin-bottom: 2rem;
+    font-size: 2.7rem;
+    line-height: 100%;
+    font-weight: 600;
+  }
+
+  .bio-text {
+    white-space: pre-line;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    font-family: Lora, sans-serif;
+  }
+
+  @media screen and (max-width: 767px) {
+    .tagline {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .tagline2 {
+      font-size: 1.5rem;
+    }
+    .bio-text {
+      font-size: 1.2rem;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .tagline {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .tagline2 {
+      font-size: 1.2rem;
+    }
+    .bio-text {
+      font-size: 1rem;
+    }
+  }
+</style>
