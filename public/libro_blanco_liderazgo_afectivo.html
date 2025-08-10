@@ -1,0 +1,1301 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Libro Blanco: Liderazgo Afectivo</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        color: #1a202c;
+        background: #ffffff;
+      }
+
+      .container {
+        margin: 0 auto;
+        background: white;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .cover {
+        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        padding: 80px 60px;
+        color: white;
+        text-align: center;
+        background-size: cover;
+        color: white;
+        text-align: center;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cover::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>');
+      }
+
+      .cover-image {
+        background: url('https://liderazgoafectivo.com/portada-libro2.jpg') no-repeat center center;
+        background-size: contain;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 100px;
+        bottom: 0;
+        z-index: 1;
+        width: 200px;
+      }
+
+      .cover-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .cover-content h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .cover-content .subtitle {
+        font-size: 1.5rem;
+        font-weight: 300;
+        margin-bottom: 40px;
+        opacity: 0.9;
+      }
+
+      .cover-content .meta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 60px;
+        font-size: 1.1rem;
+        gap: 6rem;
+      }
+
+      .content {
+        padding: 60px;
+      }
+
+      .section {
+        margin-bottom: 60px;
+        page-break-inside: avoid;
+      }
+
+      .section h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2563eb;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #e5e7eb;
+        padding-bottom: 15px;
+      }
+
+      .section h3 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #374151;
+        margin: 40px 0 20px 0;
+      }
+
+      .section p {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .highlight-box {
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border-left: 5px solid #2563eb;
+        padding: 30px;
+        margin: 30px 0;
+        border-radius: 8px;
+      }
+
+      .highlight-box h4 {
+        color: #1e40af;
+        font-weight: 600;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+        margin: 40px 0;
+      }
+
+      .stat-card {
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .stat-card:hover {
+        border-color: #2563eb;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #2563eb;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 1rem;
+        color: #6b7280;
+        margin-top: 10px;
+      }
+
+      .framework {
+        background: #f9fafb;
+        border-radius: 12px;
+        padding: 40px;
+        margin: 40px 0;
+      }
+
+      .framework h4 {
+        text-align: center;
+        color: #1e40af;
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+      }
+
+      .pillars {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .pillar {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        text-align: center;
+        border: 2px solid #e5e7eb;
+      }
+
+      .pillar h5 {
+        color: #2563eb;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 30px 0;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .comparison-table th {
+        background: #2563eb;
+        color: white;
+        padding: 20px;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .comparison-table td {
+        padding: 15px 20px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .comparison-table tr:nth-child(even) {
+        background: #f9fafb;
+      }
+
+      .step-list {
+        counter-reset: step-counter;
+      }
+
+      .step {
+        counter-increment: step-counter;
+        margin: 30px 0;
+        padding: 25px;
+        background: white;
+        border-radius: 8px;
+        border-left: 5px solid #10b981;
+        position: relative;
+      }
+
+      .step::before {
+        content: counter(step-counter);
+        position: absolute;
+        left: -15px;
+        top: 20px;
+        background: #10b981;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .step h4 {
+        color: #059669;
+        margin-bottom: 10px;
+        margin-left: 25px;
+      }
+
+      .step p {
+        margin-left: 25px;
+        margin-bottom: 0;
+      }
+
+      .quote-large {
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        border-left: 5px solid #6b7280;
+        padding: 40px;
+        margin: 40px 0;
+        font-style: italic;
+        font-size: 1.3rem;
+        text-align: center;
+        border-radius: 8px;
+      }
+
+      .cta-section {
+        background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+        color: white;
+        padding: 60px;
+        text-align: center;
+        margin-top: 60px;
+      }
+
+      .cta-section h2 {
+        color: white;
+        border: none;
+        margin-bottom: 20px;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background: white;
+        color: #2563eb;
+        padding: 15px 40px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 30px;
+        transition: all 0.3s ease;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .footer {
+        background: #f9fafb;
+        padding: 40px 60px;
+        text-align: center;
+        color: #6b7280;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      @media print {
+        @page {
+          margin: 1cm;
+          size: A4;
+        }
+
+        @page :first {
+          margin: 0;
+        }
+
+        @page :not(:first) {
+          margin: 3cm 1.5cm 2cm 1.5cm;
+        }
+
+        * {
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          background: white;
+        }
+
+        .container {
+          box-shadow: none;
+          max-width: 100%;
+          width: 100%;
+          margin: 0;
+        }
+
+        .cover {
+          background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          min-height: 100vh;
+          height: 100vh;
+          page-break-after: always;
+          margin: 0;
+          padding: 80px 60px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .cover::before {
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        .cta-section {
+          background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          page-break-before: always;
+          min-height: 50vh;
+          margin: -3cm -1.5cm -2cm -1.5cm;
+          padding: calc(60px + 3cm) calc(60px + 1.5cm) calc(60px + 2cm) calc(60px + 1.5cm);
+        }
+
+        .content {
+          padding: 40px 0;
+          margin: 0;
+        }
+
+        .section {
+          page-break-inside: avoid;
+          margin-bottom: 40px;
+          padding-top: 10px;
+        }
+
+        .section h2 {
+          page-break-after: avoid;
+          margin-top: 0;
+        }
+
+        .highlight-box {
+          page-break-inside: avoid;
+          background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        .framework {
+          background: #f9fafb !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          page-break-inside: avoid;
+        }
+
+        .stats-grid {
+          page-break-inside: avoid;
+        }
+
+        .stat-card {
+          background: white !important;
+          border: 2px solid #e5e7eb !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        .step-list {
+          page-break-inside: avoid;
+        }
+
+        .step {
+          page-break-inside: avoid;
+          background: white !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        .step::before {
+          background: #10b981 !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        .quote-large {
+          background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%) !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          page-break-inside: avoid;
+        }
+
+        .comparison-table th {
+          background: #2563eb !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        .comparison-table tr:nth-child(even) {
+          background: #f9fafb !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        .footer {
+          background: #f9fafb !important;
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          page-break-before: avoid;
+        }
+
+        /* Ocultar elementos no necesarios en impresión */
+        button {
+          display: none !important;
+        }
+
+        /* Asegurar que los enlaces sean visibles */
+        a {
+          color: #2563eb !important;
+          text-decoration: underline !important;
+        }
+
+        /* Mantener elementos juntos */
+        .keep-together {
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
+
+        /* Forzar nueva página */
+        .new-page {
+          page-break-before: always !important;
+          break-before: page !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .cover {
+          padding: 40px 30px;
+        }
+        .cover h1 {
+          font-size: 2.5rem;
+        }
+        .content {
+          padding: 40px 30px;
+        }
+        .section h2 {
+          font-size: 2rem;
+        }
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+        .pillars {
+          grid-template-columns: 1fr;
+        }
+        .footer {
+          padding: 30px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Portada -->
+      <div class="cover">
+        <div class="cover-content">
+          <h1>LIDERAZGO AFECTIVO</h1>
+          <p class="subtitle">Una Nueva Metodología para el Liderazgo del Siglo XXI</p>
+          <div class="meta">
+            <span>Libro Blanco</span>
+            <span>2025</span>
+            <span>Mánu Fosela</span>
+          </div>
+        </div>
+        <div class="cover-image"></div>
+      </div>
+
+      <div class="content">
+        <!-- Resumen Ejecutivo -->
+        <div class="section new-page">
+          <h2>Resumen Ejecutivo</h2>
+
+          <div class="highlight-box">
+            <h4>Nota Metodológica</h4>
+            <p>
+              Este libro blanco combina la metodología original de
+              <strong>Liderazgo Afectivo</strong> desarrollada por Mánu Fosela (basada en 9 años de experiencia práctica
+              con equipos de hasta 200 personas) con investigación académica y estadísticas sectoriales complementarias
+              para proporcionar un marco completo y fundamentado.
+            </p>
+          </div>
+
+          <div class="highlight-box">
+            <h4>El Desafío del Liderazgo Actual</h4>
+            <p>
+              <em>Del libro "Liderazgo Afectivo":</em><br />
+              "Vivimos en una sociedad donde se ha instalado la mediocridad, auspiciada por aclamación o por endogamia,
+              y que tapa a las personas que sí son capaces de liderar realmente. El mediocre, envidioso de 'poder',
+              encontró la manera de imponerse y evitar los buenos liderazgos."
+            </p>
+          </div>
+        </div>
+        <div class="section new-page">
+          <p>
+            El liderazgo tradicional autoritario ya no es efectivo en el entorno empresarial actual. Las organizaciones
+            necesitan un enfoque que reconozca que
+            <strong>las personas son el activo más valioso</strong> y que el afecto genuino hacia el equipo puede ser la
+            diferencia entre el éxito y el fracaso organizacional.
+          </p>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-number">4x</span>
+              <span class="stat-label">ROI en salud mental según la OMS¹</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">85%</span>
+              <span class="stat-label">Empleados desconectados globalmente²</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">70%</span>
+              <span class="stat-label">Variación del rendimiento por liderazgo³</span>
+            </div>
+          </div>
+
+          <p style="margin-top: 30px; font-size: 0.9rem; color: #6b7280">
+            <strong>Fuentes:</strong><br />
+            ¹ <em>Del libro "Liderazgo Afectivo" - Mánu Fosela:</em> "La Organización Mundial de la Salud (OMS) en 2016
+            publicó un estudio donde indicaba que por cada dólar invertido en el tratamiento de la depresión y la
+            ansiedad genera un retorno de 4 dólares"<br />
+            ²
+            <a href="https://www.gallup.com/workplace/349484/state-of-the-global-workplace.aspx" target="_blank"
+              >Gallup State of the Global Workplace 2023</a
+            ><br />
+            ³
+            <a
+              href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/leadership-in-a-crisis-responding-to-the-coronavirus-outbreak-and-future-challenges"
+              target="_blank"
+              >McKinsey & Company - Leadership in Crisis</a
+            >
+          </p>
+
+          <p>
+            El <strong>Liderazgo Afectivo</strong> emerge como una metodología revolucionaria que sitúa las relaciones
+            humanas y el bienestar emocional en el centro del liderazgo, sin descuidar los objetivos organizacionales.
+          </p>
+        </div>
+
+        <!-- El Paradigma Tradicional -->
+        <div class="section new-page">
+          <h2>El Paradigma Tradicional: Por Qué Falla</h2>
+
+          <h3>Los Límites del Liderazgo Autoritario</h3>
+          <p>
+            El modelo tradicional de "ordeno y mando" presenta limitaciones críticas en el entorno empresarial actual:
+          </p>
+
+          <div class="comparison-table">
+            <thead>
+              <tr>
+                <th>Liderazgo Tradicional</th>
+                <th>Consecuencias</th>
+                <th>Liderazgo Afectivo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Impone autoridad</td>
+                <td>Genera resistencia y desmotivación</td>
+                <td>Influye a través de conexión emocional</td>
+              </tr>
+              <tr>
+                <td>Prioriza objetivos sobre personas</td>
+                <td>Burnout y rotación alta</td>
+                <td>Equilibra personas y objetivos</td>
+              </tr>
+              <tr>
+                <td>Comunicación unidireccional</td>
+                <td>Falta de innovación</td>
+                <td>Escucha activa bidireccional</td>
+              </tr>
+              <tr>
+                <td>Control y micromanagement</td>
+                <td>Dependencia y falta de autonomía</td>
+                <td>Empodera y confía en el equipo</td>
+              </tr>
+            </tbody>
+          </div>
+
+          <div class="quote-large">
+            "Quien lidera desde el 'ordeno' y 'mando', puede ser efectivo, pero siempre lleva a la indiferencia, que es
+            lo contrario al afecto, y al miedo, que es la némesis del afecto."
+          </div>
+        </div>
+
+        <!-- Marco Metodológico -->
+        <!-- Nueva sección integrada: Enfoque Humano y Sostenible -->
+        <div class="section new-page">
+          <h2>El Liderazgo Afectivo: Un Enfoque Humano y Sostenible</h2>
+          <p>
+            El liderazgo afectivo, tal como se presenta en el libro de Mánu Fosela, es una filosofía que sitúa el afecto
+            y el bienestar emocional de las personas en el centro de la gestión de equipos. No es una fórmula mágica ni
+            un conjunto de técnicas mecánicas, sino una forma de ser y de relacionarse con los demás. La premisa
+            central: el afecto genuino y las conexiones emocionales auténticas conducen a entornos de trabajo más
+            productivos, innovadores y satisfactorios.
+          </p>
+
+          <h3>Cómo se diferencia de otros estilos</h3>
+          <div class="comparison-table">
+            <thead>
+              <tr>
+                <th>Estilo</th>
+                <th>Enfoque</th>
+                <th>Liderazgo Afectivo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Autoritario</td>
+                <td>Influencia por poder y jerarquía</td>
+                <td>Conexión emocional y confianza</td>
+              </tr>
+              <tr>
+                <td>Transaccional</td>
+                <td>Intercambio trabajo–recompensa</td>
+                <td>Desarrollo personal y bienestar del equipo</td>
+              </tr>
+              <tr>
+                <td>Carismático</td>
+                <td>Liderazgo por carisma personal</td>
+                <td>Relaciones auténticas por encima del carisma</td>
+              </tr>
+              <tr>
+                <td>Humanista</td>
+                <td>Valora la dignidad humana</td>
+                <td>Da un paso más: vínculo emocional como herramienta</td>
+              </tr>
+            </tbody>
+          </div>
+
+          <h3>Principios Fundamentales del Liderazgo Afectivo</h3>
+          <ol style="margin-left: 20px">
+            <li style="margin-bottom: 12px">
+              <strong>Priorizar a las personas.</strong> El fin de una empresa no es ganar dinero; como respirar, es
+              condición necesaria para vivir, pero no el propósito. El objetivo es aportar a la sociedad, a clientes y,
+              sobre todo, a sus empleados. Un líder afectivo cuida el bienestar sabiendo que esto impulsa los objetivos
+              de negocio.
+            </li>
+            <li style="margin-bottom: 12px">
+              <strong>Autenticidad y conexión emocional.</strong> La cualidad suprema del liderazgo es la integridad. El
+              afecto ha de ser genuino, con vulnerabilidad equilibrada que fomenta confianza y autenticidad.
+            </li>
+            <li style="margin-bottom: 12px">
+              <strong>Liderar con el ejemplo.</strong> Los hechos pesan más que las palabras. Coherencia entre decir y
+              hacer para generar confianza.
+            </li>
+            <li style="margin-bottom: 12px">
+              <strong>Cultura de confianza y seguridad psicológica.</strong>
+              Equipos con autoestima ven los errores como aprendizaje. La confianza se construye con acciones y se
+              vuelve recíproca.
+            </li>
+            <li style="margin-bottom: 12px">
+              <strong>Desarrollo de la inteligencia emocional.</strong>
+              Metaconsciencia, autoconocimiento y gestión equilibrada de emociones para decidir mejor y relacionarse
+              mejor.
+            </li>
+          </ol>
+
+          <div class="highlight-box keep-together">
+            <h4>Diagrama conceptual sugerido</h4>
+            <p>
+              <em>[Balanza: corazón (afecto) vs. cerebro (racionalidad); el fulcro es el líder que equilibra ambos]</em>
+            </p>
+          </div>
+
+          <h3>Desafíos y Recompensas</h3>
+          <p>
+            Una implicación emocional excesiva puede nublar el juicio; por eso el equilibrio es vital. Liderar desde el
+            afecto tiene coste emocional —todo impacta más—, pero las recompensas son enormes: el equipo crea una red de
+            seguridad emocional y el “problema tuyo” se convierte en “problema nuestro”. La mayor satisfacción es ver
+            crecer y evolucionar a las personas.
+          </p>
+
+          <h3>El Liderazgo Afectivo en la Práctica</h3>
+          <ul style="margin-left: 20px">
+            <li style="margin: 8px 0">
+              <strong>Comunicación auténtica.</strong> Transparente y honesta, con escucha activa para comprender
+              también “lo no dicho”.
+            </li>
+            <li style="margin: 8px 0">
+              <strong>Delegación con confianza.</strong> Confiar no es desentenderse: se delega porque otros pueden
+              hacerlo igual o mejor; la responsabilidad final sigue en el líder.
+            </li>
+            <li style="margin: 8px 0">
+              <strong>Feedback constructivo.</strong> Específico, sobre el problema y la mejora, no sobre la persona;
+              dado desde un estado mental neutral para ser objetivo. Idealmente surge natural, no forzado.
+            </li>
+            <li style="margin: 8px 0">
+              <strong>Gestión de situaciones difíciles.</strong> En despidos o fracasos, comunicar de frente, con
+              empatía; asumir responsabilidad, buscar soluciones y aprendizajes.
+            </li>
+          </ul>
+
+          <div class="highlight-box keep-together">
+            <h4>Gráfico sugerido</h4>
+            <p>
+              <em>[Embudo invertido: el apoyo fluye desde el líder en la base hacia el equipo en la parte superior]</em>
+            </p>
+          </div>
+
+          <h3>"Equipazgo": Liderazgo Concurrente</h3>
+          <p>
+            En lugar de un único líder, un equipo de liderazgo se apoya mutuamente y distribuye responsabilidad. Evita
+            la soledad directiva, facilita decisiones y fomenta generosidad. Requiere personas que se aprecian y
+            respetan, para resolver conflictos con madurez.
+          </p>
+
+          <h3>Conclusiones</h3>
+          <p>
+            El liderazgo afectivo es un llamamiento a liderar con mente y corazón. En un mundo que prioriza a menudo el
+            corto plazo, esta propuesta construye organizaciones eficaces y humanas. Cuidando a las personas, los
+            objetivos organizacionales se cuidan solos.
+          </p>
+
+          <p style="font-size: 0.9rem; color: #6b7280">
+            <em>Nota:</em> Síntesis y ampliación de conceptos del libro <em>Liderazgo Afectivo</em> de Mánu Fosela,
+            pensada como base para cursos o talleres.
+          </p>
+        </div>
+
+        <div class="section new-page">
+          <h2>Marco Metodológico del Liderazgo Afectivo</h2>
+
+          <h3>Definición y Principios Fundamentales</h3>
+          <p>
+            El Liderazgo Afectivo es un enfoque que
+            <strong>pone en el centro las relaciones humanas y el bienestar emocional de las personas</strong>, creando
+            conexiones emocionales auténticas que conducen a un ambiente de trabajo más productivo, innovador y
+            satisfactorio.
+          </p>
+
+          <div class="framework keep-together">
+            <h4>Los Cinco Pilares del Liderazgo Afectivo</h4>
+            <div class="pillars">
+              <div class="pillar">
+                <h5>Afecto Genuino</h5>
+                <p>Sentir afecto real por las personas del equipo, no simulado o forzado</p>
+              </div>
+              <div class="pillar">
+                <h5>Humanidad</h5>
+                <p>Tratar a cada persona con dignidad y respeto inherente</p>
+              </div>
+              <div class="pillar">
+                <h5>Transparencia</h5>
+                <p>Comunicación honesta y directa, sin ocultar información relevante</p>
+              </div>
+              <div class="pillar">
+                <h5>Desarrollo</h5>
+                <p>Compromiso con el crecimiento personal y profesional del equipo</p>
+              </div>
+              <div class="pillar">
+                <h5>Equilibrio</h5>
+                <p>Balance entre objetividad profesional e implicación emocional</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section new-page">
+          <h3>Diferenciación Clave</h3>
+          <div class="highlight-box">
+            <h4>No es solo humanismo</h4>
+            <p>
+              Mientras que el liderazgo humanista valora la dignidad humana, el liderazgo afectivo va más allá al
+              incorporar una
+              <strong>conexión emocional genuina</strong> como herramienta de liderazgo efectivo.
+            </p>
+          </div>
+
+          <div class="quote-large">
+            "Para mí un líder es la persona que tiene la responsabilidad de alcanzar un fin acompañando a un grupo de
+            personas a las que les proporciona las mejores condiciones para que aporten su parte en la consecución de
+            ese fin."
+          </div>
+        </div>
+
+        <!-- Beneficios Medibles -->
+        <div class="section">
+          <h2>Beneficios Medibles del Liderazgo Afectivo</h2>
+
+          <h3>Retorno de Inversión Emocional</h3>
+          <p>La implementación del Liderazgo Afectivo genera beneficios tangibles e intangibles medibles:</p>
+
+          <div class="highlight-box">
+            <h4>Experiencias Documentadas del Autor</h4>
+            <p>
+              <em>Del libro "Liderazgo Afectivo" - Mánu Fosela:</em> Caso COVID-19:
+              <strong>100% del equipo</strong> aceptó voluntariamente tomar días de vacaciones para evitar despidos,
+              demostrando el poder del liderazgo afectivo en crisis.
+            </p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-number">23%</span>
+              <span class="stat-label">Mayor rentabilidad con alta engagement⁴</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">40%</span>
+              <span class="stat-label">Menor rotación con buen liderazgo⁵</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">18%</span>
+              <span class="stat-label">Mayor productividad con engagement⁴</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">12%</span>
+              <span class="stat-label">Mejor atención al cliente⁴</span>
+            </div>
+          </div>
+
+          <p style="margin-top: 30px; font-size: 0.9rem; color: #6b7280">
+            <strong>Fuentes de estudios generales:</strong><br />
+            ⁴
+            <a
+              href="https://www.gallup.com/workplace/321032/employee-engagement-meta-analysis-brief.aspx"
+              target="_blank"
+              >Gallup Q12 Meta-Analysis: Employee Engagement</a
+            ><br />
+            ⁵
+            <a
+              href="https://www.deloitte.com/global/en/our-thinking/insights/topics/talent/employee-retention-strategies.html"
+              target="_blank"
+              >Deloitte - Employee Retention Strategies</a
+            >
+          </p>
+        </div>
+        <div class="section new-page">
+          <h3>Impacto en la Cultura Organizacional</h3>
+          <ul style="list-style: none; padding-left: 0">
+            <li
+              style="
+                margin: 15px 0;
+                padding: 15px;
+                background: #f9fafb;
+                border-left: 4px solid #10b981;
+                border-radius: 4px;
+              "
+            >
+              <strong>Antifragilidad:</strong> Equipos que no solo resisten el estrés, sino que se fortalecen con los
+              desafíos
+            </li>
+            <li
+              style="
+                margin: 15px 0;
+                padding: 15px;
+                background: #f9fafb;
+                border-left: 4px solid #10b981;
+                border-radius: 4px;
+              "
+            >
+              <strong>Innovación:</strong> Ambiente psicológicamente seguro que fomenta la creatividad
+            </li>
+            <li
+              style="
+                margin: 15px 0;
+                padding: 15px;
+                background: #f9fafb;
+                border-left: 4px solid #10b981;
+                border-radius: 4px;
+              "
+            >
+              <strong>Colaboración:</strong> Reducción de silos organizacionales y competencia interna destructiva
+            </li>
+            <li
+              style="
+                margin: 15px 0;
+                padding: 15px;
+                background: #f9fafb;
+                border-left: 4px solid #10b981;
+                border-radius: 4px;
+              "
+            >
+              <strong>Retención de talento:</strong> Las personas eligen quedarse por la cultura, no solo por el salario
+            </li>
+          </ul>
+
+          <div class="quote-large">
+            "La cultura se impone con hechos, no con palabras. Las palabras pierden fuerza cuando no van acompañadas de
+            hechos."
+          </div>
+        </div>
+
+        <!-- Implementación Práctica -->
+        <div class="section">
+          <h2>Implementación Práctica</h2>
+
+          <h3>Hoja de Ruta para la Transformación</h3>
+          <p>La adopción del Liderazgo Afectivo requiere un enfoque sistemático y gradual:</p>
+
+          <div class="step-list">
+            <div class="step">
+              <h4>Autoconocimiento y Metaconsciencia</h4>
+              <p>
+                Desarrollar la capacidad de ser consciente de los propios procesos mentales, pensamientos y estados de
+                consciencia.
+              </p>
+            </div>
+
+            <div class="step">
+              <h4>Construcción de Relaciones Auténticas</h4>
+              <p>
+                Invertir tiempo genuino en conocer a cada miembro del equipo como persona, no solo como recurso
+                profesional.
+              </p>
+            </div>
+
+            <div class="step">
+              <h4>Comunicación Afectiva</h4>
+              <p>
+                Implementar escucha activa, transparencia controlada y feedback constructivo basado en el cuidado
+                genuino.
+              </p>
+            </div>
+
+            <div class="step">
+              <h4>Desarrollo de Inteligencia Emocional</h4>
+              <p>
+                Cultivar las inteligencias emocional, interpersonal e intrapersonal necesarias para el liderazgo
+                afectivo.
+              </p>
+            </div>
+
+            <div class="step">
+              <h4>Creación de Marcos de Libertad</h4>
+              <p>Establecer límites claros que permitan autonomía sin comprometer la coordinación del equipo.</p>
+            </div>
+          </div>
+
+          <div class="highlight-box">
+            <h4>Principio Fundamental</h4>
+            <p>
+              <strong>"Solo liderando te conviertes en líder."</strong> La teoría debe complementarse con práctica
+              constante y reflexión continua sobre la experiencia.
+            </p>
+          </div>
+        </div>
+
+        <!-- Casos de Estudio -->
+        <div class="section">
+          <h2>Casos de Estudio y Aplicaciones</h2>
+
+          <div class="highlight-box">
+            <h4>Experiencias Reales del Autor</h4>
+            <p>
+              <em
+                >Los siguientes casos están documentados en "Liderazgo Afectivo" por Mánu Fosela, basados en su
+                experiencia liderando equipos de hasta 200 personas durante 8 años.</em
+              >
+            </p>
+          </div>
+
+          <h3>Gestión de Crisis: El Caso COVID-19</h3>
+          <div class="highlight-box">
+            <h4>Situación</h4>
+            <p>
+              <strong>Fuente:</strong>
+              <em>Capítulo "Cuando lo conseguido se derrumba" - Liderazgo Afectivo</em><br />
+              Cliente propone reducir equipo en 10 personas durante 3 meses (de 50 total) por incertidumbre económica
+              durante el inicio de la pandemia de 2020.
+            </p>
+
+            <h4>Solución Afectiva</h4>
+            <p>
+              En lugar de despidos, se propuso al cliente mantener a todos pero reducir facturación 20%. Se pidió a las
+              50 personas tomar 10 días de vacaciones distribuidos en 3 meses.
+            </p>
+
+            <h4>Resultado</h4>
+            <p>
+              <strong>100% del equipo aceptó voluntariamente.</strong> Como dice el autor: "Nadie se negó. Todo el mundo
+              sacrificó tener que coger 10 días de vacaciones... para salvar la situación. Por eso, insisto en que es
+              muy importante liderar desde el afecto."
+            </p>
+          </div>
+
+          <h3>Ejemplo de Antifragilidad Empresarial</h3>
+          <div class="highlight-box">
+            <h4>Situación</h4>
+            <p>
+              <strong>Fuente:</strong>
+              <em>Capítulo "Coaching y desarrollo" - Liderazgo Afectivo</em><br />
+              Una consultora pierde su cliente principal de la noche a la mañana, afectando al 80% de la plantilla (30
+              consultores de menos de 50 empleados).
+            </p>
+
+            <h4>Resultado Antifragil</h4>
+            <p>
+              En menos de 4 meses no solo recolocaron a todos, sino que terminaron el año
+              <strong>doblando plantilla</strong>. El autor explica: "Una crisis, el estrés que provocó, la
+              incertidumbre, hizo que fuéramos más fuertes."
+            </p>
+          </div>
+
+          <h3>Evidencia Adicional de Investigación</h3>
+          <p>Los casos del autor se alinean con investigación académica sobre liderazgo efectivo:</p>
+
+          <ul style="margin-left: 20px">
+            <li>
+              <strong>Google Project Aristotle:</strong> La seguridad psicológica (componente clave del liderazgo
+              afectivo) fue el factor #1 en equipos de alto rendimiento⁶
+            </li>
+            <li><strong>Estudio MIT Sloan:</strong> Empresas con cultura de cuidado mostraron 40% menos rotación⁷</li>
+            <li><strong>Harvard Business Review:</strong> Líderes empáticos generan 50% mejor performance⁸</li>
+          </ul>
+
+          <p style="margin-top: 30px; font-size: 0.9rem; color: #6b7280">
+            <strong>Fuentes de investigación:</strong><br />
+            ⁶
+            <a href="https://rework.withgoogle.com/print/guides/5721312655835136/" target="_blank"
+              >Google re:Work - Project Aristotle</a
+            ><br />
+            ⁷
+            <a
+              href="https://mitsloan.mit.edu/ideas-made-to-matter/why-caring-about-your-employees-good-business"
+              target="_blank"
+              >MIT Sloan - Why caring about employees is good business</a
+            ><br />
+            ⁸
+            <a href="https://hbr.org/2021/11/the-empathic-leader" target="_blank"
+              >Harvard Business Review - The Empathic Leader</a
+            >
+          </p>
+
+          <div class="quote-large">
+            <em>Del libro "Liderazgo Afectivo":</em><br />
+            "Al final, liderar no consiste en tener en el equipo a las personas más inteligentes sino con las que
+            compartas valores y seas capaz de influir para que los distintos talentos se orquesten de la manera más
+            eficaz."
+          </div>
+        </div>
+
+        <!-- Conclusiones -->
+        <div class="section">
+          <h2>Conclusiones y Siguientes Pasos</h2>
+
+          <h3>El Imperativo del Cambio</h3>
+          <p>
+            El liderazgo afectivo no es una opción, sino una necesidad en el panorama empresarial actual. Las
+            organizaciones que no adopten enfoques más humanos y sostenibles quedarán atrás en la retención de talento,
+            la innovación y la adaptabilidad.
+          </p>
+
+          <h3>Beneficios Clave Identificados</h3>
+          <ul style="margin-left: 20px">
+            <li>Mayor resistencia organizacional ante crisis</li>
+            <li>Innovación sostenida a través de seguridad psicológica</li>
+            <li>Retención de talento superior a la media del sector</li>
+            <li>Cultura organizacional antifragil</li>
+            <li>Mejores resultados financieros a largo plazo</li>
+          </ul>
+
+          <div class="quote-large">
+            "El liderazgo afectivo nos recuerda que las empresas no son entidades abstractas, sino comunidades de
+            personas trabajando juntas hacia un objetivo común. Es un llamamiento a liderar no solo con la mente, sino
+            también con el corazón."
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="cta-section">
+        <h2>Comience su Transformación Hoy</h2>
+        <p>
+          El liderazgo afectivo no es solo una metodología, es una filosofía que transforma organizaciones y vidas.
+          ¿Está listo para liderar la revolución del liderazgo humano en su organización?
+        </p>
+        <a href="#" class="cta-button">Implementar Liderazgo Afectivo</a>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>
+          <strong>Sobre el Autor:</strong> Mánu Fosela es Director de Liderazgo Afectivo con más de 8 años de
+          experiencia liderando equipos de hasta 200 personas. Especialista en transformación organizacional centrada en
+          las personas.
+        </p>
+
+        <div style="margin-top: 30px; text-align: left; font-size: 0.9rem">
+          <h4 style="color: #374151; margin-bottom: 15px">Referencias y Fuentes</h4>
+
+          <p>
+            <strong>Fuente Principal:</strong><br />
+            Fosela, M. (2025). <em>Liderazgo Afectivo</em>. Editorial Savvily.
+          </p>
+
+          <p><strong>Fuentes de Investigación Citadas:</strong></p>
+          <ul style="margin-left: 20px; line-height: 1.8">
+            <li>
+              Organización Mundial de la Salud (2016). Investing in treatment for depression and anxiety leads to
+              fourfold return
+            </li>
+            <li>
+              Gallup (2023). State of the Global Workplace.
+              <a href="https://www.gallup.com/workplace/349484/state-of-the-global-workplace.aspx" target="_blank"
+                >gallup.com</a
+              >
+            </li>
+            <li>
+              McKinsey & Company. Leadership in a crisis: Responding to the coronavirus outbreak and future challenges.
+              <a
+                href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/leadership-in-a-crisis-responding-to-the-coronavirus-outbreak-and-future-challenges"
+                target="_blank"
+                >mckinsey.com</a
+              >
+            </li>
+            <li>
+              Gallup Q12 Meta-Analysis: Employee Engagement.
+              <a
+                href="https://www.gallup.com/workplace/321032/employee-engagement-meta-analysis-brief.aspx"
+                target="_blank"
+                >gallup.com</a
+              >
+            </li>
+            <li>
+              Deloitte. Employee Retention Strategies.
+              <a
+                href="https://www.deloitte.com/global/en/our-thinking/insights/topics/talent/employee-retention-strategies.html"
+                target="_blank"
+                >deloitte.com</a
+              >
+            </li>
+            <li>
+              Google re:Work. Project Aristotle.
+              <a href="https://rework.withgoogle.com/print/guides/5721312655835136/" target="_blank"
+                >rework.withgoogle.com</a
+              >
+            </li>
+            <li>
+              MIT Sloan (2023). Why caring about your employees is good business.
+              <a
+                href="https://mitsloan.mit.edu/ideas-made-to-matter/why-caring-about-your-employees-good-business"
+                target="_blank"
+                >mitsloan.mit.edu</a
+              >
+            </li>
+            <li>
+              Harvard Business Review (2021). The Empathic Leader.
+              <a href="https://hbr.org/2021/11/the-empathic-leader" target="_blank">hbr.org</a>
+            </li>
+          </ul>
+        </div>
+
+        <p style="margin-top: 30px; border-top: 1px solid #e5e7eb; padding-top: 20px">
+          © 2025 - Basado en "Liderazgo Afectivo" por Mánu Fosela
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // Funcionalidad para generar PDF
+      function generatePDF() {
+        window.print();
+      }
+
+      // Añadir botón de PDF
+      const pdfButton = document.createElement('button');
+      pdfButton.textContent = 'Descargar PDF';
+      pdfButton.style.position = 'fixed';
+      pdfButton.style.bottom = '20px';
+      pdfButton.style.right = '20px';
+      pdfButton.style.background = '#2563eb';
+      pdfButton.style.color = 'white';
+      pdfButton.style.border = 'none';
+      pdfButton.style.padding = '12px 24px';
+      pdfButton.style.borderRadius = '25px';
+      pdfButton.style.cursor = 'pointer';
+      pdfButton.style.fontWeight = '600';
+      pdfButton.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+      pdfButton.style.zIndex = '1000';
+      pdfButton.style.transition = 'all 0.3s ease';
+
+      pdfButton.addEventListener('click', generatePDF);
+      pdfButton.addEventListener('mouseenter', function () {
+        this.style.transform = 'translateY(-2px)';
+        this.style.boxShadow = '0 6px 16px rgba(0,0,0,0.2)';
+      });
+      pdfButton.addEventListener('mouseleave', function () {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+      });
+
+      document.body.appendChild(pdfButton);
+
+      // Animaciones de entrada para estadísticas
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.stat-card, .pillar, .step').forEach((el) => {
+        observer.observe(el);
+      });
+
+      // CSS para animaciones
+      const style = document.createElement('style');
+      style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>
