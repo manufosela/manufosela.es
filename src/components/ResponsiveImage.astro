@@ -22,7 +22,8 @@ const basePath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
       class="responsive-image"
       width="320"
       height="320"
-      loading="lazy"
+      loading="eager"
+      fetchpriority="high"
     />
   </picture>
   <figcaption>{description}</figcaption>
