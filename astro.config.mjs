@@ -24,6 +24,8 @@ export default defineConfig({
   output: 'static',
   vite: {
     build: {
+      cssMinify: true,
+      minify: 'esbuild',
       rollupOptions: {
         external: ['scripts/**', 'functions/**', 'admin/**'],
         output: {

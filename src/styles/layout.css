@@ -7,6 +7,13 @@
   --transition-time: 0.5s;
   --active-color: #128edf;
   --link-color: #02518d;
+  --ease-3: cubic-bezier(.25, 0, .3, 1);
+  --animation-fade-in: fade-in .5s var(--ease-3);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 *,
@@ -140,7 +147,7 @@ figcaption {
 }
 
 .image {
-  @media (--motionOK) {
+  @media (prefers-reduced-motion: no-preference) {
     animation: var(--animation-fade-in) forwards;
     transition: all 0.25s linear;
   }
@@ -182,7 +189,7 @@ figcaption {
   height: 100vh;
   padding: 0 4vw;
   width: 50%;
-  @media (--motionOK) {
+  @media (prefers-reduced-motion: no-preference) {
     animation: var(--animation-fade-in);
   }
 }
