@@ -26,6 +26,12 @@ export const articles: Articles = {
     {
       name: 'Liderazgo',
       articles: {
+        '2026': [
+          {
+            title: 'Mi primer año en Geniova',
+            url: 'https://www.linkedin.com/pulse/mi-primer-a%25C3%25B1o-en-geniova-m%25C3%25A1nu-fosela-q8qle/'
+          }
+        ],
         '2025': [
           {
             title: 'Proceso de creación del libro "Liderazgo Afectivo"',
@@ -122,6 +128,12 @@ export const articles: Articles = {
     {
       name: 'Leadership',
       articles: {
+        '2026': [
+          {
+            title: 'My first year at Geniova',
+            url: 'https://www.linkedin.com/pulse/mi-primer-a%25C3%25B1o-en-geniova-m%25C3%25A1nu-fosela-q8qle/'
+          }
+        ],
         '2025': [
           {
             title: 'Process of creating the book "Affective Leadership"',
