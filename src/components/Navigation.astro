@@ -101,6 +101,7 @@ const { text, links }: { text: string[]; links: (string | URL | null | undefined
    * @param {HTMLElement} link - The link element being hovered.
    */
   function handleLinkHover(ev: Event, link: Element) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (rotatingLettersVisible) return;
     if (link.classList.contains('active')) return;
 
@@ -131,7 +132,10 @@ const { text, links }: { text: string[]; links: (string | URL | null | undefined
    */
   function toggleMenu() {
     const nav = document.querySelector('.nav');
+    const hamburger = document.querySelector('.hamburger-menu');
     nav?.classList.toggle('active');
+    const isOpen = nav?.classList.contains('active') ?? false;
+    hamburger?.setAttribute('aria-expanded', String(isOpen));
   }
 
   function swipeMenu() {
@@ -175,6 +179,7 @@ const { text, links }: { text: string[]; links: (string | URL | null | undefined
     document.body.addEventListener('click', (event) => {
       if (event.target !== hamburgerMenu && event.target !== layermenu) {
         layermenu?.classList.remove('active');
+        hamburgerMenu?.setAttribute('aria-expanded', 'false');
       }
     });
     swipeMenu();
@@ -193,8 +198,8 @@ const { text, links }: { text: string[]; links: (string | URL | null | undefined
 </script>
 
 <div class="menu">
-  <button class="hamburger-menu">☰</button>
-  <nav class="nav">
+  <button class="hamburger-menu" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-menu">☰</button>
+  <nav class="nav" id="nav-menu" role="navigation" aria-label="Navegación principal">
     {
       links.map((link, index) => (
         <a
@@ -234,7 +239,7 @@ const { text, links }: { text: string[]; links: (string | URL | null | undefined
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 100vw;
+    width: 100%;
     background-color: var(--background-light);
     transition:
       background-color var(--transition-time) ease,
@@ -242,11 +247,11 @@ const { text, links }: { text: string[]; links: (string | URL | null | undefined
   }
 
   .nav a {
-    text-decoration: none !important;
+    text-decoration: none;
     background-color: var(--background-light);
     color: var(--color-text-light);
     font-weight: 700;
-    font-size: 1.2vw;
+    font-size: clamp(0.85rem, 1.2vw, 1.1rem);
     padding: 0 2vw 0 0;
     transition:
       background-color var(--transition-time) ease,
@@ -255,7 +260,7 @@ const { text, links }: { text: string[]; links: (string | URL | null | undefined
   }
 
   .nav a.active {
-    color: var(--active-color) !important;
+    color: var(--active-color);
   }
 
   .centerWord {
@@ -290,7 +295,7 @@ const { text, links }: { text: string[]; links: (string | URL | null | undefined
   }
 
   .hovered {
-    color: var(--primary-color) !important;
+    color: var(--primary-color);
   }
 
   .hamburger-menu {
@@ -317,17 +322,19 @@ const { text, links }: { text: string[]; links: (string | URL | null | undefined
       flex-direction: column;
       position: fixed;
       top: 0;
-      left: -100%;
-      width: 20rem;
+      left: 0;
+      width: min(20rem, 80vw);
       height: 100%;
       background-color: var(--background-light);
       overflow: hidden;
-      transition: left 0.3s ease-out;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-out;
+      will-change: transform;
       z-index: 1000;
     }
 
     .nav.active {
-      left: 0; /* Cuando está activo, se mueve dentro del viewport */
+      transform: translateX(0);
     }
 
     .nav a {

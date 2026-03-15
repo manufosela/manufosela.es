@@ -1,31 +1,19 @@
-:root {
-  --primary-color: #333;
-  --text-color: #333;
-  --background-color: #fff;
-  --font-size-base: 16px;
-}
-
 body {
-  font-size: var(--font-size-base);
   margin: 0;
   padding: 0;
-  font-family: 'Lora', serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
 }
 
 a {
-  color: var(--primary-color);
+  color: var(--link-color);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
   display: inline-block;
   position: relative;
   cursor: pointer;
 }
 
 a:hover {
-  transform: translateX(5px);
-  color: #ffffff;
+  color: var(--active-color);
 }
 
 a::after {
@@ -36,20 +24,20 @@ a::after {
   width: 0;
   height: 1px;
   background-color: var(--primary-color);
-  transition: width 0.3s ease;
+  transition: transform 0.3s ease;
+  transform-origin: left;
 }
 
 a:hover::after {
   width: 100%;
 }
 
-/* Estilos específicos para enlaces con clases especiales */
 .book-link,
 .blog-link,
 .credit-links {
-  color: var(--primary-color);
+  color: var(--link-color);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -58,8 +46,7 @@ a:hover::after {
 .book-link:hover,
 .blog-link:hover,
 .credit-links:hover {
-  transform: translateX(5px);
-  color: #ffffff;
+  color: var(--active-color);
 }
 
 .book-link::after,
@@ -72,7 +59,8 @@ a:hover::after {
   width: 0;
   height: 1px;
   background-color: var(--primary-color);
-  transition: width 0.3s ease;
+  transition: transform 0.3s ease;
+  transform-origin: left;
 }
 
 .book-link:hover::after,

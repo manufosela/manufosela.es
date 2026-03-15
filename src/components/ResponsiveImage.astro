@@ -22,6 +22,7 @@ const basePath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
       class="responsive-image"
       width="320"
       height="320"
+      loading="lazy"
     />
   </picture>
   <figcaption>{description}</figcaption>
@@ -45,11 +46,11 @@ const basePath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
 
   figcaption {
     margin-top: 1rem;
-    color: var(--color-text);
+    color: var(--color-text-light);
     font-style: italic;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 991px) {
     .responsive-image-container {
       width: 100%;
       padding: 1rem;

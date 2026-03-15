@@ -22,11 +22,12 @@ const currentYear = new Date().getFullYear();
   <div class="librecounterLayer">
     <a class="credit-links" href="https://librecounter.org/referer/show" target="_blank">
       <img
-        style="padding-left: 1rem;"
+        class="librecounter-img"
         src="https://librecounter.org/counter.svg"
-        alt="Libre Counter"
+        alt="Contador de visitas Libre Counter"
         width="30"
         height="30"
+        loading="lazy"
       />
     </a>
   </div>
@@ -62,6 +63,10 @@ const currentYear = new Date().getFullYear();
   .librecounter {
     height: 1.3rem;
     display: inline;
+  }
+
+  .librecounter-img {
+    padding-left: 1rem;
   }
 
   @media screen and (max-width: 991px) {

@@ -14,9 +14,10 @@ interface Props {
 const { title, includeSchema = false, description = Site.description, image = '/manufosela.png' } = Astro.props;
 
 const isProduction = import.meta.env.PROD;
+const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
 ---
 
-<html>
+<html lang={lang}>
   <head>
     <BaseHead title={title} includeSchema={includeSchema} />
     <style>
