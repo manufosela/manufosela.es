@@ -33,9 +33,6 @@ body {
   text-rendering: optimizeSpeed;
   color: var(--color-text-light);
   background-color: var(--background-light);
-  transition:
-    background-color var(--transition-time) ease,
-    color var(--transition-time) ease-in-out;
 }
 
 body,
