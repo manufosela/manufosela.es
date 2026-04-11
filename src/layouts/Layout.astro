@@ -1,5 +1,6 @@
 ---
 import BaseHead from '~/components/BaseHead.astro';
+import Header from '~/components/Header.astro';
 import BottomNavBar from '~/components/BottomNavBar.astro';
 import { Site } from '~/data/config';
 import '~/styles/layout.css';
@@ -42,6 +43,7 @@ const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
     </style>
   </head>
   <body>
+    <Header active={active} language={lang} />
     <slot />
     <BottomNavBar active={active} language={lang} />
   </body>

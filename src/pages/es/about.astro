@@ -1,6 +1,5 @@
 ---
 import Layout from '~/layouts/Layout.astro';
-import Header from '~/components/Header.astro';
 import AboutContent from '~/components/About.astro';
 import SocialNets from '~/components/SocialNets.astro';
 import Footer from '~/components/Footer.astro';
@@ -13,12 +12,11 @@ const language = 'es';
 const aboutDescription = aboutDesc[language];
 ---
 
-<Layout {title}>
+<Layout {title} active="home">
   <main>
     <ResponsiveImage imagePath="/images/about" description={aboutDescription} />
 
     <div class="maincontent w-col w-col-6 w-col-stack">
-      <Header active="home" language={language} />
       <AboutContent language={language} />
       <SocialNets language={language} />
       <Footer language={language} />

@@ -1,14 +1,11 @@
 ---
 import Layout from '~/layouts/Layout.astro';
-import Header from '~/components/Header.astro';
 import { Site } from '~/data/config';
 
 const title = `${Site.title} — Leadership`;
-const language = 'en';
 ---
 
-<Layout {title}>
-  <Header active="leadership" language={language} />
+<Layout {title} active="leadership">
   <main class="placeholder">
     <p class="u-label u-label--accent">Coming soon</p>
     <h1>Affective Leadership</h1>

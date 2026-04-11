@@ -1,14 +1,11 @@
 ---
 import Layout from '~/layouts/Layout.astro';
-import Header from '~/components/Header.astro';
 import { Site } from '~/data/config';
 
 const title = `${Site.title} — Contact`;
-const language = 'en';
 ---
 
-<Layout {title}>
-  <Header active="contact" language={language} />
+<Layout {title} active="contact">
   <main class="placeholder">
     <p class="u-label u-label--accent">Coming soon</p>
     <h1>Contact</h1>
