@@ -1,14 +1,11 @@
 ---
 import Layout from '~/layouts/Layout.astro';
-import Header from '~/components/Header.astro';
 import { Site } from '~/data/config';
 
 const title = `${Site.title} — Tech Hub`;
-const language = 'en';
 ---
 
-<Layout {title}>
-  <Header active="tech" language={language} />
+<Layout {title} active="tech">
   <main class="placeholder">
     <p class="u-label u-label--accent">Coming soon</p>
     <h1>Tech Hub</h1>
