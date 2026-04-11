@@ -15,4 +15,4 @@ export const Book = {
     bookButton: 'Learn more',
     blogButton: 'Read my blog'
   }
-} as const;
+};

@@ -1,34 +1,12 @@
-import { link } from 'fs';
-import { describe } from 'node:test';
-
-interface Site {
-  title: string;
-  description: string;
-  url: string;
-}
-
-interface Footer {
-  name: string;
-}
-
-interface NavigationData {
-  text: Array<string>;
-  links: Array<string>;
-}
-
-interface Navigation {
-  [key: string]: NavigationData;
-}
-
 export const Site = {
   title: 'Manu Fosela',
   description: 'Personal website of Manu Fosela, Head of Engineering at Geniova Technologies',
   url: 'https://manufosela.es'
-} as const;
+};
 
 export const Footer = {
   name: 'Mánu Fosela'
-} as Footer;
+};
 
 export const Navigation = {
   es: {
@@ -39,7 +17,7 @@ export const Navigation = {
     text: ['Home', 'About', 'Contributions', 'Articles', 'Media'],
     links: ['/', '/about', '/contributions', '/articles', '/media']
   }
-} as Navigation;
+};
 
 export const Book = {
   es: {
@@ -54,4 +32,4 @@ export const Book = {
     bookLink: 'https://liderazgoafectivo.com',
     blogLink: 'https://manufosela.substack.com'
   }
-} as const;
+};

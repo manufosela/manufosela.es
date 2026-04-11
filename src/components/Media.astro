@@ -9,13 +9,13 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
 ---
 
 <div class="pagecontent">
-  <div class="tabs-header">
-    <button class="tab-button active" data-tab="0">{charlasKey}</button>
-    <button class="tab-button" data-tab="1">{entrevistasKey}</button>
+  <div class="tabs-header" role="tablist" aria-label="Tipo de media">
+    <button class="tab-button active" data-tab="0" role="tab" aria-selected="true" aria-controls="media-tabpanel-0" id="media-tab-0">{charlasKey}</button>
+    <button class="tab-button" data-tab="1" role="tab" aria-selected="false" aria-controls="media-tabpanel-1" id="media-tab-1">{entrevistasKey}</button>
   </div>
 
   <div class="tabs-content">
-    <div class="tab-panel active" data-tab="0">
+    <div class="tab-panel active" data-tab="0" role="tabpanel" id="media-tabpanel-0" aria-labelledby="media-tab-0">
       {
         Object.entries(medias[charlasKey] || {})
           .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
@@ -27,7 +27,8 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
                   <li>
                     <a href={media.link} target="_blank" rel="noopener noreferrer">
                       {media.title}
-                      <span class="external-link">↗</span>
+                      <span class="external-link" aria-hidden="true">↗</span>
+                      <span class="visually-hidden">(enlace externo)</span>
                     </a>
                   </li>
                 ))}
@@ -36,7 +37,7 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
           ))
       }
     </div>
-    <div class="tab-panel" data-tab="1">
+    <div class="tab-panel" data-tab="1" role="tabpanel" id="media-tabpanel-1" aria-labelledby="media-tab-1">
       {
         Object.entries(medias[entrevistasKey] || {})
           .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
@@ -48,7 +49,8 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
                   <li>
                     <a href={media.link} target="_blank" rel="noopener noreferrer">
                       {media.title}
-                      <span class="external-link">↗</span>
+                      <span class="external-link" aria-hidden="true">↗</span>
+                      <span class="visually-hidden">(enlace externo)</span>
                     </a>
                   </li>
                 ))}
@@ -68,11 +70,12 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
     button.addEventListener('click', () => {
       const tabIndex = button.getAttribute('data-tab');
 
-      // Update buttons
       tabButtons.forEach((btn) => {
         btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
       });
       button.classList.add('active');
+      button.setAttribute('aria-selected', 'true');
 
       // Update panels
       tabPanels.forEach((panel) => {
@@ -88,7 +91,7 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
-    border-bottom: 2px solid #e0e0e0;
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.5rem;
   }
 
@@ -98,7 +101,7 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
     border: none;
     border-radius: 4px 4px 0 0;
     cursor: pointer;
-    color: #ffffff;
+    color: var(--color-text-light);
     font-size: 1.2rem;
     transition: all 0.2s;
     position: relative;
@@ -106,9 +109,9 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
   }
 
   .tab-button.active {
-    color: #007bff;
+    color: var(--active-color);
     font-weight: 700;
-    background-color: #f8f9fa;
+    background-color: transparent;
   }
 
   .tab-button.active::after {
@@ -118,12 +121,12 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
     left: 0;
     width: 100%;
     height: 6px;
-    background-color: #007bff;
+    background-color: var(--active-color);
     border-radius: 3px;
   }
 
   .tab-button:hover {
-    color: #007bff;
+    color: var(--active-color);
   }
 
   .tab-panel {
@@ -139,11 +142,11 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
   }
 
   .year-title {
-    color: #ff00ff;
+    color: var(--active-color);
     font-size: 1.8rem;
     margin: 1.5rem 0 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #ff00ff;
+    border-bottom: 2px solid var(--active-color);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -165,14 +168,14 @@ const entrevistasKey = language === 'es' ? 'Entrevistas' : 'Interviews';
     transition: all 0.3s ease;
     display: inline-block;
     position: relative;
-    cursor: pointer !important;
+    cursor: pointer;
     font-size: 1.2rem;
     font-weight: 400;
   }
 
   .media-list a:hover {
     transform: translateX(5px);
-    color: #ffffff !important;
+    color: var(--active-color);
   }
 
   .media-list a::after {

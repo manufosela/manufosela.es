@@ -26,8 +26,8 @@ import { Links } from '~/data/media';
   .text-block-2 {
     margin-bottom: 20px;
     color: var(--color-text-light);
-    font-size: 12px;
-    line-height: 12px;
+    font-size: 0.75rem;
+    line-height: 1.4;
     letter-spacing: 2px;
     text-transform: uppercase;
   }
@@ -78,5 +78,11 @@ import { Links } from '~/data/media';
   }
 
   @media screen and (max-width: 767px) {
+    .links {
+      flex-direction: column;
+    }
+    .column {
+      width: 100%;
+    }
   }
 </style>

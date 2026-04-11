@@ -15,7 +15,7 @@ export function initializeThemeState() {
  * Obtiene el tema actual desde localStorage.
  */
 export function getTheme() {
-  return localStorage.getItem(THEME_KEY) || initializeState().theme;
+  return localStorage.getItem(THEME_KEY) || initializeThemeState();
 }
 
 /**
@@ -30,5 +30,4 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentTheme = initializeThemeState();
   setTheme(currentTheme);
   document.body.classList.add(currentTheme);
-  console.log('Tema actual:', currentTheme);
 });

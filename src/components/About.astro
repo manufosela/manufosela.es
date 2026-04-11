@@ -22,6 +22,7 @@ const slides = aboutData[language]?.slides || [];
 
     document.querySelectorAll('.nav-button').forEach((button, buttonIndex) => {
       button.classList.toggle('active', buttonIndex === index);
+      button.setAttribute('aria-selected', String(buttonIndex === index));
     });
   }
 
@@ -38,11 +39,17 @@ const slides = aboutData[language]?.slides || [];
 </script>
 
 <div class="pagecontent">
-  <div class="nav-buttons">
+  <div class="nav-buttons" role="tablist" aria-label="Secciones sobre mí">
     {
       slides.map((slide, index) => (
         <div>
-          <button class={`nav-button ${index === 0 ? 'active' : ''}`}>{slide.subtitle}</button>
+          <button
+            class={`nav-button ${index === 0 ? 'active' : ''}`}
+            role="tab"
+            aria-selected={index === 0 ? 'true' : 'false'}
+            aria-controls={`slide${index}`}
+            id={`about-tab-${index}`}
+          >{slide.subtitle}</button>
         </div>
       ))
     }
@@ -52,6 +59,8 @@ const slides = aboutData[language]?.slides || [];
       <div
         id={`slide${index}`}
         class={`slides ${index === 0 ? 'slideActive' : ''}`}
+        role="tabpanel"
+        aria-labelledby={`about-tab-${index}`}
         set:html={slide.description.replace(/\n/g, '<br>')}
       />
     ))
@@ -81,10 +90,10 @@ const slides = aboutData[language]?.slides || [];
   }
 
   .nav-button {
-    background-color: #3b3b3b;
+    background-color: var(--color-text-light);
     border: none;
     border-radius: 1rem;
-    color: white;
+    color: var(--background-light);
     padding: 0.5rem;
     width: 9rem;
     height: 4rem;
@@ -103,7 +112,7 @@ const slides = aboutData[language]?.slides || [];
   .step-text {
     font-size: 0.75rem;
     margin-top: 5px;
-    color: #bfbfbf;
+    color: var(--color-text-light);
   }
 
   .step-text.active {
@@ -130,9 +139,8 @@ const slides = aboutData[language]?.slides || [];
     .nav-button {
       padding: 0.2rem;
       width: 5rem;
-      height: 3rem;
+      height: 2.75rem;
       font-size: 0.8rem;
-      z-index: -1;
     }
 
     .nav-button.active {

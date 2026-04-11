@@ -1,5 +1,4 @@
 ---
-import { marked } from 'marked';
 import { ManuFosela } from '~/data/index';
 
 const { language } = Astro.props;
@@ -41,7 +40,7 @@ const bio = person.bio.replace(/\n/g, '<br>');
     letter-spacing: 1px;
     font-size: 2rem;
 
-    @media (--motionOK) {
+    @media (prefers-reduced-motion: no-preference) {
       animation: var(--animation-fade-in) forwards;
     }
   }

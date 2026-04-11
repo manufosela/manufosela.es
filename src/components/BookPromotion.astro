@@ -23,21 +23,22 @@ const bookData = Book[language];
     text-align: center;
     margin: 2rem 0;
     padding: 2rem;
-    background: #44aacc;
+    background: var(--primary-color);
     border-radius: 8px;
   }
 
   .book-promotion h2 {
-    color: #333;
+    color: var(--background-light);
     margin-bottom: 1rem;
   }
 
   .book-promotion p {
-    color: #333;
+    color: var(--background-light);
   }
 
   .book-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
     margin-top: 1rem;
@@ -47,48 +48,48 @@ const bookData = Book[language];
   .blog-link {
     display: inline-block;
     padding: 0.8rem 1.5rem;
-    background-color: #333;
-    color: #fff;
+    background-color: var(--color-text-light);
+    color: var(--background-light);
     text-decoration: none;
     border-radius: 4px;
     font-weight: bold;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   .book-link:hover,
   .blog-link:hover {
-    transform: translateY(-2px);
-  }
-
-  .book-link:hover {
-    color: #000;
-    background-color: #e6c824;
-  }
-
-  .blog-link:hover {
-    color: #000;
-    background-color: #f3d229;
+    background-color: var(--active-color);
+    color: var(--background-light);
   }
 
   body[data-theme='dark'] .book-promotion {
-    background: rgba(243, 210, 41, 0.15);
+    background: rgba(68, 170, 204, 0.15);
   }
 
   body[data-theme='dark'] .book-promotion h2 {
-    color: #f3f3f3;
+    color: var(--color-text-light);
   }
 
   body[data-theme='dark'] .book-promotion p {
-    color: #e0e0e0;
+    color: var(--color-text-light);
   }
 
-  body[data-theme='dark'] .blog-link {
-    color: #fff;
-    border-color: #f3d229;
-  }
+  @media screen and (max-width: 991px) {
+    .book-promotion {
+      padding: 1.5rem 1rem;
+      margin: 1rem 0;
+    }
 
-  body[data-theme='dark'] .blog-link:hover {
-    background-color: #f3d229;
-    color: #000;
+    .book-links {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .book-link,
+    .blog-link {
+      width: 100%;
+      max-width: 280px;
+      text-align: center;
+    }
   }
 </style>

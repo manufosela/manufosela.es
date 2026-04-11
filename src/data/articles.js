@@ -1,31 +1,19 @@
 export const articlesDesc = {
   es: 'Collage de 4 fotos. Foto de un post en LinkedIn sobre liderazgo. Foto de un post en LinkedIn sobre organización jerarquica y agile. Foto de un post en LinkedIn sobre cambio de empresa. Foto de un post en LinkedIn sobre ascenso en la empresa',
   en: 'Collage of 4 photos. Photo of a post on LinkedIn about leadership. Photo of a post on LinkedIn about hierarchical organization and agile. Photo of a post on LinkedIn about changing companies. Photo of a post on LinkedIn about moving up in the company'
-} as { [key: string]: string };
+};
 
-interface Article {
-  title: string;
-  url: string;
-}
-
-interface ArticlesByYear {
-  [key: string]: Article[];
-}
-
-interface Tab {
-  name: string;
-  articles: ArticlesByYear;
-}
-
-interface Articles {
-  [key: string]: Tab[];
-}
-
-export const articles: Articles = {
+export const articles = {
   es: [
     {
       name: 'Liderazgo',
       articles: {
+        '2026': [
+          {
+            title: 'Mi primer año en Geniova',
+            url: 'https://www.linkedin.com/pulse/mi-primer-a%25C3%25B1o-en-geniova-m%25C3%25A1nu-fosela-q8qle/'
+          }
+        ],
         '2025': [
           {
             title: 'Proceso de creación del libro "Liderazgo Afectivo"',
@@ -122,6 +110,12 @@ export const articles: Articles = {
     {
       name: 'Leadership',
       articles: {
+        '2026': [
+          {
+            title: 'My first year at Geniova',
+            url: 'https://www.linkedin.com/pulse/mi-primer-a%25C3%25B1o-en-geniova-m%25C3%25A1nu-fosela-q8qle/'
+          }
+        ],
         '2025': [
           {
             title: 'Process of creating the book "Affective Leadership"',
