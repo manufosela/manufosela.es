@@ -31,14 +31,14 @@
   --transition-time: 0.5s;
   --animation-fade-in: fade-in .5s var(--ease-3);
 
-  /* Legacy (to be removed in MFS-TSK-0004 light-mode teardown) */
+  /* Legacy (being phased out during the Carbon Mint migration) */
   --primary-color: #4ac;
-  --color-text-light: hsl(12, 5%, 4%);
-  --color-text-dark: hsl(10, 21%, 95%);
-  --background-light: hsl(10, 21%, 95%);
-  --background-dark: hsl(12, 5%, 4%);
+  --color-text-light: hsl(10, 21%, 95%);
+  --color-text-dark: hsl(12, 5%, 4%);
+  --background-light: hsl(12, 5%, 4%);
+  --background-dark: hsl(10, 21%, 95%);
   --active-color: #128edf;
-  --link-color: #02518d;
+  --link-color: #128edf;
 }
 
 @keyframes fade-in {
@@ -78,16 +78,6 @@ dl,
 dd {
   margin: 0;
   padding: 0;
-}
-
-body[data-theme='dark'] {
-  --primary-color: #4ac;
-  --color-text-light: hsl(10, 21%, 95%);
-  --color-text-dark: hsl(12, 5%, 4%);
-  --background-light: hsl(12, 5%, 4%);
-  --background-dark: hsl(10, 21%, 95%);
-  --active-color: #128edf;
-  --link-color: #128edf;
 }
 
 body,

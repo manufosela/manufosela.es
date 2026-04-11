@@ -23,17 +23,17 @@ const bookData = Book[language];
     text-align: center;
     margin: 2rem 0;
     padding: 2rem;
-    background: var(--primary-color);
+    background: rgba(68, 170, 204, 0.15);
     border-radius: 8px;
   }
 
   .book-promotion h2 {
-    color: var(--background-light);
+    color: var(--color-text-light);
     margin-bottom: 1rem;
   }
 
   .book-promotion p {
-    color: var(--background-light);
+    color: var(--color-text-light);
   }
 
   .book-links {
@@ -60,18 +60,6 @@ const bookData = Book[language];
   .blog-link:hover {
     background-color: var(--active-color);
     color: var(--background-light);
-  }
-
-  body[data-theme='dark'] .book-promotion {
-    background: rgba(68, 170, 204, 0.15);
-  }
-
-  body[data-theme='dark'] .book-promotion h2 {
-    color: var(--color-text-light);
-  }
-
-  body[data-theme='dark'] .book-promotion p {
-    color: var(--color-text-light);
   }
 
   @media screen and (max-width: 991px) {
