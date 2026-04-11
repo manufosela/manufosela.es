@@ -1,18 +1,7 @@
 export const indexDesc = {
   es: 'Imagen de Mánu Fosela, con camisa magenta electrico y tirantes azul oscuro. De lado, con brazos cruzados. La imagen ocupa la mitad izquierda de la pantalla',
   en: 'Image of Mánu Fosela, with electric magenta shirt and dark blue suspenders. Sideways, with arms crossed. The image takes up the left half of the screen'
-} as { [key: string]: string };
-
-interface Person {
-  name: string;
-  rol: string;
-  position: string;
-  bio: string;
-}
-
-interface Persons {
-  [key: string]: Person;
-}
+};
 
 export const ManuFosela = {
   es: {
@@ -41,4 +30,4 @@ People-focused.<br>
 Passionate about Organizational Culture.<br>
 Support for Junior professionals.`
   }
-} as Persons;
+};

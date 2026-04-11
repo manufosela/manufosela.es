@@ -1,29 +1,9 @@
 export const mediaDesc = {
   es: 'Collage de capturas de pantalla de diferentes videos de las charlas de Mánu Fosela',
   en: "Collage of screenshots of different videos of Mánu Fosela's talks"
-} as { [key: string]: string };
+};
 
-interface Media {
-  title: string;
-  link: string;
-}
-
-interface MediaByYear {
-  [key: string]: Media[];
-}
-
-interface MediaByType {
-  Charlas?: MediaByYear;
-  Entrevistas?: MediaByYear;
-  Talks?: MediaByYear;
-  Interviews?: MediaByYear;
-}
-
-interface Medias {
-  [key: string]: MediaByType;
-}
-
-export const mediaData: Medias = {
+export const mediaData = {
   es: {
     Charlas: {
       '2025': [
@@ -204,18 +184,7 @@ export const mediaData: Medias = {
       ]
     }
   }
-} as Medias;
-
-interface Link {
-  name: string;
-  url: string;
-}
-
-interface Links {
-  contact: Array<Link>;
-  social: Array<Link>;
-  software: Array<Link>;
-}
+};
 
 export const Links = {
   contact: [
@@ -260,4 +229,4 @@ export const Links = {
       url: 'https://www.npmjs.com/~manufosela'
     }
   ]
-} as Links;
+};

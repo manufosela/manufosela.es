@@ -1,16 +1,7 @@
 export const contributionsDesc = {
   es: 'Collage de 3 fotos. Foto de la portada del libro "Liderazgo Afectivo". Captura del GitHub de Mánu. Captura de Codepen de Mánu',
   en: 'Collage of 3 photos. Photo of the cover of the book "Affective Leadership". Screenshot of Mánu\'s GitHub. Screenshot of Mánu\'s Codepen'
-} as { [key: string]: string }
-
-interface Project {
-  title: string
-  description: string
-}
-
-interface Contributions {
-  [key: string]: Project[]
-}
+};
 
 export const contributionsData = {
   es: [
@@ -76,4 +67,4 @@ export const contributionsData = {
         'I have some projects on GitHub, Codepen and Stackoverflow, including tools for automatic form validation in JavaScript, an introduction to docker, and web component generators using Lit-Element, among others.'
     }
   ]
-} as Contributions
+};

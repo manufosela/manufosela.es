@@ -1,27 +1,9 @@
 export const articlesDesc = {
   es: 'Collage de 4 fotos. Foto de un post en LinkedIn sobre liderazgo. Foto de un post en LinkedIn sobre organización jerarquica y agile. Foto de un post en LinkedIn sobre cambio de empresa. Foto de un post en LinkedIn sobre ascenso en la empresa',
   en: 'Collage of 4 photos. Photo of a post on LinkedIn about leadership. Photo of a post on LinkedIn about hierarchical organization and agile. Photo of a post on LinkedIn about changing companies. Photo of a post on LinkedIn about moving up in the company'
-} as { [key: string]: string };
+};
 
-interface Article {
-  title: string;
-  url: string;
-}
-
-interface ArticlesByYear {
-  [key: string]: Article[];
-}
-
-interface Tab {
-  name: string;
-  articles: ArticlesByYear;
-}
-
-interface Articles {
-  [key: string]: Tab[];
-}
-
-export const articles: Articles = {
+export const articles = {
   es: [
     {
       name: 'Liderazgo',
