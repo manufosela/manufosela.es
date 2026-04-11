@@ -1,0 +1,121 @@
+/**
+ * Carbon Mint — shared utilities (ADR-003)
+ *
+ * Reusable primitives for the Technical Quiet Luxury design language.
+ * Use these classes to compose sections without duplicating rules or
+ * hard-coding tokens. All values reference :root custom properties.
+ */
+
+/* ---------------------------------------------------------------
+ * Glassmorphism surfaces
+ * Usage: <nav class="u-glass"> ... </nav>
+ * Floating nav/modal with subtle blur + low-opacity surface.
+ * ------------------------------------------------------------- */
+.u-glass {
+  background-color: color-mix(in srgb, var(--surface) 60%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.u-glass--strong {
+  background-color: color-mix(in srgb, var(--surface-bright) 80%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ---------------------------------------------------------------
+ * Ghost borders
+ * Usage: <button class="u-ghost-border"> ... </button>
+ * Near-invisible outline used only when data density demands it.
+ * Forbidden as a default section divider — prefer whitespace/tiers.
+ * ------------------------------------------------------------- */
+.u-ghost-border {
+  border: 1px solid color-mix(in srgb, var(--outline-variant) 15%, transparent);
+}
+
+.u-ghost-border--active {
+  border-color: var(--primary-fixed-dim);
+}
+
+/* ---------------------------------------------------------------
+ * Bento grids
+ * Usage:
+ *   <section class="u-bento">
+ *     <div class="u-bento__item u-bento__item--wide">...</div>
+ *     <div class="u-bento__item">...</div>
+ *     <div class="u-bento__item">...</div>
+ *   </section>
+ * Six-column asymmetric grid with generous gaps (the "xl" 0.75rem
+ * scale). Stacks to 1 column under 640 px.
+ * ------------------------------------------------------------- */
+.u-bento {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+
+.u-bento__item {
+  grid-column: span 3;
+  background-color: var(--surface-container-low);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: background-color 200ms var(--ease-3);
+}
+
+.u-bento__item:hover {
+  background-color: var(--surface-container-high);
+}
+
+.u-bento__item--wide {
+  grid-column: span 6;
+}
+
+.u-bento__item--narrow {
+  grid-column: span 2;
+}
+
+.u-bento__item--primary {
+  grid-column: span 4;
+}
+
+@media (max-width: 640px) {
+  .u-bento {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .u-bento__item,
+  .u-bento__item--wide,
+  .u-bento__item--narrow,
+  .u-bento__item--primary {
+    grid-column: span 1;
+  }
+}
+
+/* ---------------------------------------------------------------
+ * Editorial labels
+ * Usage: <span class="u-label">System.Engine.Core</span>
+ * All-caps micro-typography for metadata and technical specs.
+ * ------------------------------------------------------------- */
+.u-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+}
+
+.u-label--accent {
+  color: var(--primary-fixed-dim);
+}
+
+/* ---------------------------------------------------------------
+ * Ambient elevation
+ * Usage: <div class="u-elevated"> ... </div>
+ * Replaces 2010s drop shadows with an atmospheric shadow that
+ * "absorbs light" rather than casting a grey smudge.
+ * ------------------------------------------------------------- */
+.u-elevated {
+  box-shadow: 0 24px 48px rgb(0 0 0 / 40%);
+}
