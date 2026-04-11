@@ -1,5 +1,6 @@
 ---
 import BaseHead from '~/components/BaseHead.astro';
+import BottomNavBar from '~/components/BottomNavBar.astro';
 import { Site } from '~/data/config';
 import '~/styles/layout.css';
 import '~/styles/fonts.css';
@@ -10,9 +11,10 @@ interface Props {
   includeSchema?: boolean;
   description?: string;
   image?: string;
+  active?: 'home' | 'leadership' | 'tech' | 'contact';
 }
 
-const { title, includeSchema = false, description = Site.description, image = '/manufosela.png' } = Astro.props;
+const { title, includeSchema = false, description = Site.description, image = '/manufosela.png', active = 'home' } = Astro.props;
 
 const isProduction = import.meta.env.PROD;
 const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
@@ -41,6 +43,7 @@ const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
   </head>
   <body>
     <slot />
+    <BottomNavBar active={active} language={lang} />
   </body>
 </html>
 
@@ -53,5 +56,12 @@ const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
 
   main {
     flex: 1;
+  }
+
+  /* Reserve space so BottomNavBar does not cover the last block on mobile */
+  @media (max-width: 767px) {
+    body {
+      padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0));
+    }
   }
 </style>
