@@ -1,14 +1,44 @@
 :root {
+  /* Carbon Mint — Technical Quiet Luxury design system (ADR-001) */
+  --surface: #131313;
+  --surface-container-lowest: #0e0e0e;
+  --surface-container-low: #1c1b1b;
+  --surface-container: #201f1f;
+  --surface-container-high: #2a2a2a;
+  --surface-container-highest: #353534;
+  --surface-bright: #393939;
+  --surface-variant: #353534;
+
+  --on-surface: #e5e2e1;
+  --on-surface-variant: #b9cbc2;
+  --on-background: #e5e2e1;
+
+  --primary: #fdfffc;
+  --primary-container: #00ffcc;
+  --primary-fixed: #24ffcd;
+  --primary-fixed-dim: #00e0b3;
+  --on-primary: #00382b;
+  --on-primary-container: #00725a;
+
+  --outline: #83958d;
+  --outline-variant: #3a4a44;
+
+  --error: #ffb4ab;
+  --on-error: #690005;
+
+  /* Motion & easing */
+  --ease-3: cubic-bezier(.25, 0, .3, 1);
+  --transition-time: 0.5s;
+  --animation-fade-in: fade-in .5s var(--ease-3);
+
+  /* Legacy (to be removed in MFS-TSK-0004 light-mode teardown) */
   --primary-color: #4ac;
   --color-text-light: hsl(12, 5%, 4%);
   --color-text-dark: hsl(10, 21%, 95%);
   --background-light: hsl(10, 21%, 95%);
   --background-dark: hsl(12, 5%, 4%);
-  --transition-time: 0.5s;
   --active-color: #128edf;
   --link-color: #02518d;
-  --ease-3: cubic-bezier(.25, 0, .3, 1);
-  --animation-fade-in: fade-in .5s var(--ease-3);
 }
 
 @keyframes fade-in {
