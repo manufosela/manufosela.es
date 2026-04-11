@@ -1,38 +1,331 @@
 ---
-import Navigation from './Navigation.astro';
 import EsEnToogle from './EsEnToggle.astro';
+import { primaryNav } from '~/data/navigation';
 
-const { active, language } = Astro.props;
+interface Props {
+  active?: 'home' | 'leadership' | 'tech' | 'contact';
+  language: 'es' | 'en';
+}
+
+const { active = 'home', language = 'es' } = Astro.props;
 ---
 
-<section class="header">
-  <div class="header__controls">
-    <EsEnToogle />
+<header class="top-app-bar" data-scrolled="false">
+  <div class="top-app-bar__inner">
+    <button
+      type="button"
+      class="top-app-bar__burger"
+      aria-label="Open navigation"
+      aria-expanded="false"
+      aria-controls="mobile-drawer"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+    <a href={`/${language}/`} class="top-app-bar__logo" aria-label="Mánu Fosela — Home">
+      M<span class="top-app-bar__accent-mark">á</span>nu Fosela
+    </a>
+
+    <nav class="top-app-bar__nav" aria-label="Primary">
+      {primaryNav.map((item) => (
+        <a
+          href={item.href(language)}
+          class="top-app-bar__link"
+          aria-current={active === item.id ? 'page' : undefined}
+        >
+          {language === 'es' ? item.es : item.en}
+        </a>
+      ))}
+    </nav>
+
+    <div class="top-app-bar__controls">
+      <EsEnToogle />
+    </div>
   </div>
-  <Navigation active={active} language={language} />
-</section>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer" data-open="false" aria-hidden="true">
+  <div class="mobile-drawer__backdrop"></div>
+  <aside class="mobile-drawer__panel u-glass" aria-label="Navigation drawer">
+    <nav aria-label="Primary mobile">
+      <ul>
+        {primaryNav.map((item, i) => (
+          <li style={`--stagger: ${i * 40}ms`}>
+            <a
+              href={item.href(language)}
+              class="mobile-drawer__link"
+              aria-current={active === item.id ? 'page' : undefined}
+            >
+              {language === 'es' ? item.es : item.en}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="mobile-drawer__footer">
+      <EsEnToogle />
+    </div>
+  </aside>
+</div>
 
 <style>
-  .header {
+  .top-app-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background-color 300ms var(--ease-3), border-color 300ms var(--ease-3),
+      backdrop-filter 300ms var(--ease-3);
+  }
+
+  .top-app-bar[data-scrolled='true'] {
+    background-color: color-mix(in srgb, var(--surface) 60%, transparent);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom-color: color-mix(in srgb, var(--outline-variant) 15%, transparent);
+  }
+
+  .top-app-bar__inner {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding-block: 1rem;
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+    max-width: 1440px;
+    margin-inline: auto;
+  }
+
+  .top-app-bar__burger {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 22px;
+    height: 14px;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    color: var(--primary-fixed-dim);
+  }
+  .top-app-bar__burger span {
+    display: block;
+    height: 1.5px;
+    background: currentColor;
+    border-radius: 1px;
+  }
+
+  .top-app-bar__logo {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    letter-spacing: -0.025em;
+    color: var(--on-surface);
+    text-decoration: none;
+  }
+  /* Personal signature: the accent mark IS the mint accent */
+  .top-app-bar__accent-mark {
+    color: var(--primary-fixed-dim);
+  }
+
+  .top-app-bar__nav {
+    display: none;
+  }
+
+  .top-app-bar__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+  }
+
+  @media (max-width: 1023px) {
+    .top-app-bar__logo {
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .top-app-bar__burger {
+      display: none;
+    }
+
+    .top-app-bar__logo {
+      margin-right: clamp(2rem, 5vw, 4rem);
+    }
+
+    .top-app-bar__nav {
+      display: flex;
+      gap: clamp(1.5rem, 3vw, 2.75rem);
+      flex-grow: 1;
+    }
+  }
+
+  .top-app-bar__link {
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+    text-decoration: none;
+    padding-block: 0.35rem;
+    transition: color 200ms var(--ease-3);
+  }
+  .top-app-bar__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-fixed-dim);
+    transition: width 260ms var(--ease-3);
+  }
+  .top-app-bar__link:hover {
+    color: var(--on-surface);
+  }
+  .top-app-bar__link[aria-current='page'] {
+    color: var(--on-surface);
+  }
+  .top-app-bar__link[aria-current='page']::after {
+    width: 1rem;
+  }
+
+  .mobile-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+  }
+  .mobile-drawer[data-open='true'] {
+    pointer-events: auto;
+  }
+
+  .mobile-drawer__backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: color-mix(in srgb, var(--surface-container-lowest) 72%, transparent);
+    opacity: 0;
+    transition: opacity 320ms var(--ease-3);
+  }
+  .mobile-drawer[data-open='true'] .mobile-drawer__backdrop {
+    opacity: 1;
+  }
+
+  .mobile-drawer__panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(85vw, 22rem);
+    padding: 2rem 1.75rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 1rem;
-    width: 100%;
+    justify-content: space-between;
+    transform: translateX(-105%);
+    transition: transform 380ms cubic-bezier(0.2, 0.9, 0.25, 1);
+  }
+  .mobile-drawer[data-open='true'] .mobile-drawer__panel {
+    transform: translateX(0);
   }
 
-  .header__controls {
+  .mobile-drawer nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 4rem 0 0;
     display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    width: 100%;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
-  @media screen and (max-width: 991px) {
-    .header {
-      padding: 0;
-      flex-direction: row-reverse;
+  .mobile-drawer__link {
+    display: block;
+    position: relative;
+    padding-inline-start: 1.25rem;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+    letter-spacing: -0.02em;
+    color: var(--on-surface-variant);
+    text-decoration: none;
+    transform: translateY(8px);
+    opacity: 0;
+    transition: color 220ms var(--ease-3), transform 260ms var(--ease-3),
+      opacity 260ms var(--ease-3);
+  }
+  .mobile-drawer[data-open='true'] .mobile-drawer__link {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: calc(var(--stagger, 0ms) + 120ms);
+  }
+  .mobile-drawer__link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 1.5rem;
+    width: 2px;
+    background-color: var(--primary-fixed-dim);
+    transform: translateY(-50%) scaleY(0);
+    transition: transform 240ms var(--ease-3);
+  }
+  .mobile-drawer__link:hover {
+    color: var(--on-surface);
+  }
+  .mobile-drawer__link[aria-current='page'] {
+    color: var(--on-surface);
+  }
+  .mobile-drawer__link[aria-current='page']::before {
+    transform: translateY(-50%) scaleY(1);
+  }
+
+  .mobile-drawer__footer {
+    padding-top: 1rem;
+    border-top: 1px solid color-mix(in srgb, var(--outline-variant) 15%, transparent);
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-drawer {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .top-app-bar,
+    .top-app-bar__link::after,
+    .mobile-drawer__backdrop,
+    .mobile-drawer__panel,
+    .mobile-drawer__link {
+      transition: none;
     }
   }
 </style>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('.top-app-bar');
+  const burger = document.querySelector<HTMLButtonElement>('.top-app-bar__burger');
+  const drawer = document.querySelector<HTMLElement>('.mobile-drawer');
+  const backdrop = drawer?.querySelector('.mobile-drawer__backdrop');
+
+  const onScroll = () => bar?.setAttribute('data-scrolled', String(window.scrollY > 16));
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const setDrawer = (open: boolean) => {
+    if (!burger || !drawer) return;
+    burger.setAttribute('aria-expanded', String(open));
+    drawer.setAttribute('data-open', String(open));
+    drawer.setAttribute('aria-hidden', String(!open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  burger?.addEventListener('click', () => {
+    setDrawer(burger.getAttribute('aria-expanded') !== 'true');
+  });
+  backdrop?.addEventListener('click', () => setDrawer(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setDrawer(false);
+  });
+</script>

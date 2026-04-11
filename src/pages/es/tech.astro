@@ -1,0 +1,34 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/Header.astro';
+import { Site } from '~/data/config';
+
+const title = `${Site.title} — Tech Hub`;
+const language = 'es';
+---
+
+<Layout {title}>
+  <Header active="tech" language={language} />
+  <main class="placeholder">
+    <p class="u-label u-label--accent">Próximamente</p>
+    <h1>Tech Hub</h1>
+    <p>Esta sección está en construcción como parte del rediseño 2026.</p>
+  </main>
+</Layout>
+
+<style>
+  .placeholder {
+    max-width: 48rem;
+    margin-inline: auto;
+    padding: clamp(3rem, 10vh, 6rem) clamp(1.5rem, 4vw, 3rem);
+    color: var(--on-surface-variant);
+  }
+  .placeholder h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--on-surface);
+    margin-block: 1rem;
+  }
+</style>
