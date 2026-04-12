@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import BaseHead from '~/components/BaseHead.astro';
 import Header from '~/components/Header.astro';
 import BottomNavBar from '~/components/BottomNavBar.astro';
@@ -25,7 +25,7 @@ const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
 <html lang={lang}>
   <head>
     <BaseHead title={title} includeSchema={includeSchema} />
-    <ViewTransitions />
+    <ClientRouter />
     <link rel="preload" href="/fonts/inter-subset.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin />
     <style>
