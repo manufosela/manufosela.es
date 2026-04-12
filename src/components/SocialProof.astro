@@ -1,0 +1,85 @@
+---
+import { socialProof } from '~/data/socialproof';
+
+interface Props {
+  language: 'es' | 'en';
+}
+
+const { language } = Astro.props;
+const label = socialProof[language].label;
+const logos = socialProof.logos;
+---
+
+<section class="social-proof" aria-label={label}>
+  <p class="social-proof__label">{label}</p>
+  <div class="social-proof__strip">
+    {logos.map((logo) => (
+      <span class="social-proof__logo" style={`--logo-w: ${logo.width}px`}>
+        {logo.name}
+      </span>
+    ))}
+  </div>
+</section>
+
+<style>
+  .social-proof {
+    padding-block: clamp(2.5rem, 6vh, 4rem);
+    border-top: 1px solid color-mix(in srgb, var(--outline-variant) 10%, transparent);
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .social-proof__label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+    text-align: center;
+    margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+  }
+
+  .social-proof__strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .social-proof__logo {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--on-surface-variant);
+    opacity: 0.35;
+    transition: opacity 300ms var(--ease-3);
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .social-proof__logo:hover {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 640px) {
+    .social-proof__strip {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      padding-inline: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .social-proof__strip::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .social-proof__logo { transition: none; }
+  }
+</style>
