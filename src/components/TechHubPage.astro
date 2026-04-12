@@ -10,19 +10,28 @@ interface Props {
 const { language } = Astro.props;
 const d = techHubData[language];
 
-let ghUser = { public_repos: 128, followers: 0 };
-let ghStars = 0;
+const GH_FALLBACK = { repos: 100, stars: 99 };
+let ghRepos = GH_FALLBACK.repos;
+let ghStars = GH_FALLBACK.stars;
 try {
-  const res = await fetch('https://api.github.com/users/manufosela');
-  if (res.ok) ghUser = await res.json();
-  const reposRes = await fetch('https://api.github.com/users/manufosela/repos?per_page=100&sort=updated');
+  const headers = import.meta.env.GITHUB_TOKEN
+    ? { Authorization: `Bearer ${import.meta.env.GITHUB_TOKEN}` }
+    : {};
+  const res = await fetch('https://api.github.com/users/manufosela', { headers });
+  if (res.ok) {
+    const user = await res.json();
+    ghRepos = user.public_repos ?? GH_FALLBACK.repos;
+  }
+  const reposRes = await fetch('https://api.github.com/users/manufosela/repos?per_page=100&sort=updated', { headers });
   if (reposRes.ok) {
     const repos = await reposRes.json();
-    ghStars = repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
+    if (Array.isArray(repos)) {
+      ghStars = repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
+    }
   }
 } catch {}
 
-d.repos.value = String(ghUser.public_repos);
+d.repos.value = String(ghRepos);
 d.stars.value = ghStars > 999 ? `${(ghStars / 1000).toFixed(1)}k` : String(ghStars);
 
 const allArticles = await getAllArticles();

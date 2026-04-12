@@ -1,9 +1,0 @@
-import type { APIRoute } from 'astro'
-import getPagesList from '~/scripts/listPages'
-
-export const get: APIRoute = async () => {
-  const pages = getPagesList()
-  return {
-    body: JSON.stringify(pages)
-  }
-}
