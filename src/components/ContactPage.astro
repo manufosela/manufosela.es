@@ -2,6 +2,7 @@
 import { trajectoryData } from '~/data/trajectory';
 import { Links } from '~/data/media';
 import PhotoGallery from '~/components/PhotoGallery.astro';
+import PhotosRehydrator from '~/components/PhotosRehydrator.astro';
 import { fetchPhotos } from '~/utils/fetchPhotos';
 
 interface Props {
@@ -24,7 +25,10 @@ const socialLinks = [...Links.social, ...Links.software];
   </section>
 
   <!-- Photos -->
-  <PhotoGallery title={language === 'es' ? 'Momentos' : 'Moments'} photos={contactPhotos} />
+  <div id="contact-photos">
+    <PhotoGallery title={language === 'es' ? 'Momentos' : 'Moments'} photos={contactPhotos} />
+  </div>
+  <PhotosRehydrator section="contact" target="#contact-photos" mode="gallery" />
 
   <!-- Timeline -->
   <section class="timeline" aria-label={d.resumeTitle}>

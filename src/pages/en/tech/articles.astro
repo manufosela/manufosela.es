@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/Layout.astro';
 import ArticleCatalog from '~/components/ArticleCatalog.astro';
+import ArticlesRehydrator from '~/components/ArticlesRehydrator.astro';
 import { getAllArticles, filterByTopic } from '~/utils/fetchArticles';
 import { Site } from '~/data/config';
 
@@ -12,5 +13,6 @@ const title = `${Site.title} — Tech Articles`;
 <Layout {title} active="tech">
   <main>
     <ArticleCatalog title="Tech Articles" articles={techArticles} language="en" />
+    <ArticlesRehydrator topic="tech" target="#catalog-years" />
   </main>
 </Layout>

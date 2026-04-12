@@ -62,65 +62,80 @@ import '~/styles/utilities.css';
 
       <!-- Tab: Artículos -->
       <div class="admin__pane admin__pane--visible" id="pane-articles" role="tabpanel">
-        <form id="article-form" class="admin__form">
-          <h2>Añadir artículo de LinkedIn</h2>
-          <div class="admin__field">
-            <label class="u-label" for="art-title">Título</label>
-            <input type="text" id="art-title" required />
-          </div>
-          <div class="admin__field">
-            <label class="u-label" for="art-url">URL</label>
-            <input type="url" id="art-url" required />
-          </div>
-          <div class="admin__row">
+        <div class="admin__card">
+          <form id="article-form" class="admin__form">
+            <h2>Añadir artículo de LinkedIn</h2>
             <div class="admin__field">
-              <label class="u-label" for="art-topic">Tema</label>
-              <select id="art-topic"><option value="leadership">Liderazgo</option><option value="tech">Tech</option></select>
+              <label class="u-label" for="art-title">Título</label>
+              <input type="text" id="art-title" required />
             </div>
             <div class="admin__field">
-              <label class="u-label" for="art-date">Fecha</label>
-              <input type="date" id="art-date" />
+              <label class="u-label" for="art-url">URL</label>
+              <input type="url" id="art-url" required />
             </div>
+            <div class="admin__row">
+              <div class="admin__field">
+                <label class="u-label" for="art-topic">Tema</label>
+                <select id="art-topic"><option value="leadership">Liderazgo</option><option value="tech">Tech</option></select>
+              </div>
+              <div class="admin__field">
+                <label class="u-label" for="art-date">Fecha</label>
+                <input type="date" id="art-date" />
+              </div>
+              <div class="admin__field">
+                <label class="u-label" for="art-order">Orden</label>
+                <input type="number" id="art-order" placeholder="99" min="1" max="999" />
+              </div>
+            </div>
+            <button type="submit" class="admin__btn admin__btn--primary">Guardar</button>
+            <p id="article-status" class="admin__status"></p>
+          </form>
+        </div>
+        <div class="admin__list-header">
+          <h3>Artículos guardados</h3>
+          <div class="admin__list-columns">
+            <span>ORDEN</span>
+            <span>TÍTULO</span>
+            <span>ACCIONES</span>
           </div>
-          <div class="admin__field">
-            <label class="u-label" for="art-order">Orden (menor = primero)</label>
-            <input type="number" id="art-order" value="99" min="1" max="999" />
-          </div>
-          <button type="submit" class="admin__btn admin__btn--primary">Guardar</button>
-          <p id="article-status" class="admin__status"></p>
-        </form>
+        </div>
         <div id="articles-list" class="admin__list"></div>
       </div>
 
       <!-- Tab: Fotos -->
       <div class="admin__pane" id="pane-photos" role="tabpanel" hidden>
-        <form id="photo-form" class="admin__form">
-          <h2>Subir foto</h2>
-          <div class="admin__field">
-            <label class="u-label" for="photo-file">Imagen</label>
-            <input type="file" id="photo-file" accept="image/*" required />
-          </div>
-          <div class="admin__field">
-            <label class="u-label" for="photo-alt">Descripción / alt</label>
-            <input type="text" id="photo-alt" required />
-          </div>
-          <div class="admin__row">
+        <div class="admin__card">
+          <form id="photo-form" class="admin__form">
+            <h2>Subir foto</h2>
             <div class="admin__field">
-              <label class="u-label" for="photo-section">Sección</label>
-              <select id="photo-section">
-                <option value="leadership">Liderazgo</option>
-                <option value="contact">Trayectoria</option>
-              </select>
+              <label class="u-label" for="photo-file">Imagen</label>
+              <input type="file" id="photo-file" accept="image/*" required />
             </div>
             <div class="admin__field">
-              <label class="u-label" for="photo-context">Contexto</label>
-              <input type="text" id="photo-context" placeholder="Ej: CommitConf 2024" />
+              <label class="u-label" for="photo-alt">Descripción / alt</label>
+              <input type="text" id="photo-alt" required />
             </div>
-          </div>
-          <button type="submit" class="admin__btn admin__btn--primary">Subir</button>
-          <div id="photo-progress" class="admin__progress" hidden><div class="admin__progress-bar"></div></div>
-          <p id="photo-status" class="admin__status"></p>
-        </form>
+            <div class="admin__row">
+              <div class="admin__field">
+                <label class="u-label" for="photo-section">Sección</label>
+                <select id="photo-section">
+                  <option value="leadership">Liderazgo</option>
+                  <option value="contact">Trayectoria</option>
+                </select>
+              </div>
+              <div class="admin__field">
+                <label class="u-label" for="photo-context">Contexto</label>
+                <input type="text" id="photo-context" placeholder="Ej: CommitConf 2024" />
+              </div>
+            </div>
+            <button type="submit" class="admin__btn admin__btn--primary">Subir</button>
+            <div id="photo-progress" class="admin__progress" hidden><div class="admin__progress-bar"></div></div>
+            <p id="photo-status" class="admin__status"></p>
+          </form>
+        </div>
+        <div class="admin__list-header">
+          <h3>Fotos guardadas</h3>
+        </div>
         <div id="photos-grid" class="admin__photos"></div>
       </div>
     </div>
@@ -192,7 +207,7 @@ import '~/styles/utilities.css';
       const url = $('art-url').value.trim();
       const topic = $('art-topic').value;
       const date = $('art-date').value || new Date().toISOString().split('T')[0];
-      const order = parseInt($('art-order').value) || 99;
+      const order = $('art-order').value ? parseInt($('art-order').value) : 99;
       if (!title || !url) return;
       try {
         await set(push(ref(db, 'articles/linkedin')), { title, url, topic, date: new Date(date).toISOString(), order });
@@ -214,13 +229,15 @@ import '~/styles/utilities.css';
         const entries = Object.entries(data).sort(([,a],[,b]) => (a.order || 99) - (b.order || 99));
         list.innerHTML = entries.map(([key, a]) => `
           <div class="admin__item" data-key="${key}">
-            <input type="number" class="admin__item-order-input" value="${a.order || 99}" min="1" max="999" data-key="${key}" data-field="order" title="Orden" />
+            <input type="number" class="admin__item-order-input" value="${a.order || 99}" min="1" max="999" data-key="${key}" data-field="order" aria-label="Orden" />
             <div class="admin__item-info">
-              <span class="admin__item-title">${a.title}</span>
-              <span class="admin__item-meta">${a.topic} · ${new Date(a.date).toLocaleDateString('es')}</span>
+              <span class="admin__item-title" title="${a.title}">${a.title}</span>
+              <span class="admin__item-meta">${a.topic === 'leadership' ? 'Liderazgo' : 'Tech'} · ${new Date(a.date).toLocaleDateString('es')}</span>
             </div>
-            <button class="admin__btn-edit" data-key="${key}" data-type="edit-article" title="Editar">✎</button>
-            <button class="admin__btn-delete" data-key="${key}" data-type="article" title="Eliminar">✕</button>
+            <div class="admin__item-actions">
+              <button class="admin__btn-edit" data-key="${key}" data-type="edit-article" title="Editar" aria-label="Editar">✎</button>
+              <button class="admin__btn-delete" data-key="${key}" data-type="article" title="Eliminar" aria-label="Eliminar">✕</button>
+            </div>
           </div>
         `).join('');
         list.querySelectorAll('[data-type="article"]').forEach(btn => {
@@ -381,15 +398,48 @@ import '~/styles/utilities.css';
     .admin__pane { display: none; }
     .admin__pane--visible { display: block; }
 
-    .admin__form { margin-bottom: 2.5rem; }
+    .admin__card {
+      background-color: var(--surface-container-low);
+      border: 1px solid color-mix(in srgb, var(--outline-variant) 12%, transparent);
+      border-radius: 0.75rem;
+      padding: clamp(1.25rem, 3vw, 2rem);
+      margin-bottom: 2rem;
+    }
+
     .admin__form h2 { font-family: 'Manrope', sans-serif; font-size: 1.125rem; font-weight: 800; margin-bottom: 1.5rem; }
     .admin__field { margin-bottom: 1rem; }
     .admin__field label { display: block; margin-bottom: 0.375rem; }
     .admin__field input, .admin__field select { width: 100%; padding: 0.75rem 1rem; background-color: var(--surface-container-lowest); border: 0; border-radius: 0.5rem; color: var(--on-surface); font-family: 'Inter', sans-serif; font-size: 0.875rem; outline: none; }
     .admin__field input[type="file"] { padding: 0.5rem; }
     .admin__field input:focus, .admin__field select:focus { box-shadow: inset 0 0 0 1px var(--primary-fixed-dim); }
+    .admin__field input::placeholder { color: color-mix(in srgb, var(--on-surface-variant) 50%, transparent); }
     .admin__field select { appearance: none; cursor: pointer; }
-    .admin__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .admin__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1rem; }
+
+    .admin__list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1.5rem 0 0.75rem;
+    }
+    .admin__list-header h3 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--on-surface);
+    }
+    .admin__list-columns {
+      display: grid;
+      grid-template-columns: 4rem 1fr 5rem;
+      gap: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.5625rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--on-surface-variant);
+      width: 60%;
+      text-align: left;
+    }
 
     .admin__btn { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 0.875rem; padding: 0.75rem 1.5rem; border: 0; border-radius: 0.5rem; cursor: pointer; transition: opacity 200ms; }
     .admin__btn:hover { opacity: 0.85; }
@@ -400,15 +450,42 @@ import '~/styles/utilities.css';
     .admin__progress { height: 4px; background-color: var(--surface-container-high); border-radius: 2px; margin-top: 0.75rem; overflow: hidden; }
     .admin__progress-bar { height: 100%; background-color: var(--primary-fixed-dim); width: 0; transition: width 200ms; }
 
-    .admin__list { display: flex; flex-direction: column; gap: 0.5rem; }
-    .admin__item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem 1rem; background-color: var(--surface-container-low); border-radius: 0.5rem; }
+    .admin__list { display: flex; flex-direction: column; gap: 0.375rem; }
+    .admin__item {
+      display: grid;
+      grid-template-columns: 4rem 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      background-color: var(--surface-container-low);
+      border: 1px solid color-mix(in srgb, var(--outline-variant) 8%, transparent);
+      border-radius: 0.5rem;
+      transition: border-color 200ms, background-color 200ms;
+    }
+    .admin__item:hover { border-color: color-mix(in srgb, var(--primary-fixed-dim) 25%, transparent); background-color: var(--surface-container); }
     .admin__item-info { display: flex; flex-direction: column; min-width: 0; }
-    .admin__item-order-input { width: 3rem; padding: 0.25rem 0.375rem; background-color: var(--surface-container-lowest); border: 0; border-radius: 0.25rem; color: var(--primary-fixed-dim); font-family: 'Manrope', sans-serif; font-size: 0.75rem; font-weight: 700; text-align: center; flex-shrink: 0; outline: none; }
+    .admin__item-order-input {
+      width: 3rem;
+      padding: 0.375rem;
+      background-color: var(--surface-container-lowest);
+      border: 1px solid transparent;
+      border-radius: 0.25rem;
+      color: var(--primary-fixed-dim);
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-align: center;
+      outline: none;
+    }
+    .admin__item-order-input:hover { border-color: color-mix(in srgb, var(--outline-variant) 30%, transparent); }
     .admin__item-order-input:focus { box-shadow: inset 0 0 0 1px var(--primary-fixed-dim); }
-    .admin__btn-edit { background: none; border: 0; color: var(--primary-fixed-dim); font-size: 1rem; cursor: pointer; flex-shrink: 0; padding: 0.25rem; }
-    .admin__item-title { font-weight: 600; font-size: 0.875rem; color: var(--on-surface); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .admin__item-actions { display: flex; gap: 0.25rem; }
+    .admin__btn-edit { background: none; border: 0; color: var(--primary-fixed-dim); font-size: 1rem; cursor: pointer; padding: 0.375rem 0.5rem; border-radius: 0.25rem; transition: background-color 200ms; }
+    .admin__btn-edit:hover { background-color: color-mix(in srgb, var(--primary-fixed-dim) 10%, transparent); }
+    .admin__item-title { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 0.875rem; color: var(--on-surface); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .admin__item-meta { font-size: 0.6875rem; color: var(--on-surface-variant); text-transform: uppercase; letter-spacing: 0.04em; }
-    .admin__btn-delete { background: none; border: 0; color: var(--error); font-size: 1rem; cursor: pointer; flex-shrink: 0; padding: 0.25rem; }
+    .admin__btn-delete { background: none; border: 0; color: var(--error); font-size: 1rem; cursor: pointer; padding: 0.375rem 0.5rem; border-radius: 0.25rem; transition: background-color 200ms; }
+    .admin__btn-delete:hover { background-color: color-mix(in srgb, var(--error) 10%, transparent); }
 
     .admin__photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 1rem; }
     .admin__photo-card { position: relative; border-radius: 0.5rem; overflow: hidden; background-color: var(--surface-container-low); }
