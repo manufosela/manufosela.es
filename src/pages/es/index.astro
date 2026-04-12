@@ -11,12 +11,14 @@ const language = 'es';
 ---
 
 <Layout {title} includeSchema={true} active="home">
+  <main>
   <HeroHome language={language} />
   <div class="home-sections">
     <Dualidad language={language} />
     <BentoLogros language={language} />
     <SocialProof language={language} />
   </div>
+  </main>
 </Layout>
 
 <style>
