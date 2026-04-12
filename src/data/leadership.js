@@ -34,7 +34,7 @@ export const leadershipData = {
     detailsButton: 'More about the book',
     buyLink: 'https://www.amazon.com/dp/B0F1Y8XG2G',
     detailsLink: 'https://liderazgoafectivo.com',
-    editorialNote: 'Published by Savvily Editorial',
+    editorialNote: 'Self-published (English edition)',
     bookCover: '/images/portada_libro_en.png',
     bookAlt: 'Book cover of Affective Leadership by Mánu Fosela — Savvily Editorial',
     manifestoLabel: 'People & Culture Manifesto',

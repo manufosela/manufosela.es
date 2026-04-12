@@ -1,12 +1,15 @@
 ---
 import { trajectoryData } from '~/data/trajectory';
 import { Links } from '~/data/media';
+import PhotoGallery from '~/components/PhotoGallery.astro';
+import { fetchPhotos } from '~/utils/fetchPhotos';
 
 interface Props {
   language: 'es' | 'en';
 }
 
 const { language } = Astro.props;
+const contactPhotos = await fetchPhotos('contact');
 const d = trajectoryData[language];
 const socialLinks = [...Links.social, ...Links.software];
 ---
@@ -19,6 +22,9 @@ const socialLinks = [...Links.social, ...Links.software];
     <h1 class="traj-hero__title">{d.title}</h1>
     <div class="traj-hero__bar" aria-hidden="true"></div>
   </section>
+
+  <!-- Photos -->
+  <PhotoGallery title={language === 'es' ? 'Momentos' : 'Moments'} photos={contactPhotos} />
 
   <!-- Timeline -->
   <section class="timeline" aria-label={d.resumeTitle}>

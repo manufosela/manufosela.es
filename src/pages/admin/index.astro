@@ -12,70 +12,93 @@ import '~/styles/utilities.css';
   <link rel="preload" href="/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/inter-subset.woff2" as="font" type="font/woff2" crossorigin />
   <style>
-    @font-face {
-      font-family: 'Manrope';
-      font-display: swap;
-      font-style: normal;
-      font-weight: 200 900;
-      src: url('/fonts/manrope-variable.woff2') format('woff2-variations');
-    }
-    @font-face {
-      font-family: 'Inter';
-      font-display: swap;
-      font-style: normal;
-      src: url('/fonts/inter-subset.woff2') format('woff2');
-    }
+    @font-face { font-family: 'Manrope'; font-display: swap; font-style: normal; font-weight: 200 900; src: url('/fonts/manrope-variable.woff2') format('woff2-variations'); }
+    @font-face { font-family: 'Inter'; font-display: swap; font-style: normal; src: url('/fonts/inter-subset.woff2') format('woff2'); }
   </style>
 </head>
 <body>
   <div class="admin" id="app">
     <header class="admin__header">
-      <h1 class="admin__logo">M<span class="admin__accent">á</span>nu Fosela <span class="admin__badge">Admin</span></h1>
+      <h1 class="admin__logo">M<span style="color:var(--primary-fixed-dim)">á</span>nu Fosela <span class="admin__badge">Admin</span></h1>
       <div id="auth-area"></div>
     </header>
 
-    <div id="login-screen" class="admin__login">
-      <p>Accede con tu cuenta de Google para gestionar artículos.</p>
+    <div id="login-screen" class="admin__center">
+      <p>Accede con tu cuenta de Google para gestionar contenido.</p>
       <button id="btn-login" class="admin__btn admin__btn--primary">Iniciar sesión con Google</button>
     </div>
 
-    <div id="admin-panel" class="admin__panel" hidden>
-      <section class="admin__section">
-        <h2>Añadir artículo de LinkedIn</h2>
+    <div id="denied-screen" class="admin__center" hidden>
+      <p>Acceso denegado. Solo mjfosela@gmail.com puede acceder.</p>
+      <button id="btn-logout-denied" class="admin__btn admin__btn--ghost">Cerrar sesión</button>
+    </div>
+
+    <div id="admin-panel" hidden>
+      <!-- Tabs -->
+      <nav class="admin__tabs" role="tablist">
+        <button role="tab" class="admin__tab admin__tab--active" data-tab="articles" aria-selected="true">Artículos</button>
+        <button role="tab" class="admin__tab" data-tab="photos" aria-selected="false">Fotos</button>
+      </nav>
+
+      <!-- Tab: Artículos -->
+      <div class="admin__pane admin__pane--visible" id="pane-articles" role="tabpanel">
         <form id="article-form" class="admin__form">
+          <h2>Añadir artículo de LinkedIn</h2>
           <div class="admin__field">
             <label class="u-label" for="art-title">Título</label>
             <input type="text" id="art-title" required />
           </div>
           <div class="admin__field">
-            <label class="u-label" for="art-url">URL de LinkedIn</label>
+            <label class="u-label" for="art-url">URL</label>
             <input type="url" id="art-url" required />
           </div>
-          <div class="admin__field">
-            <label class="u-label" for="art-topic">Tema</label>
-            <select id="art-topic">
-              <option value="leadership">Liderazgo</option>
-              <option value="tech">Tech</option>
-            </select>
-          </div>
-          <div class="admin__field">
-            <label class="u-label" for="art-date">Fecha</label>
-            <input type="date" id="art-date" />
+          <div class="admin__row">
+            <div class="admin__field">
+              <label class="u-label" for="art-topic">Tema</label>
+              <select id="art-topic"><option value="leadership">Liderazgo</option><option value="tech">Tech</option></select>
+            </div>
+            <div class="admin__field">
+              <label class="u-label" for="art-date">Fecha</label>
+              <input type="date" id="art-date" />
+            </div>
           </div>
           <button type="submit" class="admin__btn admin__btn--primary">Guardar</button>
-          <p id="form-status" class="admin__status"></p>
+          <p id="article-status" class="admin__status"></p>
         </form>
-      </section>
-
-      <section class="admin__section">
-        <h2>Artículos guardados</h2>
         <div id="articles-list" class="admin__list"></div>
-      </section>
-    </div>
+      </div>
 
-    <div id="denied-screen" class="admin__denied" hidden>
-      <p>Acceso denegado. Solo mjfosela@gmail.com puede acceder.</p>
-      <button id="btn-logout-denied" class="admin__btn admin__btn--ghost">Cerrar sesión</button>
+      <!-- Tab: Fotos -->
+      <div class="admin__pane" id="pane-photos" role="tabpanel" hidden>
+        <form id="photo-form" class="admin__form">
+          <h2>Subir foto</h2>
+          <div class="admin__field">
+            <label class="u-label" for="photo-file">Imagen</label>
+            <input type="file" id="photo-file" accept="image/*" required />
+          </div>
+          <div class="admin__field">
+            <label class="u-label" for="photo-alt">Descripción / alt</label>
+            <input type="text" id="photo-alt" required />
+          </div>
+          <div class="admin__row">
+            <div class="admin__field">
+              <label class="u-label" for="photo-section">Sección</label>
+              <select id="photo-section">
+                <option value="leadership">Liderazgo</option>
+                <option value="contact">Trayectoria</option>
+              </select>
+            </div>
+            <div class="admin__field">
+              <label class="u-label" for="photo-context">Contexto</label>
+              <input type="text" id="photo-context" placeholder="Ej: CommitConf 2024" />
+            </div>
+          </div>
+          <button type="submit" class="admin__btn admin__btn--primary">Subir</button>
+          <div id="photo-progress" class="admin__progress" hidden><div class="admin__progress-bar"></div></div>
+          <p id="photo-status" class="admin__status"></p>
+        </form>
+        <div id="photos-grid" class="admin__photos"></div>
+      </div>
     </div>
   </div>
 
@@ -83,100 +106,161 @@ import '~/styles/utilities.css';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
     import { getAuth, signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js';
     import { getDatabase, ref, push, set, remove, onValue } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js';
+    import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-storage.js';
 
     const ALLOWED_EMAIL = 'mjfosela@gmail.com';
-
     const app = initializeApp({
       apiKey: "AIzaSyDAZ_lBJ3tgHzAhlDPJ5N3Qm7Glppu1CBo",
       authDomain: "manufosela-es.firebaseapp.com",
       databaseURL: "https://manufosela-es-default-rtdb.europe-west1.firebasedatabase.app",
       projectId: "manufosela-es",
+      storageBucket: "manufosela-es.appspot.com",
       appId: "1:975962934425:web:faeadc0d509af21bc9fc08"
     });
 
     const auth = getAuth(app);
     const db = getDatabase(app);
+    const storage = getStorage(app);
     const provider = new GoogleAuthProvider();
 
-    const loginScreen = document.getElementById('login-screen');
-    const adminPanel = document.getElementById('admin-panel');
-    const deniedScreen = document.getElementById('denied-screen');
-    const authArea = document.getElementById('auth-area');
-    const form = document.getElementById('article-form');
-    const status = document.getElementById('form-status');
-    const listEl = document.getElementById('articles-list');
+    const $ = (s) => document.getElementById(s);
+    const loginScreen = $('login-screen');
+    const deniedScreen = $('denied-screen');
+    const adminPanel = $('admin-panel');
+    const authArea = $('auth-area');
 
-    function showScreen(screen) {
-      loginScreen.hidden = screen !== 'login';
-      adminPanel.hidden = screen !== 'admin';
-      deniedScreen.hidden = screen !== 'denied';
+    function showScreen(s) {
+      loginScreen.hidden = s !== 'login';
+      deniedScreen.hidden = s !== 'denied';
+      adminPanel.hidden = s !== 'admin';
     }
 
+    // Auth
     onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        showScreen('login');
-        authArea.innerHTML = '';
-        return;
-      }
-      if (user.email !== ALLOWED_EMAIL) {
-        showScreen('denied');
-        authArea.innerHTML = '';
-        return;
-      }
+      if (!user) { showScreen('login'); authArea.innerHTML = ''; return; }
+      if (user.email !== ALLOWED_EMAIL) { showScreen('denied'); return; }
       showScreen('admin');
       authArea.innerHTML = `<span style="color:var(--on-surface-variant);font-size:0.75rem">${user.email}</span> <button id="btn-logout" style="background:none;border:0;color:var(--primary-fixed-dim);cursor:pointer;font-size:0.75rem">Salir</button>`;
-      document.getElementById('btn-logout').addEventListener('click', () => signOut(auth));
+      $('btn-logout').addEventListener('click', () => signOut(auth));
       loadArticles();
+      loadPhotos();
+    });
+    $('btn-login').addEventListener('click', () => signInWithPopup(auth, provider));
+    $('btn-logout-denied').addEventListener('click', () => signOut(auth));
+
+    // Tabs
+    document.querySelectorAll('.admin__tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.admin__tab').forEach(t => { t.classList.remove('admin__tab--active'); t.setAttribute('aria-selected', 'false'); });
+        document.querySelectorAll('.admin__pane').forEach(p => { p.hidden = true; p.classList.remove('admin__pane--visible'); });
+        tab.classList.add('admin__tab--active');
+        tab.setAttribute('aria-selected', 'true');
+        const pane = $(`pane-${tab.dataset.tab}`);
+        pane.hidden = false;
+        pane.classList.add('admin__pane--visible');
+      });
     });
 
-    document.getElementById('btn-login').addEventListener('click', () => signInWithPopup(auth, provider));
-    document.getElementById('btn-logout-denied').addEventListener('click', () => signOut(auth));
-
-    form.addEventListener('submit', async (e) => {
+    // Articles CRUD
+    $('article-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const title = document.getElementById('art-title').value.trim();
-      const url = document.getElementById('art-url').value.trim();
-      const topic = document.getElementById('art-topic').value;
-      const date = document.getElementById('art-date').value || new Date().toISOString().split('T')[0];
-
+      const title = $('art-title').value.trim();
+      const url = $('art-url').value.trim();
+      const topic = $('art-topic').value;
+      const date = $('art-date').value || new Date().toISOString().split('T')[0];
       if (!title || !url) return;
-
       try {
-        const newRef = push(ref(db, 'articles/linkedin'));
-        await set(newRef, { title, url, topic, date: new Date(date).toISOString() });
-        form.reset();
-        status.textContent = '✓ Guardado';
-        status.style.color = 'var(--primary-fixed-dim)';
-        setTimeout(() => status.textContent = '', 2000);
+        await set(push(ref(db, 'articles/linkedin')), { title, url, topic, date: new Date(date).toISOString() });
+        $('article-form').reset();
+        $('article-status').textContent = '✓ Guardado';
+        $('article-status').style.color = 'var(--primary-fixed-dim)';
+        setTimeout(() => $('article-status').textContent = '', 2000);
       } catch (err) {
-        status.textContent = 'Error: ' + err.message;
-        status.style.color = 'var(--error)';
+        $('article-status').textContent = 'Error: ' + err.message;
+        $('article-status').style.color = 'var(--error)';
       }
     });
 
     function loadArticles() {
-      onValue(ref(db, 'articles/linkedin'), (snapshot) => {
-        const data = snapshot.val();
-        if (!data) {
-          listEl.innerHTML = '<p style="color:var(--on-surface-variant)">No hay artículos guardados.</p>';
-          return;
-        }
+      onValue(ref(db, 'articles/linkedin'), (snap) => {
+        const data = snap.val();
+        const list = $('articles-list');
+        if (!data) { list.innerHTML = '<p style="color:var(--on-surface-variant)">No hay artículos.</p>'; return; }
         const entries = Object.entries(data).sort(([,a],[,b]) => new Date(b.date) - new Date(a.date));
-        listEl.innerHTML = entries.map(([key, art]) => `
-          <div class="admin__article">
-            <div class="admin__article-info">
-              <span class="admin__article-title">${art.title}</span>
-              <span class="admin__article-meta">${art.topic} · ${new Date(art.date).toLocaleDateString('es')}</span>
+        list.innerHTML = entries.map(([key, a]) => `
+          <div class="admin__item">
+            <div class="admin__item-info">
+              <span class="admin__item-title">${a.title}</span>
+              <span class="admin__item-meta">${a.topic} · ${new Date(a.date).toLocaleDateString('es')}</span>
             </div>
-            <button class="admin__btn-delete" data-key="${key}" title="Eliminar">✕</button>
+            <button class="admin__btn-delete" data-key="${key}" data-type="article">✕</button>
           </div>
         `).join('');
+        list.querySelectorAll('[data-type="article"]').forEach(btn => {
+          btn.addEventListener('click', () => { if (confirm('¿Eliminar?')) remove(ref(db, `articles/linkedin/${btn.dataset.key}`)); });
+        });
+      });
+    }
 
-        listEl.querySelectorAll('.admin__btn-delete').forEach((btn) => {
+    // Photos CRUD
+    $('photo-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const file = $('photo-file').files[0];
+      const alt = $('photo-alt').value.trim();
+      const section = $('photo-section').value;
+      const context = $('photo-context').value.trim();
+      if (!file || !alt) return;
+
+      const filename = `${Date.now()}_${file.name}`;
+      const storageRef = sRef(storage, `photos/${filename}`);
+      const task = uploadBytesResumable(storageRef, file);
+
+      $('photo-progress').hidden = false;
+      task.on('state_changed',
+        (snap) => {
+          const pct = (snap.bytesTransferred / snap.totalBytes) * 100;
+          $('photo-progress').querySelector('.admin__progress-bar').style.width = pct + '%';
+        },
+        (err) => {
+          $('photo-status').textContent = 'Error: ' + err.message;
+          $('photo-status').style.color = 'var(--error)';
+          $('photo-progress').hidden = true;
+        },
+        async () => {
+          const url = await getDownloadURL(storageRef);
+          await set(push(ref(db, 'photos')), { url, alt, section, context, filename, createdAt: new Date().toISOString() });
+          $('photo-form').reset();
+          $('photo-progress').hidden = true;
+          $('photo-status').textContent = '✓ Subida';
+          $('photo-status').style.color = 'var(--primary-fixed-dim)';
+          setTimeout(() => $('photo-status').textContent = '', 2000);
+        }
+      );
+    });
+
+    function loadPhotos() {
+      onValue(ref(db, 'photos'), (snap) => {
+        const data = snap.val();
+        const grid = $('photos-grid');
+        if (!data) { grid.innerHTML = '<p style="color:var(--on-surface-variant)">No hay fotos.</p>'; return; }
+        const entries = Object.entries(data).sort(([,a],[,b]) => new Date(b.createdAt) - new Date(a.createdAt));
+        grid.innerHTML = entries.map(([key, p]) => `
+          <div class="admin__photo-card">
+            <img src="${p.url}" alt="${p.alt}" loading="lazy" />
+            <div class="admin__photo-info">
+              <span class="admin__photo-context">${p.context || p.alt}</span>
+              <span class="admin__photo-section">${p.section}</span>
+            </div>
+            <button class="admin__btn-delete" data-key="${key}" data-filename="${p.filename}" data-type="photo">✕</button>
+          </div>
+        `).join('');
+        grid.querySelectorAll('[data-type="photo"]').forEach(btn => {
           btn.addEventListener('click', async () => {
-            if (confirm('¿Eliminar este artículo?')) {
-              await remove(ref(db, `articles/linkedin/${btn.dataset.key}`));
-            }
+            if (!confirm('¿Eliminar foto?')) return;
+            try {
+              await deleteObject(sRef(storage, `photos/${btn.dataset.filename}`));
+            } catch {}
+            await remove(ref(db, `photos/${btn.dataset.key}`));
           });
         });
       });
@@ -184,146 +268,55 @@ import '~/styles/utilities.css';
   </script>
 
   <style>
-    body {
-      background-color: var(--surface);
-      color: var(--on-surface);
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      min-height: 100vh;
-    }
-    .admin {
-      max-width: 48rem;
-      margin-inline: auto;
-      padding: clamp(1.5rem, 4vw, 3rem);
-    }
-    .admin__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 3rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 15%, transparent);
-    }
-    .admin__logo {
-      font-family: 'Manrope', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 900;
-      letter-spacing: -0.025em;
-    }
-    .admin__accent { color: var(--primary-fixed-dim); }
-    .admin__badge {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.5625rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background-color: var(--surface-container-high);
-      color: var(--on-surface-variant);
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-      margin-left: 0.5rem;
-      vertical-align: middle;
-    }
-    .admin__login, .admin__denied {
-      text-align: center;
-      padding-top: 4rem;
-    }
-    .admin__login p, .admin__denied p {
-      color: var(--on-surface-variant);
-      margin-bottom: 2rem;
-    }
-    .admin__btn {
-      font-family: 'Manrope', sans-serif;
-      font-weight: 700;
-      font-size: 0.875rem;
-      padding: 0.75rem 1.5rem;
-      border: 0;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      transition: opacity 200ms;
-    }
-    .admin__btn:hover { opacity: 0.85; }
-    .admin__btn--primary {
-      background-color: var(--primary-container);
-      color: var(--on-primary-container);
-    }
-    .admin__btn--ghost {
-      background: transparent;
-      color: var(--on-surface);
-      border: 1px solid color-mix(in srgb, var(--outline-variant) 15%, transparent);
-    }
-    .admin__panel { display: flex; flex-direction: column; gap: 3rem; }
-    .admin__section h2 {
-      font-family: 'Manrope', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
-    }
-    .admin__form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-    .admin__field label {
-      display: block;
-      margin-bottom: 0.375rem;
-    }
-    .admin__field input,
-    .admin__field select {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      background-color: var(--surface-container-lowest);
-      border: 0;
-      border-radius: 0.5rem;
-      color: var(--on-surface);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.875rem;
-      outline: none;
-    }
-    .admin__field input:focus,
-    .admin__field select:focus {
-      box-shadow: inset 0 0 0 1px var(--primary-fixed-dim);
-    }
+    body { background-color: var(--surface); color: var(--on-surface); font-family: 'Inter', sans-serif; margin: 0; min-height: 100vh; }
+    .admin { max-width: 52rem; margin-inline: auto; padding: clamp(1.5rem, 4vw, 3rem); }
+    .admin__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 15%, transparent); }
+    .admin__logo { font-family: 'Manrope', sans-serif; font-size: 1.25rem; font-weight: 900; letter-spacing: -0.025em; }
+    .admin__badge { font-family: 'Inter', sans-serif; font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background-color: var(--surface-container-high); color: var(--on-surface-variant); padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-left: 0.5rem; vertical-align: middle; }
+    .admin__center { text-align: center; padding-top: 4rem; }
+    .admin__center p { color: var(--on-surface-variant); margin-bottom: 2rem; }
+
+    .admin__tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 15%, transparent); }
+    .admin__tab { font-family: 'Inter', sans-serif; font-size: 0.8125rem; font-weight: 600; padding: 0.75rem 1.25rem; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--on-surface-variant); cursor: pointer; transition: color 200ms, border-color 200ms; }
+    .admin__tab--active { color: var(--primary-fixed-dim); border-bottom-color: var(--primary-fixed-dim); }
+    .admin__tab:hover { color: var(--on-surface); }
+
+    .admin__pane { display: none; }
+    .admin__pane--visible { display: block; }
+
+    .admin__form { margin-bottom: 2.5rem; }
+    .admin__form h2 { font-family: 'Manrope', sans-serif; font-size: 1.125rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .admin__field { margin-bottom: 1rem; }
+    .admin__field label { display: block; margin-bottom: 0.375rem; }
+    .admin__field input, .admin__field select { width: 100%; padding: 0.75rem 1rem; background-color: var(--surface-container-lowest); border: 0; border-radius: 0.5rem; color: var(--on-surface); font-family: 'Inter', sans-serif; font-size: 0.875rem; outline: none; }
+    .admin__field input[type="file"] { padding: 0.5rem; }
+    .admin__field input:focus, .admin__field select:focus { box-shadow: inset 0 0 0 1px var(--primary-fixed-dim); }
     .admin__field select { appearance: none; cursor: pointer; }
-    .admin__status { font-size: 0.8125rem; margin-top: 0.5rem; }
-    .admin__list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .admin__article {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.75rem 1rem;
-      background-color: var(--surface-container-low);
-      border-radius: 0.5rem;
-    }
-    .admin__article-info { display: flex; flex-direction: column; min-width: 0; }
-    .admin__article-title {
-      font-weight: 600;
-      font-size: 0.875rem;
-      color: var(--on-surface);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .admin__article-meta {
-      font-size: 0.6875rem;
-      color: var(--on-surface-variant);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .admin__btn-delete {
-      background: none;
-      border: 0;
-      color: var(--error);
-      font-size: 1rem;
-      cursor: pointer;
-      flex-shrink: 0;
-      padding: 0.25rem;
-    }
+    .admin__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .admin__btn { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 0.875rem; padding: 0.75rem 1.5rem; border: 0; border-radius: 0.5rem; cursor: pointer; transition: opacity 200ms; }
+    .admin__btn:hover { opacity: 0.85; }
+    .admin__btn--primary { background-color: var(--primary-container); color: var(--on-primary-container); }
+    .admin__btn--ghost { background: transparent; color: var(--on-surface); border: 1px solid color-mix(in srgb, var(--outline-variant) 15%, transparent); }
+    .admin__status { font-size: 0.8125rem; margin-top: 0.75rem; }
+
+    .admin__progress { height: 4px; background-color: var(--surface-container-high); border-radius: 2px; margin-top: 0.75rem; overflow: hidden; }
+    .admin__progress-bar { height: 100%; background-color: var(--primary-fixed-dim); width: 0; transition: width 200ms; }
+
+    .admin__list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .admin__item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem 1rem; background-color: var(--surface-container-low); border-radius: 0.5rem; }
+    .admin__item-info { display: flex; flex-direction: column; min-width: 0; }
+    .admin__item-title { font-weight: 600; font-size: 0.875rem; color: var(--on-surface); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .admin__item-meta { font-size: 0.6875rem; color: var(--on-surface-variant); text-transform: uppercase; letter-spacing: 0.04em; }
+    .admin__btn-delete { background: none; border: 0; color: var(--error); font-size: 1rem; cursor: pointer; flex-shrink: 0; padding: 0.25rem; }
+
+    .admin__photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 1rem; }
+    .admin__photo-card { position: relative; border-radius: 0.5rem; overflow: hidden; background-color: var(--surface-container-low); }
+    .admin__photo-card img { width: 100%; height: 10rem; object-fit: cover; display: block; }
+    .admin__photo-info { padding: 0.5rem 0.75rem; }
+    .admin__photo-context { font-size: 0.75rem; font-weight: 600; color: var(--on-surface); display: block; }
+    .admin__photo-section { font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--on-surface-variant); }
+    .admin__photo-card .admin__btn-delete { position: absolute; top: 0.25rem; right: 0.25rem; background-color: color-mix(in srgb, var(--surface) 80%, transparent); border-radius: 0.25rem; }
   </style>
 </body>
 </html>
