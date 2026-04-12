@@ -301,28 +301,51 @@ import '~/styles/utilities.css';
       );
     });
 
+    const sectionLabels = { leadership: 'Liderazgo', contact: 'Trayectoria' };
+
     function loadPhotos() {
       onValue(ref(db, 'photos'), (snap) => {
         const data = snap.val();
         const grid = $('photos-grid');
         if (!data) { grid.innerHTML = '<p style="color:var(--on-surface-variant)">No hay fotos.</p>'; return; }
-        const entries = Object.entries(data).sort(([,a],[,b]) => new Date(b.createdAt) - new Date(a.createdAt));
-        grid.innerHTML = entries.map(([key, p]) => `
-          <div class="admin__photo-card">
-            <img src="${p.url}" alt="${p.alt}" loading="lazy" />
-            <div class="admin__photo-info">
-              <span class="admin__photo-context">${p.context || p.alt}</span>
-              <span class="admin__photo-section">${p.section}</span>
+
+        // Group by section
+        const bySection = {};
+        Object.entries(data).forEach(([key, p]) => {
+          const sec = p.section || 'other';
+          if (!bySection[sec]) bySection[sec] = [];
+          bySection[sec].push([key, p]);
+        });
+        Object.values(bySection).forEach(arr => arr.sort(([,a],[,b]) => new Date(b.createdAt) - new Date(a.createdAt)));
+
+        const sections = Object.keys(bySection).sort();
+        grid.innerHTML = sections.map(sec => `
+          <div class="admin__photo-section">
+            <h3 class="admin__photo-section-title">${sectionLabels[sec] || sec} <span class="admin__photo-count">${bySection[sec].length}</span></h3>
+            <div class="admin__photo-thumbs">
+              ${bySection[sec].map(([key, p]) => `
+                <div class="admin__photo-thumb" data-key="${key}" data-filename="${p.filename || ''}">
+                  <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="admin__photo-link" title="Ver en grande">
+                    <img src="${p.url}" alt="${p.alt || ''}" loading="lazy" />
+                  </a>
+                  <div class="admin__photo-meta">
+                    <span class="admin__photo-context-text">${p.context || p.alt || '—'}</span>
+                    <button class="admin__btn-delete" data-key="${key}" data-filename="${p.filename || ''}" data-type="photo" title="Eliminar">✕</button>
+                  </div>
+                </div>
+              `).join('')}
             </div>
-            <button class="admin__btn-delete" data-key="${key}" data-filename="${p.filename}" data-type="photo">✕</button>
           </div>
         `).join('');
+
         grid.querySelectorAll('[data-type="photo"]').forEach(btn => {
-          btn.addEventListener('click', async () => {
+          btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             if (!confirm('¿Eliminar foto?')) return;
-            try {
-              await deleteObject(sRef(storage, `photos/${btn.dataset.filename}`));
-            } catch {}
+            if (btn.dataset.filename) {
+              try { await deleteObject(sRef(storage, `photos/${btn.dataset.filename}`)); } catch {}
+            }
             await remove(ref(db, `photos/${btn.dataset.key}`));
           });
         });
@@ -487,13 +510,88 @@ import '~/styles/utilities.css';
     .admin__btn-delete { background: none; border: 0; color: var(--error); font-size: 1rem; cursor: pointer; padding: 0.375rem 0.5rem; border-radius: 0.25rem; transition: background-color 200ms; }
     .admin__btn-delete:hover { background-color: color-mix(in srgb, var(--error) 10%, transparent); }
 
-    .admin__photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 1rem; }
-    .admin__photo-card { position: relative; border-radius: 0.5rem; overflow: hidden; background-color: var(--surface-container-low); }
-    .admin__photo-card img { width: 100%; height: 10rem; object-fit: cover; display: block; }
-    .admin__photo-info { padding: 0.5rem 0.75rem; }
-    .admin__photo-context { font-size: 0.75rem; font-weight: 600; color: var(--on-surface); display: block; }
-    .admin__photo-section { font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--on-surface-variant); }
-    .admin__photo-card .admin__btn-delete { position: absolute; top: 0.25rem; right: 0.25rem; background-color: color-mix(in srgb, var(--surface) 80%, transparent); border-radius: 0.25rem; }
+    .admin__photos { display: flex; flex-direction: column; gap: 2rem; }
+    .admin__photo-section {
+      background-color: var(--surface-container-low);
+      border: 1px solid color-mix(in srgb, var(--outline-variant) 12%, transparent);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+    }
+    .admin__photo-section-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .admin__photo-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.5rem;
+      height: 1.25rem;
+      padding: 0 0.375rem;
+      background-color: var(--surface-container-high);
+      color: var(--primary-fixed-dim);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      border-radius: 0.625rem;
+    }
+    .admin__photo-thumbs {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+      gap: 0.625rem;
+    }
+    .admin__photo-thumb {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--surface-container-lowest);
+      border-radius: 0.375rem;
+      overflow: hidden;
+      border: 1px solid transparent;
+      transition: border-color 200ms;
+    }
+    .admin__photo-thumb:hover { border-color: color-mix(in srgb, var(--primary-fixed-dim) 30%, transparent); }
+    .admin__photo-link {
+      display: block;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background-color: var(--surface-container-high);
+    }
+    .admin__photo-link img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 300ms;
+    }
+    .admin__photo-thumb:hover .admin__photo-link img { transform: scale(1.05); }
+    .admin__photo-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.375rem;
+      padding: 0.375rem 0.5rem;
+    }
+    .admin__photo-context-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.625rem;
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+    .admin__photo-thumb .admin__btn-delete {
+      font-size: 0.75rem;
+      padding: 0.125rem 0.375rem;
+      flex-shrink: 0;
+    }
   </style>
 </body>
 </html>
