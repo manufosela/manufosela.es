@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/Layout.astro';
 import HeroHome from '~/components/HeroHome.astro';
+import Dualidad from '~/components/Dualidad.astro';
 import { Site } from '~/data/config';
 
 const title = Site.title;
@@ -9,4 +10,16 @@ const language = 'en';
 
 <Layout {title} includeSchema={true} active="home">
   <HeroHome language={language} />
+  <div class="home-sections">
+    <Dualidad language={language} />
+  </div>
 </Layout>
+
+<style>
+  .home-sections {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 8vh, 5rem);
+    padding-block: clamp(3rem, 8vh, 5rem);
+  }
+</style>

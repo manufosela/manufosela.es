@@ -1,0 +1,209 @@
+---
+import { dualidad } from '~/data/dualidad';
+
+interface Props {
+  language: 'es' | 'en';
+}
+
+const { language } = Astro.props;
+const d = dualidad[language];
+---
+
+<section class="dualidad" aria-label={d.title}>
+  <div class="dualidad__header">
+    <h2 class="dualidad__title">{d.title}</h2>
+    <div class="dualidad__toggle" role="tablist" aria-label={d.title}>
+      <button
+        role="tab"
+        aria-selected="true"
+        aria-controls="panel-human"
+        id="tab-human"
+        class="dualidad__tab dualidad__tab--active"
+        data-panel="human"
+      >{d.tabs[0]}</button>
+      <button
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-tech"
+        id="tab-tech"
+        class="dualidad__tab"
+        data-panel="tech"
+      >{d.tabs[1]}</button>
+    </div>
+  </div>
+
+  <div
+    class="dualidad__panel dualidad__panel--visible"
+    id="panel-human"
+    role="tabpanel"
+    aria-labelledby="tab-human"
+  >
+    <div class="dualidad__glow" aria-hidden="true"></div>
+    <div class="dualidad__inner">
+      <div class="dualidad__meta">
+        <svg class="dualidad__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" />
+        </svg>
+        <span class="u-label u-label--accent">{d.human.label}</span>
+      </div>
+      <h3 class="dualidad__heading">{d.human.heading}</h3>
+      <p class="dualidad__quote">&ldquo;{d.human.quote}&rdquo;</p>
+    </div>
+  </div>
+
+  <div
+    class="dualidad__panel"
+    id="panel-tech"
+    role="tabpanel"
+    aria-labelledby="tab-tech"
+    hidden
+  >
+    <div class="dualidad__glow" aria-hidden="true"></div>
+    <div class="dualidad__inner">
+      <div class="dualidad__meta">
+        <svg class="dualidad__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <path d="M4 6h16v12H4z" />
+          <path d="m8 10 2 2-2 2" />
+          <path d="M12 14h4" />
+        </svg>
+        <span class="u-label u-label--accent">{d.tech.label}</span>
+      </div>
+      <h3 class="dualidad__heading">{d.tech.heading}</h3>
+      <p class="dualidad__quote">&ldquo;{d.tech.quote}&rdquo;</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .dualidad {
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+    max-width: 1280px;
+    margin-inline: auto;
+  }
+
+  .dualidad__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .dualidad__title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    font-weight: 800;
+    color: var(--on-surface);
+  }
+
+  .dualidad__toggle {
+    display: flex;
+    gap: 0.25rem;
+    background-color: var(--surface-container-low);
+    border-radius: 2rem;
+    padding: 0.25rem;
+  }
+
+  .dualidad__tab {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    border: 0;
+    border-radius: 2rem;
+    background: transparent;
+    color: var(--on-surface-variant);
+    cursor: pointer;
+    transition: color 200ms var(--ease-3), background-color 200ms var(--ease-3);
+  }
+  .dualidad__tab--active {
+    background-color: var(--primary-fixed-dim);
+    color: var(--on-primary);
+  }
+
+  .dualidad__panel {
+    position: relative;
+    background-color: var(--surface-container-low);
+    border-radius: 0.75rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    overflow: hidden;
+    display: none;
+  }
+  .dualidad__panel--visible {
+    display: block;
+  }
+
+  .dualidad__glow {
+    position: absolute;
+    right: -3rem;
+    top: -3rem;
+    width: 8rem;
+    height: 8rem;
+    background-color: color-mix(in srgb, var(--primary-container) 5%, transparent);
+    filter: blur(3rem);
+    border-radius: 50%;
+  }
+
+  .dualidad__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .dualidad__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 1rem;
+  }
+
+  .dualidad__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--primary-fixed-dim);
+  }
+
+  .dualidad__heading {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 800;
+    color: var(--on-surface);
+    margin-bottom: 0.75rem;
+  }
+
+  .dualidad__quote {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.9375rem, 1.8vw, 1.0625rem);
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--on-surface-variant);
+    max-width: 38rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dualidad__tab { transition: none; }
+  }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.dualidad__tab');
+  const panels = document.querySelectorAll<HTMLElement>('.dualidad__panel');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.panel;
+
+      tabs.forEach((t) => {
+        const isActive = t === tab;
+        t.classList.toggle('dualidad__tab--active', isActive);
+        t.setAttribute('aria-selected', String(isActive));
+      });
+
+      panels.forEach((p) => {
+        const show = p.id === `panel-${target}`;
+        p.classList.toggle('dualidad__panel--visible', show);
+        p.hidden = !show;
+      });
+    });
+  });
+</script>
