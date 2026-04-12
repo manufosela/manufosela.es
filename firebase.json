@@ -22,6 +22,18 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [
+      { "source": "/", "destination": "/es/", "type": 302 },
+      { "source": "/es/about", "destination": "/es/", "type": 301 },
+      { "source": "/en/about", "destination": "/en/", "type": 301 },
+      { "source": "/es/articles", "destination": "/es/tech", "type": 301 },
+      { "source": "/en/articles", "destination": "/en/tech", "type": 301 },
+      { "source": "/es/media", "destination": "/es/tech", "type": 301 },
+      { "source": "/en/media", "destination": "/en/tech", "type": 301 },
+      { "source": "/es/contributions", "destination": "/es/tech", "type": 301 },
+      { "source": "/en/contributions", "destination": "/en/tech", "type": 301 },
+      { "source": "/liderazgoafectivo", "destination": "/es/leadership", "type": 301 }
+    ],
     "headers": [
       {
         "source": "**/_astro/**",
