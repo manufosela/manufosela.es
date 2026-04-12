@@ -1,0 +1,83 @@
+---
+import { bentoItems } from '~/data/bento';
+
+interface Props {
+  language: 'es' | 'en';
+}
+
+const { language } = Astro.props;
+const items = bentoItems[language];
+
+const icons = {
+  groups: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="7" r="3"/><path d="M9 13c-4 0-6 2-6 4v1h12v-1c0-2-2-4-6-4Z"/><path d="M17 7a2.5 2.5 0 1 1 0 5"/><path d="M21 18v-1c0-1.5-1-3-3-3.5"/></svg>',
+  book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v15H6.5A2.5 2.5 0 0 0 4 19.5Zm0 0v15A2.5 2.5 0 0 1 6.5 17H20"/></svg>',
+  bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2 3 14h9l-1 8 10-12h-9Z"/></svg>'
+};
+---
+
+<section class="bento-logros u-bento" aria-label="Logros">
+  {items.map((item) => (
+    <div class:list={['bento-logros__item', 'u-bento__item', { 'u-bento__item--wide': item.wide }]}>
+      <span class="bento-logros__icon" aria-hidden="true" set:html={icons[item.icon]} />
+      {item.value && (
+        <span class="bento-logros__value">{item.value}</span>
+      )}
+      <h4 class="bento-logros__label">{item.label}</h4>
+    </div>
+  ))}
+</section>
+
+<style>
+  .bento-logros {
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+    max-width: 1280px;
+    margin-inline: auto;
+  }
+
+  .bento-logros__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 10rem;
+  }
+
+  .bento-logros__icon {
+    display: inline-flex;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: var(--primary-fixed-dim);
+  }
+  .bento-logros__icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .bento-logros__value {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--on-surface);
+    line-height: 1;
+  }
+
+  .bento-logros__label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+    line-height: 1.4;
+  }
+
+  /* Wide item (15+ years): horizontal layout on desktop */
+  @media (min-width: 1024px) {
+    .u-bento__item--wide.bento-logros__item {
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 2rem;
+    }
+  }
+</style>
