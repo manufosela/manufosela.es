@@ -1,0 +1,125 @@
+---
+interface Article {
+  title: string;
+  url: string;
+  date: string;
+  source: string;
+  topic: string;
+}
+
+interface Props {
+  title: string;
+  articles: Article[];
+  language: 'es' | 'en';
+}
+
+const { title, articles, language } = Astro.props;
+
+const sourceLabels = { substack: 'Substack', devto: 'dev.to', linkedin: 'LinkedIn' };
+
+const grouped = {};
+for (const a of articles) {
+  const year = new Date(a.date).getFullYear().toString();
+  if (!grouped[year]) grouped[year] = [];
+  grouped[year].push(a);
+}
+const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
+---
+
+<div class="catalog">
+  <h1 class="catalog__title">{title}</h1>
+
+  {years.map((year) => (
+    <section class="catalog__year">
+      <h2 class="catalog__year-label">{year}</h2>
+      <div class="catalog__list">
+        {grouped[year].map((article) => (
+          <a href={article.url} class="catalog__item" target="_blank" rel="noopener noreferrer">
+            <div class="catalog__item-text">
+              <span class="catalog__item-title">{article.title}</span>
+              <span class="catalog__item-source">{sourceLabels[article.source] || article.source}</span>
+            </div>
+            <svg class="catalog__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  {articles.length === 0 && (
+    <p class="catalog__empty">
+      {language === 'es' ? 'No hay artículos disponibles todavía.' : 'No articles available yet.'}
+    </p>
+  )}
+</div>
+
+<style>
+  .catalog {
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-block: clamp(2rem, 6vh, 4rem);
+  }
+  .catalog__title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--on-surface);
+    margin-bottom: clamp(2rem, 5vh, 3rem);
+  }
+  .catalog__year {
+    margin-bottom: 2.5rem;
+  }
+  .catalog__year-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary-fixed-dim);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 10%, transparent);
+  }
+  .catalog__list {
+    display: flex;
+    flex-direction: column;
+  }
+  .catalog__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 8%, transparent);
+    transition: background-color 200ms var(--ease-3);
+  }
+  .catalog__item:hover { padding-inline: 0.5rem; background-color: var(--surface-container-low); border-radius: 0.375rem; }
+  .catalog__item-text { display: flex; flex-direction: column; min-width: 0; }
+  .catalog__item-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    font-weight: 600;
+    color: var(--on-surface);
+  }
+  .catalog__item:hover .catalog__item-title { color: var(--primary-container); }
+  .catalog__item-source {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+    margin-top: 0.125rem;
+  }
+  .catalog__arrow {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    color: var(--on-surface-variant);
+  }
+  .catalog__empty {
+    color: var(--on-surface-variant);
+    font-style: italic;
+  }
+</style>

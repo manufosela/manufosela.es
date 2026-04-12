@@ -1,7 +1,7 @@
 ---
 import { techHubData } from '~/data/techhub';
-import { articles } from '~/data/articles';
 import { mediaData } from '~/data/media';
+import { getAllArticles, filterByTopic } from '~/utils/fetchArticles';
 
 interface Props {
   language: 'es' | 'en';
@@ -25,16 +25,18 @@ try {
 d.repos.value = String(ghUser.public_repos);
 d.stars.value = ghStars > 999 ? `${(ghStars / 1000).toFixed(1)}k` : String(ghStars);
 
-const allArticles = articles[language];
-const firstTab = allArticles[0];
-const latestYear = Object.keys(firstTab.articles).sort().reverse()[0];
-const latestArticles = firstTab.articles[latestYear]?.slice(0, 3) || [];
+const allArticles = await getAllArticles();
+const techArticles = filterByTopic(allArticles, 'tech');
+const latestArticles = techArticles.slice(0, 5);
 
 const media = mediaData[language];
 const talksKey = language === 'es' ? 'Charlas' : 'Talks';
 const talks = media[talksKey];
 const latestTalkYear = talks ? Object.keys(talks).sort().reverse()[0] : null;
 const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : [];
+
+const viewAllArticles = language === 'es' ? 'Ver todos los artículos' : 'View all articles';
+const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all talks';
 ---
 
 <div class="tech-hub">
@@ -109,6 +111,7 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
   <section class="insights-feed" aria-label={d.insightsTitle}>
     <div class="insights-feed__header">
       <h2 class="insights-feed__title">{d.insightsTitle}</h2>
+      <a class="insights-feed__viewall" href={`/${language}/tech/articles`}>{viewAllArticles} →</a>
     </div>
     <div class="insights-feed__list">
       {latestArticles.map((article) => (
@@ -123,7 +126,10 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
   <!-- Talks & Media -->
   {latestTalks.length > 0 && (
     <section class="talks" aria-label={d.talksTitle}>
-      <h2 class="talks__title">{d.talksTitle}</h2>
+      <div class="talks__header">
+        <h2 class="talks__title">{d.talksTitle}</h2>
+        <a class="talks__viewall" href={`/${language}/tech/talks`}>{viewAllTalks} →</a>
+      </div>
       <div class="talks__grid">
         {latestTalks.map((talk) => (
           <a href={talk.link} class="talk-card" target="_blank" rel="noopener noreferrer">
@@ -137,12 +143,12 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
     </section>
   )}
 
-  <!-- Newsletter CTA -->
-  <section class="newsletter" aria-label={d.newsletterTitle}>
-    <h2 class="newsletter__title">{d.newsletterTitle}</h2>
-    <p class="newsletter__desc">{d.newsletterDesc}</p>
-    <a href={d.newsletterLink} class="newsletter__btn" target="_blank" rel="noopener noreferrer">
-      Substack →
+  <!-- CTA dev.to -->
+  <section class="newsletter" aria-label="dev.to">
+    <h2 class="newsletter__title">dev.to/manufosela</h2>
+    <p class="newsletter__desc">{language === 'es' ? 'Artículos técnicos sobre desarrollo web, web components y arquitectura.' : 'Technical articles on web development, web components and architecture.'}</p>
+    <a href="https://dev.to/manufosela" class="newsletter__btn" target="_blank" rel="noopener noreferrer">
+      dev.to →
     </a>
   </section>
 
@@ -333,8 +339,21 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
 
   /* Insights Feed */
   .insights-feed__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
     margin-bottom: 1.5rem;
   }
+  .insights-feed__viewall, .talks__viewall {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--primary-fixed-dim);
+    text-decoration: none;
+  }
+  .insights-feed__viewall:hover, .talks__viewall:hover { text-decoration: underline; }
   .insights-feed__title {
     font-family: 'Manrope', sans-serif;
     font-size: 1.125rem;
@@ -375,12 +394,17 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
   }
 
   /* Talks */
+  .talks__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
   .talks__title {
     font-family: 'Manrope', sans-serif;
     font-size: 1.125rem;
     font-weight: 700;
     color: var(--on-surface);
-    margin-bottom: 1.5rem;
   }
   .talks__grid {
     display: flex;

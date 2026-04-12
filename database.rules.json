@@ -1,7 +1,10 @@
 {
-  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
   "rules": {
-    ".read": false,
-    ".write": false
+    "articles": {
+      "linkedin": {
+        ".read": true,
+        ".write": "auth !== null && auth.token.email === 'mjfosela@gmail.com'"
+      }
+    }
   }
 }
