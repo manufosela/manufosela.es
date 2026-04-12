@@ -1,0 +1,338 @@
+---
+import { trajectoryData } from '~/data/trajectory';
+import { Links } from '~/data/media';
+
+interface Props {
+  language: 'es' | 'en';
+}
+
+const { language } = Astro.props;
+const d = trajectoryData[language];
+const socialLinks = [...Links.social, ...Links.software];
+---
+
+<div class="contact-page">
+
+  <!-- Hero -->
+  <section class="traj-hero">
+    <span class="u-label">{d.badge}</span>
+    <h1 class="traj-hero__title">{d.title}</h1>
+    <div class="traj-hero__bar" aria-hidden="true"></div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="timeline" aria-label={d.resumeTitle}>
+    <h2 class="timeline__heading">{d.resumeTitle}</h2>
+    <div class="timeline__list">
+      <div class="timeline__line" aria-hidden="true"></div>
+      {d.timeline.map((item) => (
+        <div class="timeline__item">
+          <div class:list={['timeline__dot', { 'timeline__dot--current': item.current }]}></div>
+          <div class="timeline__content">
+            <span class="timeline__scope">{item.scope}</span>
+            <h3 class="timeline__title">{item.title}</h3>
+            <p class="timeline__desc">{item.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Contact + Social -->
+  <section class="contact-social" aria-label={d.contactTitle}>
+    <div class="contact-form-wrapper">
+      <h2 class="contact__title">{d.contactTitle}</h2>
+      <p class="contact__desc">{d.contactDescription}</p>
+      <form class="contact-form" data-action="/api/contact" method="POST">
+        <div class="contact-form__field">
+          <label class="u-label" for="contact-name">{d.formLabels.name}</label>
+          <input type="text" id="contact-name" name="name" placeholder={d.formPlaceholders.name} required />
+        </div>
+        <div class="contact-form__field">
+          <label class="u-label" for="contact-email">{d.formLabels.email}</label>
+          <input type="email" id="contact-email" name="email" placeholder={d.formPlaceholders.email} required />
+        </div>
+        <div class="contact-form__field">
+          <label class="u-label" for="contact-inquiry">{d.formLabels.inquiry}</label>
+          <select id="contact-inquiry" name="inquiry">
+            {d.inquiryOptions.map((opt) => (
+              <option>{opt}</option>
+            ))}
+          </select>
+        </div>
+        <div class="contact-form__field">
+          <label class="u-label" for="contact-message">{d.formLabels.message}</label>
+          <textarea id="contact-message" name="message" rows="4" placeholder={d.formPlaceholders.message}></textarea>
+        </div>
+        <div class="contact-form__honey" aria-hidden="true">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+        <button type="submit" class="contact-form__submit">{d.formLabels.send}</button>
+      </form>
+    </div>
+
+    <div class="social-grid">
+      {socialLinks.map((link) => (
+        <a href={link.url} class="social-card" target="_blank" rel="noopener noreferrer">
+          <span class="social-card__name">{link.name}</span>
+          <svg class="social-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      ))}
+    </div>
+  </section>
+
+</div>
+
+<style>
+  .contact-page {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 8vh, 5rem);
+    padding-block: clamp(2rem, 6vh, 4rem);
+  }
+
+  .contact-page > section {
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+    max-width: 1280px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  /* Hero */
+  .traj-hero__title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--on-surface);
+    margin-top: 0.5rem;
+  }
+  .traj-hero__bar {
+    width: 3rem;
+    height: 3px;
+    background-color: var(--primary-container);
+    margin-top: 1rem;
+  }
+
+  /* Timeline */
+  .timeline__heading {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 1.75rem);
+    font-weight: 800;
+    color: var(--on-surface);
+    margin-bottom: clamp(2rem, 5vh, 3rem);
+  }
+  .timeline__list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .timeline__line {
+    position: absolute;
+    left: 7px;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background-color: color-mix(in srgb, var(--outline-variant) 30%, transparent);
+  }
+  .timeline__item {
+    position: relative;
+    padding-left: 2.5rem;
+  }
+  .timeline__dot {
+    position: absolute;
+    left: 0;
+    top: 0.375rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 2px solid var(--primary-container);
+    background-color: var(--surface);
+  }
+  .timeline__dot--current {
+    box-shadow: 0 0 10px color-mix(in srgb, var(--primary-container) 30%, transparent);
+  }
+  .timeline__scope {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--primary-fixed-dim);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .timeline__title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-weight: 700;
+    color: var(--on-surface);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .timeline__desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--on-surface-variant);
+    font-weight: 300;
+  }
+
+  /* Contact + Social */
+  .contact-social {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .contact-form-wrapper {
+    background-color: var(--surface-container-low);
+    border-radius: 0.75rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-form-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8rem;
+    height: 8rem;
+    background-color: color-mix(in srgb, var(--primary-container) 5%, transparent);
+    filter: blur(3rem);
+    border-radius: 50%;
+    transform: translate(4rem, -4rem);
+  }
+
+  .contact__title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 1.75rem);
+    font-weight: 800;
+    color: var(--on-surface);
+    margin-bottom: 0.25rem;
+  }
+  .contact__desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+    margin-bottom: 2rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .contact-form__field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    margin-left: 0.25rem;
+  }
+  .contact-form__field input,
+  .contact-form__field select,
+  .contact-form__field textarea {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--surface-container-lowest);
+    border: 0;
+    border-radius: 0.5rem;
+    color: var(--on-surface);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    outline: none;
+    transition: box-shadow 200ms var(--ease-3);
+  }
+  .contact-form__field input::placeholder,
+  .contact-form__field textarea::placeholder {
+    color: var(--outline-variant);
+  }
+  .contact-form__field input:focus,
+  .contact-form__field select:focus,
+  .contact-form__field textarea:focus {
+    box-shadow: inset 0 0 0 1px var(--primary-fixed-dim);
+  }
+  .contact-form__field textarea {
+    resize: none;
+  }
+  .contact-form__field select {
+    appearance: none;
+    cursor: pointer;
+  }
+  .contact-form__honey {
+    position: absolute;
+    left: -9999px;
+  }
+  .contact-form__submit {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    border: 0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: opacity 200ms var(--ease-3);
+  }
+  .contact-form__submit:hover { opacity: 0.85; }
+  .contact-form__submit:active { transform: scale(0.98); }
+
+  .social-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .social-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1rem;
+    background-color: var(--surface-container-high);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 200ms var(--ease-3);
+  }
+  .social-card:hover { background-color: var(--surface-bright); }
+  .social-card__name {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--on-surface);
+  }
+  .social-card__arrow {
+    width: 1rem;
+    height: 1rem;
+    color: var(--primary-fixed-dim);
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .contact-social {
+      display: grid;
+      grid-template-columns: 60fr 40fr;
+      gap: 2rem;
+    }
+    .social-grid {
+      align-self: start;
+    }
+    .timeline {
+      max-width: 56rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-form__field input,
+    .contact-form__field select,
+    .contact-form__field textarea,
+    .contact-form__submit,
+    .social-card { transition: none; }
+  }
+</style>
