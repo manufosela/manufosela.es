@@ -79,7 +79,7 @@ const { topic = 'all', limit = 0, target } = Astro.props;
       container.innerHTML = all.map((a) => `
         <a href="${a.url}" class="article-card" target="_blank" rel="noopener noreferrer">
           <span class="article-card__title">${a.title}</span>
-          <svg class="article-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg class="article-card__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       `).join('');
     } else {
@@ -101,7 +101,7 @@ const { topic = 'all', limit = 0, target } = Astro.props;
                   <span class="catalog__item-title">${a.title}</span>
                   <span class="catalog__item-source">${sources[a.source] || a.source}</span>
                 </div>
-                <svg class="catalog__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
+                <svg class="catalog__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
               </a>
             `).join('')}
           </div>
