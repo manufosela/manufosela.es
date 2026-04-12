@@ -85,10 +85,19 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
     <section class="en-accion" aria-label={language === 'es' ? 'En acción' : 'In action'}>
       <h2 class="en-accion__title">{language === 'es' ? 'En acción' : 'In action'}</h2>
       <photo-collage
-        images={leadershipPhotos.map(p => p.url).join(',')}
-        width="100%"
-        height="400"
-      ></photo-collage>
+        width="1200"
+        height="500"
+        cols={Math.min(4, leadershipPhotos.length)}
+        rows={Math.max(1, Math.ceil(leadershipPhotos.length / 4))}
+        max-rotation="12"
+        polaroid
+        shuffle
+        zoomable
+      >
+        {leadershipPhotos.map((photo) => (
+          <img src={photo.url} alt={photo.alt} />
+        ))}
+      </photo-collage>
     </section>
   )}
 
@@ -429,7 +438,8 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
   .en-accion photo-collage {
     display: block;
     width: 100%;
-    min-height: 400px;
+    max-width: 1200px;
+    margin-inline: auto;
   }
 
   /* Charlas de liderazgo (preview) */
