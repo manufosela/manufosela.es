@@ -1,12 +1,3 @@
 ---
-import Layout from '~/layouts/Layout.astro';
-import Card from '~/components/Card.astro';
-import { Site } from '~/data/config';
-
-const title = Site.title;
-const language = 'es';
+return Astro.redirect('/es/');
 ---
-
-<Layout {title} includeSchema={true}>
-  <Card {title} language={language} />
-</Layout>
