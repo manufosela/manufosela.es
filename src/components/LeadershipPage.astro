@@ -60,33 +60,17 @@ const icons = {
   <section class="community" aria-label={d.communityTitle}>
     <div class="community__card">
       <div class="community__glow" aria-hidden="true"></div>
-      <div class="community__top">
-        <div>
-          <h2 class="community__title">{d.communityTitle}</h2>
-          <p class="community__desc">{d.communityDescription}</p>
+      <div class="community__inner">
+        <div class="community__badge">
+          <span class="community__dot" aria-hidden="true"></span>
+          <span class="u-label u-label--accent">{d.communityStatus}</span>
         </div>
-        <div class="community__counter">
-          <span class="community__number">{d.communityMembers}</span>
-          <span class="community__label">{d.communityMembersLabel}</span>
-        </div>
+        <h2 class="community__title">{d.communityTitle}</h2>
+        <p class="community__desc">{d.communityDescription}</p>
+        <a href={d.communityLink} class="community__cta" target="_blank" rel="noopener noreferrer">
+          {d.communityButton}
+        </a>
       </div>
-
-      <div class="community__testimonial u-glass--strong">
-        <p class="community__quote">&ldquo;{d.testimonial}&rdquo;</p>
-        <div class="community__author">
-          <div class="community__avatar" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3 3-5 7-5s7 2 7 5"/></svg>
-          </div>
-          <div>
-            <p class="community__name">{d.testimonialAuthor}</p>
-            <p class="community__role">{d.testimonialRole}</p>
-          </div>
-        </div>
-      </div>
-
-      <a href={d.communityLink} class="community__cta" target="_blank" rel="noopener noreferrer">
-        {d.communityButton}
-      </a>
     </div>
   </section>
 
@@ -300,14 +284,29 @@ const icons = {
     border-radius: 50%;
   }
 
-  .community__top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+  .community__inner {
     position: relative;
     z-index: 1;
+  }
+
+  .community__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .community__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--primary-fixed-dim);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
   }
 
   .community__title {
@@ -320,84 +319,11 @@ const icons = {
 
   .community__desc {
     font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    color: var(--on-surface-variant);
-    margin-top: 0.25rem;
-  }
-
-  .community__counter {
-    background-color: var(--surface-container-high);
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    text-align: center;
-    border: 1px solid color-mix(in srgb, var(--outline-variant) 10%, transparent);
-    flex-shrink: 0;
-  }
-  .community__number {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 700;
-    font-size: 1.125rem;
-    color: var(--primary-container);
-    display: block;
-    line-height: 1;
-  }
-  .community__label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.5625rem;
-    text-transform: uppercase;
-    color: var(--on-surface-variant);
-    letter-spacing: 0.04em;
-  }
-
-  .community__testimonial {
-    position: relative;
-    z-index: 1;
-    padding: 1.25rem;
-    border-radius: 0.75rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid color-mix(in srgb, var(--on-surface) 5%, transparent);
-  }
-
-  .community__quote {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    font-style: italic;
+    font-size: clamp(0.9375rem, 1.8vw, 1.0625rem);
     line-height: 1.6;
-    color: var(--on-surface);
-    margin-bottom: 1rem;
-  }
-
-  .community__author {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .community__avatar {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    background-color: var(--surface-bright);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid color-mix(in srgb, var(--primary-container) 20%, transparent);
     color: var(--on-surface-variant);
-  }
-  .community__avatar svg { width: 1.25rem; height: 1.25rem; }
-
-  .community__name {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 700;
-    color: var(--on-surface);
-  }
-  .community__role {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--on-surface-variant);
+    max-width: 32rem;
+    margin-bottom: 2rem;
   }
 
   .community__cta {
