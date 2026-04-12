@@ -43,7 +43,7 @@ const socialLinks = [...Links.social, ...Links.software];
     <div class="contact-form-wrapper">
       <h2 class="contact__title">{d.contactTitle}</h2>
       <p class="contact__desc">{d.contactDescription}</p>
-      <form class="contact-form" data-action="/api/contact" method="POST">
+      <form class="contact-form" action="https://formspree.io/f/mrbqjrkv" method="POST">
         <div class="contact-form__field">
           <label class="u-label" for="contact-name">{d.formLabels.name}</label>
           <input type="text" id="contact-name" name="name" placeholder={d.formPlaceholders.name} required />
