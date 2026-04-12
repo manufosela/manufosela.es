@@ -45,7 +45,7 @@ import '~/styles/utilities.css';
       <!-- Tabs -->
       <nav class="admin__tabs" role="tablist">
         <button role="tab" class="admin__tab admin__tab--active" data-tab="articles" aria-selected="true">Artículos</button>
-        <button role="tab" class="admin__tab" data-tab="photos" aria-selected="false">Fotos</button>
+        <button role="tab" class="admin__tab" data-tab="photos" aria-selected="false">Galerías</button>
         <button role="tab" class="admin__tab" data-tab="import" aria-selected="false">Importar</button>
       </nav>
 
@@ -102,41 +102,9 @@ import '~/styles/utilities.css';
         <div id="articles-list" class="admin__list"></div>
       </div>
 
-      <!-- Tab: Fotos -->
+      <!-- Tab: Galerías -->
       <div class="admin__pane" id="pane-photos" role="tabpanel" hidden>
-        <div class="admin__card">
-          <form id="photo-form" class="admin__form">
-            <h2>Subir foto</h2>
-            <div class="admin__field">
-              <label class="u-label" for="photo-file">Imagen</label>
-              <input type="file" id="photo-file" accept="image/*" required />
-            </div>
-            <div class="admin__field">
-              <label class="u-label" for="photo-alt">Descripción / alt</label>
-              <input type="text" id="photo-alt" required />
-            </div>
-            <div class="admin__row">
-              <div class="admin__field">
-                <label class="u-label" for="photo-section">Sección</label>
-                <select id="photo-section">
-                  <option value="leadership">Liderazgo</option>
-                  <option value="contact">Trayectoria</option>
-                </select>
-              </div>
-              <div class="admin__field">
-                <label class="u-label" for="photo-context">Contexto</label>
-                <input type="text" id="photo-context" placeholder="Ej: CommitConf 2024" />
-              </div>
-            </div>
-            <button type="submit" class="admin__btn admin__btn--primary">Subir</button>
-            <div id="photo-progress" class="admin__progress" hidden><div class="admin__progress-bar"></div></div>
-            <p id="photo-status" class="admin__status"></p>
-          </form>
-        </div>
-        <div class="admin__list-header">
-          <h3>Fotos guardadas</h3>
-        </div>
-        <div id="photos-grid" class="admin__photos"></div>
+        <div id="galleries-container"></div>
       </div>
     </div>
   </div>
@@ -265,88 +233,228 @@ import '~/styles/utilities.css';
       });
     }
 
-    // Photos CRUD
-    $('photo-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const file = $('photo-file').files[0];
-      const alt = $('photo-alt').value.trim();
-      const section = $('photo-section').value;
-      const context = $('photo-context').value.trim();
-      if (!file || !alt) return;
+    // Galleries metadata (source of truth)
+    const GALLERIES = {
+      leadership: {
+        name: 'En acción',
+        context: 'Liderazgo',
+        url: '/es/leadership',
+        description: 'Collage tipo polaroid en la sección hero de Liderazgo. Se muestran con rotación aleatoria y permiten zoom al clic.',
+        recommended: { min: 8, max: 12 }
+      },
+      contact: {
+        name: 'Momentos',
+        context: 'Trayectoria',
+        url: '/es/contact',
+        description: 'Galería en grid en la página Trayectoria. Se muestran todas las fotos.',
+        recommended: { min: 4, max: 8 }
+      }
+    };
 
-      const filename = `${Date.now()}_${file.name}`;
-      const storageRef = sRef(storage, `photos/${filename}`);
-      const task = uploadBytesResumable(storageRef, file);
-
-      $('photo-progress').hidden = false;
-      task.on('state_changed',
-        (snap) => {
-          const pct = (snap.bytesTransferred / snap.totalBytes) * 100;
-          $('photo-progress').querySelector('.admin__progress-bar').style.width = pct + '%';
-        },
-        (err) => {
-          $('photo-status').textContent = 'Error: ' + err.message;
-          $('photo-status').style.color = 'var(--error)';
-          $('photo-progress').hidden = true;
-        },
-        async () => {
-          const url = await getDownloadURL(storageRef);
-          await set(push(ref(db, 'photos')), { url, alt, section, context, filename, createdAt: new Date().toISOString() });
-          $('photo-form').reset();
-          $('photo-progress').hidden = true;
-          $('photo-status').textContent = '✓ Subida';
-          $('photo-status').style.color = 'var(--primary-fixed-dim)';
-          setTimeout(() => $('photo-status').textContent = '', 2000);
-        }
-      );
-    });
-
-    const sectionLabels = { leadership: 'Liderazgo', contact: 'Trayectoria' };
+    const galleriesData = {};
 
     function loadPhotos() {
       onValue(ref(db, 'photos'), (snap) => {
-        const data = snap.val();
-        const grid = $('photos-grid');
-        if (!data) { grid.innerHTML = '<p style="color:var(--on-surface-variant)">No hay fotos.</p>'; return; }
-
-        // Group by section
-        const bySection = {};
-        Object.entries(data).forEach(([key, p]) => {
-          const sec = p.section || 'other';
-          if (!bySection[sec]) bySection[sec] = [];
-          bySection[sec].push([key, p]);
+        const data = snap.val() || {};
+        // Split by section and sort by order asc
+        Object.keys(GALLERIES).forEach(sec => {
+          galleriesData[sec] = Object.entries(data)
+            .filter(([, p]) => p.section === sec)
+            .sort(([,a],[,b]) => (a.order || 99) - (b.order || 99));
         });
-        Object.values(bySection).forEach(arr => arr.sort(([,a],[,b]) => new Date(b.createdAt) - new Date(a.createdAt)));
+        renderGalleries();
+      });
+    }
 
-        const sections = Object.keys(bySection).sort();
-        grid.innerHTML = sections.map(sec => `
-          <div class="admin__photo-section">
-            <h3 class="admin__photo-section-title">${sectionLabels[sec] || sec} <span class="admin__photo-count">${bySection[sec].length}</span></h3>
-            <div class="admin__photo-thumbs">
-              ${bySection[sec].map(([key, p]) => `
-                <div class="admin__photo-thumb" data-key="${key}" data-filename="${p.filename || ''}">
-                  <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="admin__photo-link" title="Ver en grande">
+    function renderGalleries() {
+      const container = $('galleries-container');
+      container.innerHTML = Object.entries(GALLERIES).map(([sec, g]) => {
+        const photos = galleriesData[sec] || [];
+        const count = photos.length;
+        const belowMin = count < g.recommended.min;
+        return `
+          <div class="gallery" data-section="${sec}">
+            <div class="gallery__header">
+              <div class="gallery__info">
+                <h3 class="gallery__name">${g.name} <span class="gallery__context">· ${g.context}</span></h3>
+                <a class="gallery__url" href="${g.url}" target="_blank" rel="noopener noreferrer">${g.url} →</a>
+                <p class="gallery__desc">${g.description}</p>
+              </div>
+              <div class="gallery__status">
+                <div class="gallery__count ${belowMin ? 'gallery__count--warn' : ''}">${count}<span>fotos</span></div>
+                <div class="gallery__recommended">Recomendado: ${g.recommended.min}–${g.recommended.max}</div>
+                ${belowMin ? `<div class="gallery__warning">⚠ Faltan ${g.recommended.min - count} para el mínimo recomendado</div>` : ''}
+              </div>
+            </div>
+
+            <div class="gallery__thumbs" data-section="${sec}">
+              ${photos.map(([key, p], idx) => `
+                <div class="gallery__thumb" draggable="true" data-key="${key}" data-section="${sec}" data-index="${idx}" data-filename="${p.filename || ''}">
+                  <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="gallery__thumb-link" title="Ver en grande">
                     <img src="${p.url}" alt="${p.alt || ''}" loading="lazy" />
                   </a>
-                  <div class="admin__photo-meta">
-                    <span class="admin__photo-context-text">${p.context || p.alt || '—'}</span>
-                    <button class="admin__btn-delete" data-key="${key}" data-filename="${p.filename || ''}" data-type="photo" title="Eliminar">✕</button>
+                  <div class="gallery__thumb-meta">
+                    <span class="gallery__thumb-context" title="${p.context || p.alt || ''}">${p.context || p.alt || '—'}</span>
+                    <div class="gallery__thumb-actions">
+                      <button class="gallery__btn-replace" data-key="${key}" data-section="${sec}" data-filename="${p.filename || ''}" title="Reemplazar">↻</button>
+                      <button class="gallery__btn-delete" data-key="${key}" data-section="${sec}" data-filename="${p.filename || ''}" title="Eliminar">✕</button>
+                    </div>
                   </div>
                 </div>
               `).join('')}
+              <button class="gallery__add" data-section="${sec}" title="Añadir foto">
+                <span>+</span>
+                <span class="gallery__add-label">Añadir</span>
+              </button>
+            </div>
+
+            <div class="gallery__upload" id="upload-${sec}" hidden>
+              <div class="gallery__upload-form">
+                <h4>Añadir foto a "${g.name}"</h4>
+                <input type="file" accept="image/*" data-field="file" />
+                <input type="text" placeholder="Descripción / alt text" data-field="alt" />
+                <input type="text" placeholder="Contexto (ej: CommitConf 2024)" data-field="context" />
+                <div class="gallery__upload-actions">
+                  <button class="admin__btn admin__btn--primary" data-action="upload" data-section="${sec}">Subir</button>
+                  <button class="admin__btn admin__btn--ghost" data-action="cancel-upload" data-section="${sec}">Cancelar</button>
+                </div>
+                <div class="admin__progress" data-progress="${sec}" hidden><div class="admin__progress-bar"></div></div>
+                <p class="admin__status" data-status="${sec}"></p>
+              </div>
             </div>
           </div>
-        `).join('');
+        `;
+      }).join('');
 
-        grid.querySelectorAll('[data-type="photo"]').forEach(btn => {
-          btn.addEventListener('click', async (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (!confirm('¿Eliminar foto?')) return;
-            if (btn.dataset.filename) {
-              try { await deleteObject(sRef(storage, `photos/${btn.dataset.filename}`)); } catch {}
+      wireGalleryEvents();
+    }
+
+    function wireGalleryEvents() {
+      // Add button → show upload form
+      document.querySelectorAll('.gallery__add').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const sec = btn.dataset.section;
+          document.querySelectorAll('.gallery__upload').forEach(u => u.hidden = true);
+          $(`upload-${sec}`).hidden = false;
+          $(`upload-${sec}`).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+      });
+
+      // Cancel upload
+      document.querySelectorAll('[data-action="cancel-upload"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          $(`upload-${btn.dataset.section}`).hidden = true;
+        });
+      });
+
+      // Upload
+      document.querySelectorAll('[data-action="upload"]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const sec = btn.dataset.section;
+          const wrap = $(`upload-${sec}`);
+          const file = wrap.querySelector('[data-field="file"]').files[0];
+          const alt = wrap.querySelector('[data-field="alt"]').value.trim();
+          const context = wrap.querySelector('[data-field="context"]').value.trim();
+          const status = document.querySelector(`[data-status="${sec}"]`);
+          const progress = document.querySelector(`[data-progress="${sec}"]`);
+          if (!file || !alt) { status.textContent = 'Falta imagen o descripción'; status.style.color = 'var(--error)'; return; }
+
+          const filename = `${Date.now()}_${file.name}`;
+          const storageRef = sRef(storage, `photos/${filename}`);
+          const task = uploadBytesResumable(storageRef, file);
+          progress.hidden = false;
+          task.on('state_changed',
+            (s) => { progress.querySelector('.admin__progress-bar').style.width = (s.bytesTransferred / s.totalBytes * 100) + '%'; },
+            (err) => { status.textContent = 'Error: ' + err.message; status.style.color = 'var(--error)'; progress.hidden = true; },
+            async () => {
+              const url = await getDownloadURL(storageRef);
+              const maxOrder = (galleriesData[sec] || []).reduce((m, [,p]) => Math.max(m, p.order || 0), 0);
+              await set(push(ref(db, 'photos')), { url, alt, section: sec, context, filename, order: maxOrder + 1, createdAt: new Date().toISOString() });
+              wrap.hidden = true;
+              progress.hidden = true;
+              wrap.querySelectorAll('input').forEach(i => i.value = '');
             }
-            await remove(ref(db, `photos/${btn.dataset.key}`));
+          );
+        });
+      });
+
+      // Delete with smart confirm
+      document.querySelectorAll('.gallery__btn-delete').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const sec = btn.dataset.section;
+          const g = GALLERIES[sec];
+          const remaining = (galleriesData[sec]?.length || 0) - 1;
+          let msg = `¿Eliminar foto? Quedarán ${remaining} en "${g.name}".`;
+          if (remaining < g.recommended.min) msg += `\n\n⚠ Bajarás del mínimo recomendado (${g.recommended.min}).`;
+          if (!confirm(msg)) return;
+          const wantStorage = btn.dataset.filename && confirm('¿Borrar también el archivo de Storage?\n\nAceptar = borrar (libera espacio)\nCancelar = mantener (histórico)');
+          if (wantStorage) {
+            try { await deleteObject(sRef(storage, `photos/${btn.dataset.filename}`)); } catch {}
+          }
+          await remove(ref(db, `photos/${btn.dataset.key}`));
+        });
+      });
+
+      // Replace
+      document.querySelectorAll('.gallery__btn-replace').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.dataset.key;
+          const sec = btn.dataset.section;
+          const oldFilename = btn.dataset.filename;
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = 'image/*';
+          input.onchange = async () => {
+            const file = input.files[0];
+            if (!file) return;
+            const filename = `${Date.now()}_${file.name}`;
+            const storageRef = sRef(storage, `photos/${filename}`);
+            const task = uploadBytesResumable(storageRef, file);
+            task.on('state_changed', null, null, async () => {
+              const url = await getDownloadURL(storageRef);
+              await set(ref(db, `photos/${key}/url`), url);
+              await set(ref(db, `photos/${key}/filename`), filename);
+              if (oldFilename) {
+                const wantDel = confirm('¿Borrar el archivo anterior de Storage?\n\nAceptar = borrar (libera espacio)\nCancelar = mantener (histórico)');
+                if (wantDel) {
+                  try { await deleteObject(sRef(storage, `photos/${oldFilename}`)); } catch {}
+                }
+              }
+            });
+          };
+          input.click();
+        });
+      });
+
+      // Drag & drop reorder
+      document.querySelectorAll('.gallery__thumbs').forEach(container => {
+        let draggedKey = null;
+        container.querySelectorAll('.gallery__thumb').forEach(thumb => {
+          thumb.addEventListener('dragstart', (e) => {
+            draggedKey = thumb.dataset.key;
+            thumb.classList.add('gallery__thumb--dragging');
+            e.dataTransfer.effectAllowed = 'move';
+          });
+          thumb.addEventListener('dragend', () => thumb.classList.remove('gallery__thumb--dragging'));
+          thumb.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            thumb.classList.add('gallery__thumb--over');
+          });
+          thumb.addEventListener('dragleave', () => thumb.classList.remove('gallery__thumb--over'));
+          thumb.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            thumb.classList.remove('gallery__thumb--over');
+            if (!draggedKey || draggedKey === thumb.dataset.key) return;
+            const sec = thumb.dataset.section;
+            const list = galleriesData[sec].map(([k]) => k);
+            const from = list.indexOf(draggedKey);
+            const to = list.indexOf(thumb.dataset.key);
+            list.splice(to, 0, list.splice(from, 1)[0]);
+            // Persist new orders
+            for (let i = 0; i < list.length; i++) {
+              await set(ref(db, `photos/${list[i]}/order`), i + 1);
+            }
           });
         });
       });
@@ -510,74 +618,81 @@ import '~/styles/utilities.css';
     .admin__btn-delete { background: none; border: 0; color: var(--error); font-size: 1rem; cursor: pointer; padding: 0.375rem 0.5rem; border-radius: 0.25rem; transition: background-color 200ms; }
     .admin__btn-delete:hover { background-color: color-mix(in srgb, var(--error) 10%, transparent); }
 
-    .admin__photos { display: flex; flex-direction: column; gap: 2rem; }
-    .admin__photo-section {
+    /* Galleries */
+    #galleries-container { display: flex; flex-direction: column; gap: 2rem; }
+    .gallery {
       background-color: var(--surface-container-low);
       border: 1px solid color-mix(in srgb, var(--outline-variant) 12%, transparent);
       border-radius: 0.75rem;
-      padding: 1.25rem;
+      padding: 1.5rem;
     }
-    .admin__photo-section-title {
-      font-family: 'Manrope', sans-serif;
-      font-size: 0.9375rem;
-      font-weight: 700;
-      color: var(--on-surface);
-      margin-bottom: 1rem;
+    .gallery__header {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 10%, transparent);
     }
-    .admin__photo-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 1.5rem;
-      height: 1.25rem;
-      padding: 0 0.375rem;
-      background-color: var(--surface-container-high);
-      color: var(--primary-fixed-dim);
+    .gallery__info { flex: 1; min-width: 0; }
+    .gallery__name { font-family: 'Manrope', sans-serif; font-size: 1.125rem; font-weight: 800; color: var(--on-surface); }
+    .gallery__context { font-weight: 500; color: var(--on-surface-variant); font-size: 0.875rem; }
+    .gallery__url {
+      display: inline-block;
+      margin-top: 0.25rem;
       font-family: 'Inter', sans-serif;
       font-size: 0.6875rem;
-      font-weight: 700;
-      border-radius: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary-fixed-dim);
+      text-decoration: none;
     }
-    .admin__photo-thumbs {
+    .gallery__url:hover { text-decoration: underline; }
+    .gallery__desc { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--on-surface-variant); margin-top: 0.5rem; line-height: 1.5; max-width: 36rem; }
+    .gallery__status { text-align: right; flex-shrink: 0; }
+    .gallery__count {
+      font-family: 'Manrope', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--primary-fixed-dim);
+      line-height: 1;
+    }
+    .gallery__count--warn { color: var(--error); }
+    .gallery__count span { display: block; font-family: 'Inter', sans-serif; font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-variant); margin-top: 0.25rem; }
+    .gallery__recommended { font-family: 'Inter', sans-serif; font-size: 0.625rem; color: var(--on-surface-variant); margin-top: 0.5rem; }
+    .gallery__warning { font-family: 'Inter', sans-serif; font-size: 0.6875rem; color: var(--error); margin-top: 0.375rem; }
+
+    .gallery__thumbs {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
       gap: 0.625rem;
     }
-    .admin__photo-thumb {
+    .gallery__thumb {
       display: flex;
       flex-direction: column;
       background-color: var(--surface-container-lowest);
       border-radius: 0.375rem;
       overflow: hidden;
       border: 1px solid transparent;
-      transition: border-color 200ms;
+      cursor: grab;
+      transition: border-color 200ms, transform 150ms;
     }
-    .admin__photo-thumb:hover { border-color: color-mix(in srgb, var(--primary-fixed-dim) 30%, transparent); }
-    .admin__photo-link {
-      display: block;
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      background-color: var(--surface-container-high);
-    }
-    .admin__photo-link img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 300ms;
-    }
-    .admin__photo-thumb:hover .admin__photo-link img { transform: scale(1.05); }
-    .admin__photo-meta {
+    .gallery__thumb:hover { border-color: color-mix(in srgb, var(--primary-fixed-dim) 30%, transparent); }
+    .gallery__thumb--dragging { opacity: 0.4; cursor: grabbing; }
+    .gallery__thumb--over { border-color: var(--primary-fixed-dim); transform: scale(1.02); }
+    .gallery__thumb-link { display: block; aspect-ratio: 1 / 1; overflow: hidden; background-color: var(--surface-container-high); }
+    .gallery__thumb-link img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 300ms; }
+    .gallery__thumb:hover .gallery__thumb-link img { transform: scale(1.05); }
+    .gallery__thumb-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.375rem;
+      gap: 0.25rem;
       padding: 0.375rem 0.5rem;
     }
-    .admin__photo-context-text {
+    .gallery__thumb-context {
       font-family: 'Inter', sans-serif;
       font-size: 0.625rem;
       font-weight: 500;
@@ -587,11 +702,66 @@ import '~/styles/utilities.css';
       text-overflow: ellipsis;
       min-width: 0;
     }
-    .admin__photo-thumb .admin__btn-delete {
-      font-size: 0.75rem;
-      padding: 0.125rem 0.375rem;
-      flex-shrink: 0;
+    .gallery__thumb-actions { display: flex; gap: 0.125rem; flex-shrink: 0; }
+    .gallery__btn-replace, .gallery__btn-delete {
+      background: none; border: 0; font-size: 0.75rem; cursor: pointer;
+      padding: 0.125rem 0.375rem; border-radius: 0.25rem;
+      transition: background-color 200ms;
     }
+    .gallery__btn-replace { color: var(--primary-fixed-dim); }
+    .gallery__btn-replace:hover { background-color: color-mix(in srgb, var(--primary-fixed-dim) 15%, transparent); }
+    .gallery__btn-delete { color: var(--error); }
+    .gallery__btn-delete:hover { background-color: color-mix(in srgb, var(--error) 15%, transparent); }
+
+    .gallery__add {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      aspect-ratio: 1 / 1;
+      min-height: 7rem;
+      background-color: var(--surface-container-lowest);
+      border: 2px dashed color-mix(in srgb, var(--outline-variant) 25%, transparent);
+      border-radius: 0.375rem;
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      transition: border-color 200ms, color 200ms;
+      font-family: 'Inter', sans-serif;
+    }
+    .gallery__add:hover { border-color: var(--primary-fixed-dim); color: var(--primary-fixed-dim); }
+    .gallery__add span:first-child { font-size: 1.5rem; font-weight: 300; }
+    .gallery__add-label { font-size: 0.625rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .gallery__upload {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      background-color: var(--surface-container-lowest);
+      border: 1px solid color-mix(in srgb, var(--primary-fixed-dim) 30%, transparent);
+      border-radius: 0.5rem;
+    }
+    .gallery__upload-form h4 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      margin-bottom: 0.75rem;
+    }
+    .gallery__upload-form input {
+      width: 100%;
+      padding: 0.625rem 0.75rem;
+      background-color: var(--surface-container-low);
+      border: 0;
+      border-radius: 0.375rem;
+      color: var(--on-surface);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      outline: none;
+      margin-bottom: 0.5rem;
+    }
+    .gallery__upload-form input:focus { box-shadow: inset 0 0 0 1px var(--primary-fixed-dim); }
+    .gallery__upload-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .gallery__upload-actions .admin__btn { padding: 0.5rem 1rem; font-size: 0.8125rem; }
   </style>
 </body>
 </html>
