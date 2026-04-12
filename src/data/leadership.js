@@ -20,9 +20,9 @@ export const leadershipData = {
     communityButton: 'Ser de los primeros',
     communityLink: 'https://comunidad.liderazgoafectivo.com',
     insightsItems: [
-      { icon: 'terminal', title: 'Tech Leadership', description: 'Frameworks técnicos aplicados a la gestión de personas de alto rendimiento.' },
-      { icon: 'chart', title: 'Métricas', description: 'KPIs de bienestar y cultura organizacional.' },
-      { icon: 'mail', title: 'Contacto', description: 'Mentorías personalizadas para líderes.' }
+      { icon: 'terminal', title: 'Charlas', description: 'Sobre liderazgo afectivo, cultura organizacional y gestión de equipos técnicos.' },
+      { icon: 'chart', title: 'Consultas', description: 'Sesiones iniciales para explorar cómo puedo ayudarte con tu equipo o proyecto.' },
+      { icon: 'mail', title: 'Contacto', description: 'Escríbeme y vemos juntos qué encaja mejor.' }
     ]
   },
   en: {
@@ -46,9 +46,9 @@ export const leadershipData = {
     communityButton: 'Be one of the first',
     communityLink: 'https://comunidad.liderazgoafectivo.com',
     insightsItems: [
-      { icon: 'terminal', title: 'Tech Leadership', description: 'Technical frameworks applied to high-performance people management.' },
-      { icon: 'chart', title: 'Metrics', description: 'Well-being and organizational culture KPIs.' },
-      { icon: 'mail', title: 'Contact', description: 'Personalized mentorship for leaders.' }
+      { icon: 'terminal', title: 'Talks', description: 'On affective leadership, organizational culture and technical team management.' },
+      { icon: 'chart', title: 'Consultations', description: 'Initial sessions to explore how I can help with your team or project.' },
+      { icon: 'mail', title: 'Contact', description: 'Write to me and we\'ll figure out what fits best together.' }
     ]
   }
 };
