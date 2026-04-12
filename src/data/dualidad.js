@@ -10,7 +10,7 @@ export const dualidad = {
     tech: {
       label: 'Otra cara',
       heading: 'Ingeniería de Sistemas',
-      quote: 'El mejor código es el que nunca necesitas escribir. El mejor equipo es el que puede reescribirlo todo sin miedo.'
+      quote: 'El mejor código es el que no hace falta escribir. El mejor equipo es el que puede evolucionarlo sin miedo, porque hay confianza.'
     }
   },
   en: {
@@ -24,7 +24,7 @@ export const dualidad = {
     tech: {
       label: 'Other side',
       heading: 'Systems Engineering',
-      quote: 'The best code is the code you never need to write. The best team is the one that can rewrite everything without fear.'
+      quote: 'The best code is the code you don\'t need to write. The best team is the one that can evolve it without fear, because there is trust.'
     }
   }
 };
