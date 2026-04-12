@@ -38,7 +38,19 @@ import '~/styles/utilities.css';
       <nav class="admin__tabs" role="tablist">
         <button role="tab" class="admin__tab admin__tab--active" data-tab="articles" aria-selected="true">Artículos</button>
         <button role="tab" class="admin__tab" data-tab="photos" aria-selected="false">Fotos</button>
+        <button role="tab" class="admin__tab" data-tab="import" aria-selected="false">Importar</button>
       </nav>
+
+      <!-- Tab: Importar -->
+      <div class="admin__pane" id="pane-import" role="tabpanel" hidden>
+        <h2>Importar datos existentes</h2>
+        <p style="color:var(--on-surface-variant);margin-bottom:1.5rem">Carga los artículos de LinkedIn y las fotos existentes del proyecto a Firebase. Solo necesitas hacerlo una vez.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <button id="btn-seed-articles" class="admin__btn admin__btn--primary">Importar artículos de LinkedIn</button>
+          <button id="btn-seed-photos" class="admin__btn admin__btn--primary">Importar fotos existentes</button>
+        </div>
+        <p id="import-status" class="admin__status" style="margin-top:1rem"></p>
+      </div>
 
       <!-- Tab: Artículos -->
       <div class="admin__pane admin__pane--visible" id="pane-articles" role="tabpanel">
@@ -265,6 +277,53 @@ import '~/styles/utilities.css';
         });
       });
     }
+
+    // Seed data
+    const SEED_ARTICLES = [
+      { title: 'Mi primer año en Geniova', url: 'https://www.linkedin.com/pulse/mi-primer-a%25C3%25B1o-en-geniova-m%25C3%25A1nu-fosela-q8qle/', topic: 'leadership', date: '2026-01-15' },
+      { title: 'Disculpa, ¿Tienes F.O.G.O.?', url: 'https://www.linkedin.com/feed/update/urn:li:activity:7321163293581041668/', topic: 'leadership', date: '2025-06-01' },
+      { title: 'Reflexiones de un Año en Lean Mind', url: 'https://www.linkedin.com/pulse/reflexiones-de-un-a%25C3%25B1o-en-lean-mind-crecimiento-cambio-m%25C3%25A1nu-fosela-fncaf/', topic: 'leadership', date: '2024-06-01' },
+      { title: 'Hace 6 meses cambié de empresa', url: 'https://www.linkedin.com/pulse/hace-6-meses-que-cambi%25C3%25A9-de-empresa-m%25C3%25A1nu-fosela-dtygf', topic: 'leadership', date: '2024-03-01' },
+      { title: 'El bienestar de los empleados', url: 'https://www.linkedin.com/pulse/el-bienestar-de-los-empleados-m%25C3%25A1nu-fosela-whwof/', topic: 'leadership', date: '2024-01-01' },
+      { title: 'Developer FullStack', url: 'https://www.linkedin.com/pulse/developer-fullstack-m%25C3%25A1nu-fosela', topic: 'tech', date: '2023-06-01' },
+      { title: 'Como ser un buen líder', url: 'https://www.linkedin.com/pulse/c%25C3%25B3mo-ser-un-buen-l%25C3%25ADder-m%25C3%25A1nu-fosela', topic: 'leadership', date: '2022-06-01' },
+      { title: 'Organización jerárquica y agile', url: 'https://www.linkedin.com/pulse/organizaci%25C3%25B3n-jer%25C3%25A1rquica-y-agile-m%25C3%25A1nu-fosela', topic: 'leadership', date: '2021-06-01' },
+      { title: 'Cómo ascender en la empresa', url: 'https://www.linkedin.com/pulse/c%25C3%25B3mo-ascender-en-la-empresa-m%25C3%25A1nu-fosela', topic: 'leadership', date: '2018-06-01' },
+      { title: 'Están buscando Talento o pareja', url: 'https://www.linkedin.com/pulse/est%25C3%25A1n-buscando-talento-o-pareja-manuel-juan-fosela-aguila', topic: 'leadership', date: '2018-01-01' }
+    ];
+
+    const SEED_PHOTOS = [
+      { url: '/images/about1280.webp', alt: 'Collage de fotos con equipos en eventos y conferencias', section: 'contact', context: 'Equipos y eventos' },
+      { url: '/images/media1280.webp', alt: 'Collage de charlas en CommitConf, Codemotion y otros eventos', section: 'leadership', context: 'Charlas y conferencias' },
+      { url: '/images/contributions1280.webp', alt: 'Libro Liderazgo Afectivo, GitHub y Codepen', section: 'leadership', context: 'Contribuciones' },
+      { url: '/images/ManuFoselaGeniova.png', alt: 'Mánu Fosela en Geniova Technologies', section: 'contact', context: 'Geniova Technologies' }
+    ];
+
+    $('btn-seed-articles')?.addEventListener('click', async () => {
+      const status = $('import-status');
+      try {
+        const snap = await new Promise(r => onValue(ref(db, 'articles/linkedin'), r, { onlyOnce: true }));
+        if (snap.val()) { status.textContent = 'Ya hay artículos — borra primero si quieres reimportar.'; status.style.color = 'var(--error)'; return; }
+        for (const a of SEED_ARTICLES) {
+          await set(push(ref(db, 'articles/linkedin')), { ...a, date: new Date(a.date).toISOString() });
+        }
+        status.textContent = `✓ ${SEED_ARTICLES.length} artículos importados`;
+        status.style.color = 'var(--primary-fixed-dim)';
+      } catch (err) { status.textContent = 'Error: ' + err.message; status.style.color = 'var(--error)'; }
+    });
+
+    $('btn-seed-photos')?.addEventListener('click', async () => {
+      const status = $('import-status');
+      try {
+        const snap = await new Promise(r => onValue(ref(db, 'photos'), r, { onlyOnce: true }));
+        if (snap.val()) { status.textContent = 'Ya hay fotos — borra primero si quieres reimportar.'; status.style.color = 'var(--error)'; return; }
+        for (const p of SEED_PHOTOS) {
+          await set(push(ref(db, 'photos')), { ...p, filename: '', createdAt: new Date().toISOString() });
+        }
+        status.textContent = `✓ ${SEED_PHOTOS.length} fotos importadas`;
+        status.style.color = 'var(--primary-fixed-dim)';
+      } catch (err) { status.textContent = 'Error: ' + err.message; status.style.color = 'var(--error)'; }
+    });
   </script>
 
   <style>
