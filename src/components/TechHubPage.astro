@@ -60,7 +60,14 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
   <section class="pulse" aria-label={d.pulseLabel}>
     <div class="pulse__header">
       <h2 class="pulse__title">{d.pulseLabel}</h2>
-      <span class="pulse__source">{d.pulseSource}</span>
+      <a class="pulse__source" href="https://github.com/manufosela" target="_blank" rel="noopener noreferrer">{d.pulseSource} →</a>
+    </div>
+    <div class="pulse__chart">
+      <img
+        src="https://ghchart.rshah.org/00e0b3/manufosela"
+        alt="GitHub contribution graph"
+        loading="lazy"
+      />
     </div>
     <div class="pulse__grid u-bento">
       <div class="pulse__card u-bento__item u-bento__item--wide">
@@ -255,6 +262,22 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
     letter-spacing: 0.08em;
     color: var(--primary-fixed-dim);
     text-transform: uppercase;
+    text-decoration: none;
+  }
+  .pulse__source:hover { text-decoration: underline; }
+  .pulse__chart {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--surface-container-high) transparent;
+  }
+  .pulse__chart img {
+    width: 100%;
+    min-width: 500px;
+    height: auto;
+    filter: invert(1) hue-rotate(180deg) brightness(1.2);
+    border-radius: 0.375rem;
   }
   .pulse__card {
     display: flex;
