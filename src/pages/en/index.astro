@@ -2,6 +2,7 @@
 import Layout from '~/layouts/Layout.astro';
 import HeroHome from '~/components/HeroHome.astro';
 import Dualidad from '~/components/Dualidad.astro';
+import BentoLogros from '~/components/BentoLogros.astro';
 import { Site } from '~/data/config';
 
 const title = Site.title;
@@ -12,6 +13,7 @@ const language = 'en';
   <HeroHome language={language} />
   <div class="home-sections">
     <Dualidad language={language} />
+    <BentoLogros language={language} />
   </div>
 </Layout>
 
