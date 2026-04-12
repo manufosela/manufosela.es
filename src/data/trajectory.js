@@ -18,13 +18,13 @@ export const trajectoryData = {
       },
       {
         scope: 'Crecimiento & Cultura',
-        title: 'VP of Engineering en Kairós DS',
+        title: 'Head of Software Development en Kairós DS',
         description: 'Empleado 23. Lideré el crecimiento del equipo técnico, establecí la cultura de ingeniería y llevé la transición hacia arquitecturas modernas. 2015-2023.',
         current: false
       },
       {
         scope: 'Innovación & I+D',
-        title: 'Senior Developer en Orange',
+        title: 'Arquitecto de Software en Orange',
         description: '4 años en I+D investigando tecnologías emergentes, seguidos de desarrollo web en el equipo de producto de la web de Orange.',
         current: false
       }
@@ -55,13 +55,13 @@ export const trajectoryData = {
       },
       {
         scope: 'Growth & Culture',
-        title: 'VP of Engineering at Kairós DS',
+        title: 'Head of Software Development at Kairós DS',
         description: 'Employee #23. Led the growth of the engineering team, established engineering culture and drove the transition towards modern architectures. 2015-2023.',
         current: false
       },
       {
         scope: 'Innovation & R&D',
-        title: 'Senior Developer at Orange',
+        title: 'Software Architect at Orange',
         description: '4 years in R&D researching emerging technologies, followed by web development on the Orange product web team.',
         current: false
       }
