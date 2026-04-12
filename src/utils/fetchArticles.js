@@ -53,7 +53,8 @@ export async function fetchFirebaseArticles() {
       url: item.url,
       date: item.date || new Date().toISOString(),
       source: 'linkedin',
-      topic: item.topic || 'leadership'
+      topic: item.topic || 'leadership',
+      order: item.order || 99
     }));
   } catch {
     return [];
@@ -66,7 +67,7 @@ export async function getAllArticles() {
     fetchFirebaseArticles()
   ]);
   const all = [...rss, ...linkedin];
-  all.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  all.sort((a, b) => (a.order || 99) - (b.order || 99) || new Date(b.date).getTime() - new Date(a.date).getTime());
   return all;
 }
 

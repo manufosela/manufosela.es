@@ -74,6 +74,10 @@ import '~/styles/utilities.css';
               <input type="date" id="art-date" />
             </div>
           </div>
+          <div class="admin__field">
+            <label class="u-label" for="art-order">Orden (menor = primero)</label>
+            <input type="number" id="art-order" value="99" min="1" max="999" />
+          </div>
           <button type="submit" class="admin__btn admin__btn--primary">Guardar</button>
           <p id="article-status" class="admin__status"></p>
         </form>
@@ -180,9 +184,10 @@ import '~/styles/utilities.css';
       const url = $('art-url').value.trim();
       const topic = $('art-topic').value;
       const date = $('art-date').value || new Date().toISOString().split('T')[0];
+      const order = parseInt($('art-order').value) || 99;
       if (!title || !url) return;
       try {
-        await set(push(ref(db, 'articles/linkedin')), { title, url, topic, date: new Date(date).toISOString() });
+        await set(push(ref(db, 'articles/linkedin')), { title, url, topic, date: new Date(date).toISOString(), order });
         $('article-form').reset();
         $('article-status').textContent = '✓ Guardado';
         $('article-status').style.color = 'var(--primary-fixed-dim)';
@@ -198,9 +203,10 @@ import '~/styles/utilities.css';
         const data = snap.val();
         const list = $('articles-list');
         if (!data) { list.innerHTML = '<p style="color:var(--on-surface-variant)">No hay artículos.</p>'; return; }
-        const entries = Object.entries(data).sort(([,a],[,b]) => new Date(b.date) - new Date(a.date));
-        list.innerHTML = entries.map(([key, a]) => `
+        const entries = Object.entries(data).sort(([,a],[,b]) => (a.order || 99) - (b.order || 99));
+        list.innerHTML = entries.map(([key, a], i) => `
           <div class="admin__item">
+            <span class="admin__item-order">${a.order || 99}</span>
             <div class="admin__item-info">
               <span class="admin__item-title">${a.title}</span>
               <span class="admin__item-meta">${a.topic} · ${new Date(a.date).toLocaleDateString('es')}</span>
@@ -365,6 +371,7 @@ import '~/styles/utilities.css';
     .admin__list { display: flex; flex-direction: column; gap: 0.5rem; }
     .admin__item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem 1rem; background-color: var(--surface-container-low); border-radius: 0.5rem; }
     .admin__item-info { display: flex; flex-direction: column; min-width: 0; }
+    .admin__item-order { font-family: 'Manrope', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--primary-fixed-dim); min-width: 2rem; text-align: center; flex-shrink: 0; }
     .admin__item-title { font-weight: 600; font-size: 0.875rem; color: var(--on-surface); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .admin__item-meta { font-size: 0.6875rem; color: var(--on-surface-variant); text-transform: uppercase; letter-spacing: 0.04em; }
     .admin__btn-delete { background: none; border: 0; color: var(--error); font-size: 1rem; cursor: pointer; flex-shrink: 0; padding: 0.25rem; }

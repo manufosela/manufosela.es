@@ -1,10 +1,10 @@
 export const techHubData = {
   es: {
-    badge: 'System.Engine.Core',
-    title: 'Tech Hub',
+    badge: '',
+    title: 'Tech',
     subtitle: 'Ingeniería de alto rendimiento, arquitectura de sistemas e insights de liderazgo técnico.',
-    pulseLabel: 'Engineering Pulse',
-    pulseSource: 'SOURCE: GITHUB_API',
+    pulseLabel: 'Mi actividad en GitHub',
+    pulseSource: 'Datos de mi GitHub',
     commits: { value: '2,842', label: 'COMMITS / YR' },
     languages: [
       { name: 'JavaScript', pct: 55 },
@@ -20,7 +20,7 @@ export const techHubData = {
       { name: 'Automatic-Form-Validation', desc: 'Validación automática de formularios en JavaScript', url: 'https://github.com/manufosela/Automatic-Form-Validation' },
       { name: 'generator-litelement-webcomponent', desc: 'Generador Yeoman de Web Components con LitElement', url: 'https://github.com/manufosela/generator-litelement-webcomponent' }
     ],
-    insightsTitle: 'Engineering Insights',
+    insightsTitle: 'Artículos',
     viewAll: 'Ver todos',
     talksTitle: 'Charlas y Media',
     newsletterTitle: 'Sync with the Hub.',
@@ -29,11 +29,11 @@ export const techHubData = {
     newsletterLink: 'https://manufosela.substack.com'
   },
   en: {
-    badge: 'System.Engine.Core',
+    badge: '',
     title: 'Tech Hub',
     subtitle: 'High-performance engineering, systems architecture, and technical leadership insights.',
-    pulseLabel: 'Engineering Pulse',
-    pulseSource: 'SOURCE: GITHUB_API',
+    pulseLabel: 'My GitHub activity',
+    pulseSource: 'From my GitHub',
     commits: { value: '2,842', label: 'COMMITS / YR' },
     languages: [
       { name: 'JavaScript', pct: 55 },
