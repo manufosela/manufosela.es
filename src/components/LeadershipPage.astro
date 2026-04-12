@@ -1,11 +1,14 @@
 ---
 import { leadershipData } from '~/data/leadership';
+import PhotoGallery from '~/components/PhotoGallery.astro';
+import { fetchPhotos } from '~/utils/fetchPhotos';
 
 interface Props {
   language: 'es' | 'en';
 }
 
 const { language } = Astro.props;
+const leadershipPhotos = await fetchPhotos('leadership');
 const d = leadershipData[language];
 
 const icons = {
@@ -73,6 +76,9 @@ const icons = {
       </div>
     </div>
   </section>
+
+  <!-- Photos -->
+  <PhotoGallery title={language === 'es' ? 'En acción' : 'In action'} photos={leadershipPhotos} />
 
   <!-- Insights Bento -->
   <section class="insights u-bento" aria-label="Insights">

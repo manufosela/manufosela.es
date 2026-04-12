@@ -5,6 +5,10 @@
         ".read": true,
         ".write": "auth !== null && auth.token.email === 'mjfosela@gmail.com'"
       }
+    },
+    "photos": {
+      ".read": true,
+      ".write": "auth !== null && auth.token.email === 'mjfosela@gmail.com'"
     }
   }
 }
