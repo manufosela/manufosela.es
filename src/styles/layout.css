@@ -61,8 +61,8 @@ body {
   line-height: 1.5;
   min-height: 100vh;
   text-rendering: optimizeSpeed;
-  color: var(--color-text-light);
-  background-color: var(--background-light);
+  color: var(--on-surface);
+  background-color: var(--surface);
 }
 
 body,
