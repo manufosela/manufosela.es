@@ -3,6 +3,7 @@ import Layout from '~/layouts/Layout.astro';
 import HeroHome from '~/components/HeroHome.astro';
 import Dualidad from '~/components/Dualidad.astro';
 import BentoLogros from '~/components/BentoLogros.astro';
+import SocialProof from '~/components/SocialProof.astro';
 import { Site } from '~/data/config';
 
 const title = Site.title;
@@ -14,6 +15,7 @@ const language = 'es';
   <div class="home-sections">
     <Dualidad language={language} />
     <BentoLogros language={language} />
+    <SocialProof language={language} />
   </div>
 </Layout>
 
