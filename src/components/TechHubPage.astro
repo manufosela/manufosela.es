@@ -198,6 +198,48 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
 
 </div>
 
+<style is:global>
+  /* Global rules for rehydrated elements (JS innerHTML lacks scoped cids) */
+  .article-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 10%, transparent);
+    text-decoration: none;
+    transition: color 200ms var(--ease-3);
+  }
+  .article-card:first-child {
+    border-top: 1px solid color-mix(in srgb, var(--outline-variant) 10%, transparent);
+  }
+  .article-card__title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    font-weight: 600;
+    color: var(--on-surface);
+    transition: color 200ms var(--ease-3);
+  }
+  .article-card:hover .article-card__title { color: var(--primary-container); }
+  .article-card__arrow {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    color: var(--on-surface-variant);
+  }
+  .repo-card__arrow, .project-card__arrow, .resource-link__arrow {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+  .catalog__arrow {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    color: var(--on-surface-variant);
+  }
+</style>
+
 <style>
   .tech-hub {
     display: flex;
