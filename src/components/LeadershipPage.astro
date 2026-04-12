@@ -84,20 +84,22 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
   {leadershipPhotos.length > 0 && (
     <section class="en-accion" aria-label={language === 'es' ? 'En acción' : 'In action'}>
       <h2 class="en-accion__title">{language === 'es' ? 'En acción' : 'In action'}</h2>
-      <photo-collage
-        width="1200"
-        height="500"
-        cols={Math.min(4, leadershipPhotos.length)}
-        rows={Math.max(1, Math.ceil(leadershipPhotos.length / 4))}
-        max-rotation="12"
-        polaroid
-        shuffle
-        zoomable
-      >
-        {leadershipPhotos.map((photo) => (
-          <img src={photo.url} alt={photo.alt} />
-        ))}
-      </photo-collage>
+      <div class="en-accion__wrap">
+        <photo-collage
+          width="1000"
+          height="450"
+          cols={Math.min(4, leadershipPhotos.length)}
+          rows={Math.max(1, Math.ceil(leadershipPhotos.length / 4))}
+          max-rotation="12"
+          polaroid
+          shuffle
+          zoomable
+        >
+          {leadershipPhotos.map((photo) => (
+            <img src={photo.url} alt={photo.alt} />
+          ))}
+        </photo-collage>
+      </div>
     </section>
   )}
 
@@ -121,8 +123,9 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
     </section>
   )}
 
+  <section class="lead-forms-wrap">
   <!-- Consultas -->
-  <section class="lead-form" aria-label={d.consultasTitle}>
+  <div class="lead-form" aria-label={d.consultasTitle}>
     <h2 class="lead-form__title">{d.consultasTitle}</h2>
     <p class="lead-form__desc">{d.consultasDesc}</p>
     <form action="https://formspree.io/f/mrbqjrkv" method="POST" class="lead-form__form">
@@ -141,10 +144,10 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
       </div>
       <button type="submit" class="lead-form__btn">{d.consultasButton}</button>
     </form>
-  </section>
+  </div>
 
   <!-- Contacto -->
-  <section class="lead-form" aria-label={d.contactTitle}>
+  <div class="lead-form" aria-label={d.contactTitle}>
     <h2 class="lead-form__title">{d.contactTitle}</h2>
     <p class="lead-form__desc">{d.contactDesc}</p>
     <form action="https://formspree.io/f/mrbqjrkv" method="POST" class="lead-form__form">
@@ -163,6 +166,7 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
       </div>
       <button type="submit" class="lead-form__btn">{d.contactButton}</button>
     </form>
+  </div>
   </section>
 
 </div>
@@ -435,11 +439,39 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
     color: var(--on-surface);
     margin-bottom: 1.5rem;
   }
+  .en-accion__wrap {
+    width: 100%;
+    max-width: 1000px;
+    margin-inline: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
   .en-accion photo-collage {
     display: block;
-    width: 100%;
-    max-width: 1200px;
-    margin-inline: auto;
+    flex-shrink: 0;
+  }
+  @media (max-width: 1024px) {
+    .en-accion__wrap { transform: scale(0.8); transform-origin: top center; height: 360px; }
+  }
+  @media (max-width: 768px) {
+    .en-accion__wrap { transform: scale(0.55); height: 250px; }
+  }
+  @media (max-width: 480px) {
+    .en-accion__wrap { transform: scale(0.38); height: 180px; }
+  }
+
+  /* Forms side-by-side on desktop */
+  .lead-forms-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .lead-forms-wrap {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
   }
 
   /* Charlas de liderazgo (preview) */
