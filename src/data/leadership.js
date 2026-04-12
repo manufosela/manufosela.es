@@ -12,18 +12,23 @@ export const leadershipData = {
     bookCover: '/images/portada_libro_es.jpg',
     bookAlt: 'Portada del libro Liderazgo Afectivo de Mánu Fosela — Editorial Savvily',
     manifestoLabel: 'People & Culture Manifesto',
-    manifesto: 'El verdadero liderazgo no reside en la jerarquía, sino en la conexión humana. Las organizaciones no son estructuras; son ecosistemas de confianza y afecto técnico.',
-    manifestoAccent: 'conexión humana',
+    manifesto: 'El liderazgo de verdad no se sostiene en la jerarquía, sino en la confianza, la humanidad y la conexión con las personas. Una empresa no son organigramas; es una comunidad humana que solo funciona bien cuando hay afecto, coherencia y cuidado mutuo.',
+    manifestoAccent: 'conexión con las personas',
     communityTitle: 'Comunidad',
     communityDescription: 'Estoy construyendo un espacio para líderes que quieren liderar desde el afecto y la confianza. Aún estamos empezando — si te resuena, este es el momento de ser parte desde el principio.',
     communityStatus: 'Arrancando',
     communityButton: 'Ser de los primeros',
     communityLink: 'https://comunidad.liderazgoafectivo.com',
-    insightsItems: [
-      { icon: 'terminal', title: 'Charlas', description: 'Sobre liderazgo afectivo, cultura organizacional y gestión de equipos técnicos.' },
-      { icon: 'chart', title: 'Consultas', description: 'Sesiones iniciales para explorar cómo puedo ayudarte con tu equipo o proyecto.' },
-      { icon: 'mail', title: 'Contacto', description: 'Escríbeme y vemos juntos qué encaja mejor.' }
-    ]
+    talksTitle: 'Charlas sobre liderazgo',
+    talksViewAll: 'Ver todas las charlas',
+    consultasTitle: 'Consultas',
+    consultasDesc: 'Sesiones iniciales para explorar cómo puedo ayudarte con tu equipo o proyecto.',
+    consultasPlaceholder: 'Cuéntame brevemente tu situación...',
+    consultasButton: 'Enviar consulta',
+    contactTitle: 'Contacto',
+    contactDesc: 'Escríbeme y vemos juntos qué encaja mejor.',
+    contactPlaceholder: '¿En qué puedo ayudarte?',
+    contactButton: 'Enviar mensaje'
   },
   en: {
     heroBadge: 'Exclusive Launch',
@@ -38,17 +43,22 @@ export const leadershipData = {
     bookCover: '/images/portada_libro_en.png',
     bookAlt: 'Book cover of Affective Leadership by Mánu Fosela — Savvily Editorial',
     manifestoLabel: 'People & Culture Manifesto',
-    manifesto: 'True leadership does not reside in hierarchy, but in human connection. Organizations are not structures; they are ecosystems of trust and technical affection.',
-    manifestoAccent: 'human connection',
+    manifesto: 'True leadership is not sustained by hierarchy, but by trust, humanity and connection with people. A company is not an org chart; it is a human community that only works well when there is affection, coherence and mutual care.',
+    manifestoAccent: 'connection with people',
     communityTitle: 'Community',
     communityDescription: 'I\'m building a space for leaders who want to lead with affection and trust. We\'re just getting started — if this resonates with you, now is the time to be part of it from the ground up.',
     communityStatus: 'Just starting',
     communityButton: 'Be one of the first',
     communityLink: 'https://comunidad.liderazgoafectivo.com',
-    insightsItems: [
-      { icon: 'terminal', title: 'Talks', description: 'On affective leadership, organizational culture and technical team management.' },
-      { icon: 'chart', title: 'Consultations', description: 'Initial sessions to explore how I can help with your team or project.' },
-      { icon: 'mail', title: 'Contact', description: 'Write to me and we\'ll figure out what fits best together.' }
-    ]
+    talksTitle: 'Leadership talks',
+    talksViewAll: 'View all talks',
+    consultasTitle: 'Consultations',
+    consultasDesc: 'Initial sessions to explore how I can help with your team or project.',
+    consultasPlaceholder: 'Briefly describe your situation...',
+    consultasButton: 'Send inquiry',
+    contactTitle: 'Contact',
+    contactDesc: 'Write to me and we\'ll figure out what fits best together.',
+    contactPlaceholder: 'How can I help?',
+    contactButton: 'Send message'
   }
 };

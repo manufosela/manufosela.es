@@ -1,0 +1,51 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { mediaData } from '~/data/media';
+import { Site } from '~/data/config';
+
+const title = `${Site.title} — Leadership talks`;
+const media = mediaData.en;
+const sections = Object.entries(media);
+---
+
+<Layout {title} active="leadership">
+  <main class="talks-catalog">
+    <h1 class="talks-catalog__title">Talks & interviews</h1>
+
+    {sections.map(([type, yearGroups]) => (
+      <section class="talks-catalog__section">
+        <h2 class="talks-catalog__type">{type}</h2>
+        {Object.entries(yearGroups).sort(([a],[b]) => Number(b) - Number(a)).map(([year, talks]) => (
+          <div class="talks-catalog__year">
+            <h3 class="talks-catalog__year-label">{year}</h3>
+            <div class="talks-catalog__list">
+              {talks.map((talk) => (
+                <a href={talk.link} class="talks-catalog__item" target="_blank" rel="noopener noreferrer">
+                  <div class="talks-catalog__play">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z"/></svg>
+                  </div>
+                  <span class="talks-catalog__name">{talk.title}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+    ))}
+  </main>
+</Layout>
+
+<style>
+  .talks-catalog { padding-inline: clamp(1.5rem, 4vw, 3rem); max-width: 1280px; margin-inline: auto; padding-block: clamp(2rem, 6vh, 4rem); }
+  .talks-catalog__title { font-family: 'Manrope', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: -0.03em; color: var(--on-surface); margin-bottom: clamp(2rem, 5vh, 3rem); }
+  .talks-catalog__section { margin-bottom: 3rem; }
+  .talks-catalog__type { font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--on-surface); margin-bottom: 1.5rem; }
+  .talks-catalog__year { margin-bottom: 2rem; }
+  .talks-catalog__year-label { font-family: 'Manrope', sans-serif; font-size: 1rem; font-weight: 700; color: var(--primary-fixed-dim); margin-bottom: 0.75rem; padding-bottom: 0.375rem; border-bottom: 1px solid color-mix(in srgb, var(--outline-variant) 10%, transparent); }
+  .talks-catalog__list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .talks-catalog__item { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem; background-color: var(--surface-container-low); border-radius: 0.5rem; text-decoration: none; transition: background-color 200ms var(--ease-3); }
+  .talks-catalog__item:hover { background-color: var(--surface-container-high); }
+  .talks-catalog__play { width: 2rem; height: 2rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 0.375rem; background-color: var(--surface-container-high); color: var(--primary-container); }
+  .talks-catalog__play svg { width: 0.875rem; height: 0.875rem; }
+  .talks-catalog__name { font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500; color: var(--on-surface); line-height: 1.4; }
+</style>
