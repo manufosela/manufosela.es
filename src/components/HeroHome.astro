@@ -10,7 +10,8 @@ const { language } = Astro.props;
 const person = ManuFosela[language];
 const altText = indexDesc[language];
 
-const badge = language === 'es' ? 'Líder Arquitecto' : 'Architect Leader';
+const badge = 'Engineer · Builder · Author';
+const role = 'Head of Engineering & CTO';
 const tagline = language === 'es'
   ? 'Equipos de alto rendimiento a través de ingeniería centrada en personas.'
   : 'Building high-performance teams through people-centric engineering.';
@@ -42,7 +43,7 @@ const ctaHref = `/${language}/about`;
   <div class="hero__content">
     <span class="hero__badge">{badge}</span>
     <h1 class="hero__title">{person.name}</h1>
-    <p class="hero__role">{person.position}</p>
+    <p class="hero__role">{role}</p>
     <p class="hero__tagline">{tagline}</p>
     <a href={ctaHref} class="hero__cta">
       {ctaText}
