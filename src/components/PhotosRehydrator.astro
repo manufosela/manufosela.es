@@ -16,7 +16,9 @@ const { section, target, mode } = Astro.props;
       if (!res.ok) return;
       const data = await res.json();
       if (!data) return;
-      const photos = Object.values(data).filter((p) => p.section === section);
+      const photos = Object.values(data)
+        .filter((p) => p.section === section)
+        .sort((a, b) => (a.order || 99) - (b.order || 99));
       if (photos.length === 0) return;
 
       const container = document.querySelector(target);
