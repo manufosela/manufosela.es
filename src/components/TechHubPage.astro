@@ -115,7 +115,7 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
           <span class="repo-card__name">{repo.name}</span>
           <span class="repo-card__desc">{repo.desc}</span>
         </div>
-        <svg class="repo-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
+        <svg class="repo-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
       </a>
     ))}
   </section>
@@ -130,7 +130,7 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
       {latestArticles.map((article) => (
         <a href={article.url} class="article-card" target="_blank" rel="noopener noreferrer">
           <span class="article-card__title">{article.title}</span>
-          <svg class="article-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg class="article-card__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       ))}
     </div>
@@ -165,7 +165,7 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
         <a href={project.url} class="project-card" target="_blank" rel="noopener noreferrer">
           <span class="project-card__name">{project.name}</span>
           <span class="project-card__desc">{project.desc}</span>
-          <svg class="project-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
+          <svg class="project-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
         </a>
       ))}
     </div>
@@ -181,7 +181,7 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
             <span class="resource-link__name">{link.name}</span>
             <span class="resource-link__desc">{link.desc}</span>
           </div>
-          <svg class="resource-link__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
+          <svg class="resource-link__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
         </a>
       ))}
     </div>
