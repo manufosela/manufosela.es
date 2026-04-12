@@ -2,6 +2,7 @@
 import { leadershipData } from '~/data/leadership';
 import { fetchPhotos } from '~/utils/fetchPhotos';
 import { mediaData } from '~/data/media';
+import PhotosRehydrator from '~/components/PhotosRehydrator.astro';
 
 interface Props {
   language: 'es' | 'en';
@@ -82,7 +83,7 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
 
   <!-- En acción — photo-collage -->
   {leadershipPhotos.length > 0 && (
-    <section class="en-accion" aria-label={language === 'es' ? 'En acción' : 'In action'}>
+    <section class="en-accion" id="en-accion-section" aria-label={language === 'es' ? 'En acción' : 'In action'}>
       <h2 class="en-accion__title">{language === 'es' ? 'En acción' : 'In action'}</h2>
       <div class="en-accion__wrap">
         <photo-collage
@@ -100,6 +101,7 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
           ))}
         </photo-collage>
       </div>
+      <PhotosRehydrator section="leadership" target="#en-accion-section" mode="collage" />
     </section>
   )}
 

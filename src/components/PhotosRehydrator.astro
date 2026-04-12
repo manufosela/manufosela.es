@@ -1,0 +1,45 @@
+---
+interface Props {
+  section: 'leadership' | 'contact';
+  target: string;
+  mode: 'collage' | 'gallery';
+}
+
+const { section, target, mode } = Astro.props;
+---
+
+<script is:inline define:vars={{ section, target, mode }}>
+  (async () => {
+    const RTDB = 'https://manufosela-es-default-rtdb.europe-west1.firebasedatabase.app';
+    try {
+      const res = await fetch(`${RTDB}/photos.json`);
+      if (!res.ok) return;
+      const data = await res.json();
+      if (!data) return;
+      const photos = Object.values(data).filter((p) => p.section === section);
+      if (photos.length === 0) return;
+
+      const container = document.querySelector(target);
+      if (!container) return;
+
+      if (mode === 'collage') {
+        // Replace inner imgs of the photo-collage
+        const pc = container.querySelector('photo-collage');
+        if (pc) {
+          pc.innerHTML = photos.map((p) => `<img src="${p.url}" alt="${p.alt || ''}" />`).join('');
+        }
+      } else {
+        // Re-render the gallery grid
+        const grid = container.querySelector('.photo-gallery__grid');
+        if (grid) {
+          grid.innerHTML = photos.map((p) => `
+            <figure class="photo-gallery__item">
+              <img src="${p.url}" alt="${p.alt || ''}" loading="lazy" />
+              ${p.context ? `<figcaption class="photo-gallery__caption">${p.context}</figcaption>` : ''}
+            </figure>
+          `).join('');
+        }
+      }
+    } catch {}
+  })();
+</script>

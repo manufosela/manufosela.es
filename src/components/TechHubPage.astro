@@ -2,6 +2,7 @@
 import { techHubData } from '~/data/techhub';
 import { mediaData } from '~/data/media';
 import { getAllArticles, filterByTopic } from '~/utils/fetchArticles';
+import ArticlesRehydrator from '~/components/ArticlesRehydrator.astro';
 
 interface Props {
   language: 'es' | 'en';
@@ -125,7 +126,7 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
       <h2 class="insights-feed__title">{d.insightsTitle}</h2>
       <a class="insights-feed__viewall" href={`/${language}/tech/articles`}>{viewAllArticles} →</a>
     </div>
-    <div class="insights-feed__list">
+    <div class="insights-feed__list" id="tech-articles-list">
       {latestArticles.map((article) => (
         <a href={article.url} class="article-card" target="_blank" rel="noopener noreferrer">
           <span class="article-card__title">{article.title}</span>
@@ -133,6 +134,7 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
         </a>
       ))}
     </div>
+    <ArticlesRehydrator topic="tech" limit={5} target="#tech-articles-list" />
   </section>
 
   <!-- Talks & Media -->

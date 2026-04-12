@@ -28,6 +28,7 @@ const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
 
 <div class="catalog">
   <h1 class="catalog__title">{title}</h1>
+  <div id="catalog-years">
 
   {years.map((year) => (
     <section class="catalog__year">
@@ -45,6 +46,7 @@ const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
       </div>
     </section>
   ))}
+  </div>
 
   {articles.length === 0 && (
     <p class="catalog__empty">

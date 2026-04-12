@@ -1,0 +1,112 @@
+---
+interface Props {
+  topic?: 'tech' | 'leadership' | 'all';
+  limit?: number;
+  target: string;
+}
+
+const { topic = 'all', limit = 0, target } = Astro.props;
+---
+
+<script is:inline define:vars={{ topic, limit, target }}>
+  (async () => {
+    const RTDB = 'https://manufosela-es-default-rtdb.europe-west1.firebasedatabase.app';
+    const FEEDS = [
+      { url: 'https://manufosela.substack.com/feed', source: 'substack', topic: 'leadership' },
+      { url: 'https://dev.to/feed/manufosela', source: 'devto', topic: 'tech' }
+    ];
+
+    const parseRSS = (xml, source, t) => {
+      const items = [];
+      const re = /<item>([\s\S]*?)<\/item>/g;
+      let m;
+      while ((m = re.exec(xml)) !== null) {
+        const b = m[1];
+        const title = b.match(/<title><!\[CDATA\[(.*?)\]\]>|<title>(.*?)<\/title>/);
+        const link = b.match(/<link>(.*?)<\/link>/);
+        const pubDate = b.match(/<pubDate>(.*?)<\/pubDate>/);
+        if (title && link) {
+          items.push({
+            title: (title[1] || title[2] || '').trim(),
+            url: link[1].trim(),
+            date: pubDate ? new Date(pubDate[1]).toISOString() : new Date().toISOString(),
+            source, topic: t, order: 99
+          });
+        }
+      }
+      return items;
+    };
+
+    const fetchRSS = async () => {
+      const all = [];
+      for (const f of FEEDS) {
+        try {
+          const res = await fetch(f.url);
+          if (res.ok) all.push(...parseRSS(await res.text(), f.source, f.topic));
+        } catch {}
+      }
+      return all;
+    };
+
+    const fetchLinkedIn = async () => {
+      try {
+        const res = await fetch(`${RTDB}/articles/linkedin.json`);
+        if (!res.ok) return [];
+        const data = await res.json();
+        if (!data) return [];
+        return Object.values(data).map((i) => ({
+          title: i.title, url: i.url,
+          date: i.date || new Date().toISOString(),
+          source: 'linkedin', topic: i.topic || 'leadership',
+          order: i.order || 99
+        }));
+      } catch { return []; }
+    };
+
+    const [rss, linkedin] = await Promise.all([fetchRSS(), fetchLinkedIn()]);
+    let all = [...rss, ...linkedin];
+    all.sort((a, b) => (a.order || 99) - (b.order || 99) || new Date(b.date).getTime() - new Date(a.date).getTime());
+    if (topic !== 'all') all = all.filter((a) => a.topic === topic);
+    if (limit > 0) all = all.slice(0, limit);
+
+    const container = document.querySelector(target);
+    if (!container || all.length === 0) return;
+
+    const sources = { substack: 'Substack', devto: 'dev.to', linkedin: 'LinkedIn' };
+    const inArticlesFeed = container.classList.contains('insights-feed__list');
+
+    if (inArticlesFeed) {
+      container.innerHTML = all.map((a) => `
+        <a href="${a.url}" class="article-card" target="_blank" rel="noopener noreferrer">
+          <span class="article-card__title">${a.title}</span>
+          <svg class="article-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      `).join('');
+    } else {
+      // Catalog view (grouped by year)
+      const grouped = {};
+      for (const a of all) {
+        const y = new Date(a.date).getFullYear().toString();
+        if (!grouped[y]) grouped[y] = [];
+        grouped[y].push(a);
+      }
+      const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
+      container.innerHTML = years.map((y) => `
+        <section class="catalog__year">
+          <h2 class="catalog__year-label">${y}</h2>
+          <div class="catalog__list">
+            ${grouped[y].map((a) => `
+              <a href="${a.url}" class="catalog__item" target="_blank" rel="noopener noreferrer">
+                <div class="catalog__item-text">
+                  <span class="catalog__item-title">${a.title}</span>
+                  <span class="catalog__item-source">${sources[a.source] || a.source}</span>
+                </div>
+                <svg class="catalog__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
+              </a>
+            `).join('')}
+          </div>
+        </section>
+      `).join('');
+    }
+  })();
+</script>
