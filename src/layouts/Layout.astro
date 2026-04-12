@@ -41,6 +41,16 @@ const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
         src: url('/fonts/manrope-variable.woff2') format('woff2-variations');
       }
     </style>
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs) {
+          regs.forEach(function(r) { r.unregister(); });
+        });
+        caches.keys().then(function(names) {
+          names.forEach(function(n) { caches.delete(n); });
+        });
+      }
+    </script>
   </head>
   <body>
     <Header active={active} language={lang} />
