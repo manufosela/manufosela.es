@@ -320,7 +320,11 @@ const { active = 'home', language = 'es' } = Astro.props;
     drawer.setAttribute('data-open', String(open));
     drawer.setAttribute('aria-hidden', String(!open));
     document.body.style.overflow = open ? 'hidden' : '';
+    drawer.querySelectorAll<HTMLElement>('a, button, input').forEach((el) => {
+      el.tabIndex = open ? 0 : -1;
+    });
   };
+  setDrawer(false);
   burger?.addEventListener('click', () => {
     setDrawer(burger.getAttribute('aria-expanded') !== 'true');
   });

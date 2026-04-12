@@ -2,92 +2,78 @@
 
 ---
 
-<section class="language-toggle">
-  <input type="checkbox" id="toggle-lang" class="toggle-lang" />
-  <label for="toggle-lang" class="button-lang" aria-label="Toggle Spanish and English mode"></label>
-</section>
+<div class="lang-switch" role="radiogroup" aria-label="Language">
+  <a
+    href="#"
+    class="lang-switch__option"
+    data-lang="es"
+    aria-label="Español"
+  >ES</a>
+  <span class="lang-switch__sep" aria-hidden="true">/</span>
+  <a
+    href="#"
+    class="lang-switch__option"
+    data-lang="en"
+    aria-label="English"
+  >EN</a>
+</div>
 
 <script>
-  const lang = document.location.pathname.includes('/en/') ? 'EN' : 'ES';
-  let toggleLanguage: HTMLInputElement | null;
+  const langSwitch = document.querySelectorAll<HTMLAnchorElement>('.lang-switch__option');
+  const currentLang = document.location.pathname.includes('/en/') ? 'en' : 'es';
 
-  function init() {
-    toggleLanguage = document.querySelector('#toggle-lang');
-    if (toggleLanguage) {
-      toggleLanguage.addEventListener('change', toggleLangHandler);
-      setLanguageBasedOnPreference(lang);
-    }
-  }
-
-  function setLanguageBasedOnPreference(lang: string) {
-    if (toggleLanguage) {
-      toggleLanguage.checked = lang === 'EN';
-    }
-    document.documentElement.setAttribute('lang', lang);
-  }
-
-  function toggleLangHandler() {
-    const newLanguage = toggleLanguage?.checked ? 'EN' : 'ES';
-    const currentPath = window.location.pathname;
-
-    let newPath = '';
-
-    if (currentPath === '/' || currentPath === '/es/' || currentPath === '/en/') {
-      newPath = newLanguage === 'EN' ? '/en/' : '/';
-    } else {
-      const segments = currentPath.split('/');
-      if (newLanguage === 'EN') {
-        segments[1] = 'en';
-      } else {
-        segments[1] = 'es';
-      }
-      newPath = segments.join('/');
+  langSwitch.forEach((link) => {
+    const lang = link.dataset.lang;
+    if (lang === currentLang) {
+      link.classList.add('lang-switch__option--active');
+      link.setAttribute('aria-current', 'true');
     }
 
-    document.documentElement.setAttribute('lang', newLanguage);
-    window.location.href = newPath;
-  }
-
-  document.addEventListener('DOMContentLoaded', init);
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (lang === currentLang) return;
+      const segments = window.location.pathname.split('/');
+      segments[1] = lang || 'es';
+      window.location.href = segments.join('/');
+    });
+  });
 </script>
 
 <style>
-  .language-toggle {
-    padding: 1rem;
-    z-index: 5;
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
-  .language-toggle .toggle-lang {
-    display: none;
+  .lang-switch__option {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--on-surface-variant);
+    padding: 0.375rem 0.5rem;
+    border-radius: 0.25rem;
+    transition: color 200ms var(--ease-3), background-color 200ms var(--ease-3);
   }
 
-  .language-toggle .button-lang {
-    display: inline-block;
-    width: 90px;
-    height: 44px;
-    background: var(--primary-color);
-    border-radius: 30px;
-    position: relative;
-    cursor: pointer;
+  .lang-switch__option:hover {
+    color: var(--on-surface);
   }
 
-  .language-toggle .button-lang::after {
-    content: 'ES';
-    width: 30px;
-    height: 44px;
-    position: absolute;
-    top: 0;
-    left: 10px;
-    display: grid;
-    place-content: center;
-    line-height: 0;
-    color: white;
-    font-weight: bold;
-    transition: transform 0.5s ease-in;
+  .lang-switch__option--active {
+    color: var(--on-primary);
+    background-color: var(--primary-fixed-dim);
   }
 
-  .language-toggle .toggle-lang:checked + .button-lang::after {
-    content: 'EN';
-    transform: translateX(40px);
+  .lang-switch__sep {
+    font-size: 0.625rem;
+    color: var(--outline-variant);
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lang-switch__option { transition: none; }
   }
 </style>
