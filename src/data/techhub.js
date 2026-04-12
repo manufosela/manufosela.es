@@ -15,9 +15,9 @@ export const techHubData = {
     repos: { value: '128', label: 'Repositories' },
     featuredReposTitle: 'Repos destacados',
     featuredRepos: [
-      { name: 'lit-element-starter', desc: 'Starter kit para Web Components con Lit', url: 'https://github.com/nicethemes/next-starter' },
-      { name: 'validate-form', desc: 'Validación automática de formularios JS', url: 'https://github.com/nicethemes/next-starter' },
-      { name: 'docker-intro', desc: 'Introducción práctica a Docker Compose', url: 'https://github.com/nicethemes/next-starter' }
+      { name: 'karajan-code', desc: 'Orquestador multi-agente local con 13 roles de pipeline', url: 'https://github.com/manufosela/karajan-code' },
+      { name: 'planning-game-xp', desc: 'Gestión de proyectos AI-gile con XP', url: 'https://github.com/manufosela/planning-game-xp' },
+      { name: 'SOLIDwithJS', desc: 'Principios SOLID con ejemplos en JavaScript', url: 'https://github.com/manufosela/SOLIDwithJS' }
     ],
     insightsTitle: 'Engineering Insights',
     viewAll: 'Ver todos',
@@ -43,9 +43,9 @@ export const techHubData = {
     repos: { value: '128', label: 'Repositories' },
     featuredReposTitle: 'Featured Repos',
     featuredRepos: [
-      { name: 'lit-element-starter', desc: 'Starter kit for Web Components with Lit', url: 'https://github.com/nicethemes/next-starter' },
-      { name: 'validate-form', desc: 'Automatic JS form validation', url: 'https://github.com/nicethemes/next-starter' },
-      { name: 'docker-intro', desc: 'Practical introduction to Docker Compose', url: 'https://github.com/nicethemes/next-starter' }
+      { name: 'karajan-code', desc: 'Local multi-agent coding orchestrator with 13 pipeline roles', url: 'https://github.com/manufosela/karajan-code' },
+      { name: 'planning-game-xp', desc: 'AI-gile project management with XP', url: 'https://github.com/manufosela/planning-game-xp' },
+      { name: 'SOLIDwithJS', desc: 'SOLID principles with JavaScript examples', url: 'https://github.com/manufosela/SOLIDwithJS' }
     ],
     insightsTitle: 'Engineering Insights',
     viewAll: 'View all',

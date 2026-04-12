@@ -10,6 +10,21 @@ interface Props {
 const { language } = Astro.props;
 const d = techHubData[language];
 
+let ghUser = { public_repos: 128, followers: 0 };
+let ghStars = 0;
+try {
+  const res = await fetch('https://api.github.com/users/manufosela');
+  if (res.ok) ghUser = await res.json();
+  const reposRes = await fetch('https://api.github.com/users/manufosela/repos?per_page=100&sort=updated');
+  if (reposRes.ok) {
+    const repos = await reposRes.json();
+    ghStars = repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
+  }
+} catch {}
+
+d.repos.value = String(ghUser.public_repos);
+d.stars.value = ghStars > 999 ? `${(ghStars / 1000).toFixed(1)}k` : String(ghStars);
+
 const allArticles = articles[language];
 const firstTab = allArticles[0];
 const latestYear = Object.keys(firstTab.articles).sort().reverse()[0];
