@@ -1,0 +1,16 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import ArticleCatalog from '~/components/ArticleCatalog.astro';
+import { getAllArticles, filterByTopic } from '~/utils/fetchArticles';
+import { Site } from '~/data/config';
+
+const allArticles = await getAllArticles();
+const leadershipArticles = filterByTopic(allArticles, 'leadership');
+const title = `${Site.title} — Leadership Articles`;
+---
+
+<Layout {title} active="leadership">
+  <main>
+    <ArticleCatalog title="Leadership Articles" articles={leadershipArticles} language="en" />
+  </main>
+</Layout>

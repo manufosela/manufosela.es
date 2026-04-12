@@ -1,0 +1,16 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import ArticleCatalog from '~/components/ArticleCatalog.astro';
+import { getAllArticles, filterByTopic } from '~/utils/fetchArticles';
+import { Site } from '~/data/config';
+
+const allArticles = await getAllArticles();
+const techArticles = filterByTopic(allArticles, 'tech');
+const title = `${Site.title} — Artículos Tech`;
+---
+
+<Layout {title} active="tech">
+  <main>
+    <ArticleCatalog title="Artículos Tech" articles={techArticles} language="es" />
+  </main>
+</Layout>
