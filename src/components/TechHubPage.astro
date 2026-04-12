@@ -148,6 +148,36 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
     </section>
   )}
 
+  <!-- Web Components -->
+  <section class="components" aria-label={d.componentsTitle}>
+    <div class="components__header">
+      <h2 class="components__title">{d.componentsTitle}</h2>
+      <a class="components__viewall" href={d.componentsCatalogUrl} target="_blank" rel="noopener noreferrer">{d.componentsCatalog} →</a>
+    </div>
+    <p class="components__desc">{d.componentsDesc}</p>
+    <div class="components__grid">
+      {d.components.map((comp) => (
+        <a href={`https://www.npmjs.com/package/${comp.name}`} class="comp-card" target="_blank" rel="noopener noreferrer">
+          <span class="comp-card__name">{comp.name.replace('@manufosela/', '')}</span>
+          <span class="comp-card__desc">{comp.desc}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Manulitics -->
+  <section class="manulitics" aria-label={d.analyticsTitle}>
+    <div class="manulitics__card">
+      <div class="manulitics__info">
+        <h2 class="manulitics__title">{d.analyticsTitle}</h2>
+        <p class="manulitics__desc">{d.analyticsDesc}</p>
+      </div>
+      <a href={d.analyticsUrl} class="manulitics__btn" target="_blank" rel="noopener noreferrer">
+        {d.analyticsTitle} →
+      </a>
+    </div>
+  </section>
+
   <!-- CTA dev.to -->
   <section class="newsletter" aria-label="dev.to">
     <h2 class="newsletter__title">dev.to/manufosela</h2>
@@ -492,7 +522,103 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
     }
   }
 
+  /* Components */
+  .components__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .components__title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--on-surface);
+  }
+  .components__viewall {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--primary-fixed-dim);
+    text-decoration: none;
+  }
+  .components__viewall:hover { text-decoration: underline; }
+  .components__desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+    margin-bottom: 1.5rem;
+  }
+  .components__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 0.75rem;
+  }
+  .comp-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 1rem;
+    background-color: var(--surface-container-low);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 200ms var(--ease-3);
+  }
+  .comp-card:hover { background-color: var(--surface-container-high); }
+  .comp-card__name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--primary-fixed-dim);
+  }
+  .comp-card__desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    color: var(--on-surface-variant);
+    line-height: 1.4;
+  }
+
+  /* Manulitics */
+  .manulitics__card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--surface-container-low);
+    border-radius: 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--outline-variant) 10%, transparent);
+    flex-wrap: wrap;
+  }
+  .manulitics__title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 800;
+    color: var(--on-surface);
+  }
+  .manulitics__desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+    margin-top: 0.25rem;
+  }
+  .manulitics__btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    padding: 0.625rem 1.25rem;
+    background-color: var(--surface-container-high);
+    color: var(--primary-fixed-dim);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 200ms var(--ease-3);
+    white-space: nowrap;
+  }
+  .manulitics__btn:hover { background-color: var(--surface-bright); }
+
   @media (prefers-reduced-motion: reduce) {
-    .repo-card, .article-card__title, .talk-card, .newsletter__btn, .repo-card__arrow { transition: none; }
+    .repo-card, .article-card__title, .talk-card, .newsletter__btn, .repo-card__arrow, .comp-card, .manulitics__btn { transition: none; }
   }
 </style>

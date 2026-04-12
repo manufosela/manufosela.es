@@ -26,7 +26,22 @@ export const techHubData = {
     newsletterTitle: 'Sync with the Hub.',
     newsletterDesc: 'Deep dives quincenales sobre liderazgo técnico y diseño de sistemas.',
     newsletterPlaceholder: 'email@address.com',
-    newsletterLink: 'https://manufosela.substack.com'
+    newsletterLink: 'https://manufosela.substack.com',
+    componentsTitle: 'Componentes Web',
+    componentsDesc: 'Librería de web components publicados en npm, con demos interactivas.',
+    componentsCatalog: 'Ver catálogo completo',
+    componentsCatalogUrl: 'https://manufosela.github.io/',
+    components: [
+      { name: '@manufosela/app-modal', desc: 'Modal configurable con botones y slots' },
+      { name: '@manufosela/slide-notification', desc: 'Notificaciones deslizantes desde el borde' },
+      { name: '@manufosela/multi-carousel', desc: 'Carrusel responsive multi-slide' },
+      { name: '@manufosela/stars-rating', desc: 'Rating interactivo con estrellas' },
+      { name: '@manufosela/marked-calendar', desc: 'Calendario interactivo para tracking' },
+      { name: '@manufosela/circle-percent', desc: 'Indicador circular de progreso animado' }
+    ],
+    analyticsTitle: 'Manulitics',
+    analyticsDesc: 'Mi plataforma de analíticas web, proyecto propio.',
+    analyticsUrl: 'https://stats.manulitics.com'
   },
   en: {
     badge: '',
@@ -55,6 +70,21 @@ export const techHubData = {
     newsletterTitle: 'Sync with the Hub.',
     newsletterDesc: 'Bi-weekly deep dives into engineering leadership and system design.',
     newsletterPlaceholder: 'email@address.com',
-    newsletterLink: 'https://manufosela.substack.com'
+    newsletterLink: 'https://manufosela.substack.com',
+    componentsTitle: 'Web Components',
+    componentsDesc: 'Library of web components published on npm, with interactive demos.',
+    componentsCatalog: 'View full catalog',
+    componentsCatalogUrl: 'https://manufosela.github.io/',
+    components: [
+      { name: '@manufosela/app-modal', desc: 'Feature-rich modal with configurable buttons' },
+      { name: '@manufosela/slide-notification', desc: 'Slide-in notifications from the edge' },
+      { name: '@manufosela/multi-carousel', desc: 'Responsive multi-slide carousel' },
+      { name: '@manufosela/stars-rating', desc: 'Interactive star rating component' },
+      { name: '@manufosela/marked-calendar', desc: 'Interactive calendar for tracking' },
+      { name: '@manufosela/circle-percent', desc: 'Animated circular progress indicator' }
+    ],
+    analyticsTitle: 'Manulitics',
+    analyticsDesc: 'My web analytics platform, personal project.',
+    analyticsUrl: 'https://stats.manulitics.com'
   }
 };
