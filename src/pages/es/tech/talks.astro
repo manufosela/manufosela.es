@@ -3,14 +3,14 @@ import Layout from '~/layouts/Layout.astro';
 import { mediaData } from '~/data/media';
 import { Site } from '~/data/config';
 
-const title = `${Site.title} — Charlas y Media`;
+const title = `${Site.title} — Charlas y vídeos`;
 const media = mediaData.es;
 const sections = Object.entries(media);
 ---
 
 <Layout {title} active="tech">
   <main class="talks-catalog">
-    <h1 class="talks-catalog__title">Charlas y Media</h1>
+    <h1 class="talks-catalog__title">Charlas y vídeos</h1>
 
     {sections.map(([type, yearGroups]) => (
       <section class="talks-catalog__section">
