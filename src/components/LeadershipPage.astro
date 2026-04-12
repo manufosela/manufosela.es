@@ -86,8 +86,8 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
       <h2 class="en-accion__title">{language === 'es' ? 'En acción' : 'In action'}</h2>
       <div class="en-accion__wrap">
         <photo-collage
-          width="1000"
-          height="450"
+          width="800"
+          height="400"
           cols={Math.min(4, leadershipPhotos.length)}
           rows={Math.max(1, Math.ceil(leadershipPhotos.length / 4))}
           max-rotation="12"
@@ -177,6 +177,14 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
     flex-direction: column;
     gap: clamp(3rem, 8vh, 5rem);
     padding-block: clamp(2rem, 6vh, 4rem);
+  }
+
+  .leadership-page > section,
+  .leadership-page > .lead-forms-wrap {
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+    max-width: 1280px;
+    margin-inline: auto;
+    width: 100%;
   }
 
   /* Hero Libro */
@@ -441,24 +449,18 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
   }
   .en-accion__wrap {
     width: 100%;
-    max-width: 1000px;
-    margin-inline: auto;
-    overflow: hidden;
+    overflow-x: auto;
     display: flex;
     justify-content: center;
+    padding-block: 1rem;
+    scrollbar-width: thin;
   }
   .en-accion photo-collage {
     display: block;
     flex-shrink: 0;
   }
-  @media (max-width: 1024px) {
-    .en-accion__wrap { transform: scale(0.8); transform-origin: top center; height: 360px; }
-  }
-  @media (max-width: 768px) {
-    .en-accion__wrap { transform: scale(0.55); height: 250px; }
-  }
-  @media (max-width: 480px) {
-    .en-accion__wrap { transform: scale(0.38); height: 180px; }
+  @media (max-width: 900px) {
+    .en-accion__wrap { justify-content: flex-start; padding-inline: 0; }
   }
 
   /* Forms side-by-side on desktop */
