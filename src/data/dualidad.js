@@ -4,8 +4,8 @@ export const dualidad = {
     tabs: ['Humano', 'Tech'],
     human: {
       label: 'Foco actual',
-      heading: 'Liderazgo Humano',
-      quote: 'La pieza de arquitectura más sofisticada de una empresa tecnológica no es el código; es la red de confianza humana que lo sostiene.'
+      heading: 'Liderazgo Afectivo',
+      quote: 'Una empresa tecnológica no se sostiene solo por su código, sino por la confianza, el afecto profesional y la calidad humana de quienes lo construyen.'
     },
     tech: {
       label: 'Otra cara',
@@ -18,8 +18,8 @@ export const dualidad = {
     tabs: ['Human', 'Tech'],
     human: {
       label: 'Current focus',
-      heading: 'Human Leadership',
-      quote: 'The most sophisticated piece of architecture in any tech company isn\'t the codebase; it\'s the network of human trust that supports it.'
+      heading: 'Affective Leadership',
+      quote: 'A tech company is not sustained only by its code, but by trust, professional affection and the human quality of those who build it.'
     },
     tech: {
       label: 'Other side',

@@ -3,8 +3,8 @@ export const bentoItems = {
     {
       id: 'years',
       icon: 'groups',
-      value: '15+',
-      label: 'Años liderando equipos de ingeniería de élite',
+      value: '10+',
+      label: 'Años liderando equipos de ingeniería',
       wide: true
     },
     {
@@ -26,8 +26,8 @@ export const bentoItems = {
     {
       id: 'years',
       icon: 'groups',
-      value: '15+',
-      label: 'Years leading elite engineering teams',
+      value: '10+',
+      label: 'Years leading engineering teams',
       wide: true
     },
     {
