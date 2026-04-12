@@ -1,8 +1,6 @@
 ---
-import { aboutData } from '~/data/about';
+import { aboutData, aboutDesc } from '~/data/about';
 import { ManuFosela } from '~/data/index';
-import PhotoGallery from '~/components/PhotoGallery.astro';
-import { fetchPhotos } from '~/utils/fetchPhotos';
 
 interface Props {
   language: 'es' | 'en';
@@ -11,16 +9,34 @@ interface Props {
 const { language } = Astro.props;
 const about = aboutData[language];
 const person = ManuFosela[language];
-const photos = await fetchPhotos('contact');
+const portraitAlt = aboutDesc[language];
 ---
 
 <div class="about-page">
 
-  <!-- Hero -->
+  <!-- Hero with portrait -->
   <section class="about-hero">
-    <span class="u-label u-label--accent">{language === 'es' ? 'Sobre mí' : 'About me'}</span>
-    <h1 class="about-hero__title">{person.name}</h1>
-    <p class="about-hero__role">{person.position}</p>
+    <div class="about-hero__portrait">
+      <img
+        src="/images/manufosela/manufosela1280.webp"
+        srcset="/images/manufosela/manufosela320.webp 320w,
+                /images/manufosela/manufosela460.webp 460w,
+                /images/manufosela/manufosela480.webp 480w,
+                /images/manufosela/manufosela768.webp 768w,
+                /images/manufosela/manufosela1280.webp 1280w"
+        sizes="(min-width: 1024px) 40vw, 100vw"
+        alt={portraitAlt}
+        width="1280"
+        height="1600"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+    <div class="about-hero__text">
+      <span class="u-label u-label--accent">{language === 'es' ? 'Sobre mí' : 'About me'}</span>
+      <h1 class="about-hero__title">{person.name}</h1>
+      <p class="about-hero__role">Head of Engineering & CTO</p>
+    </div>
   </section>
 
   <!-- Slides / Secciones -->
@@ -30,9 +46,6 @@ const photos = await fetchPhotos('contact');
       <div class="about-section__text" set:html={slide.description.replace(/\n/g, '<br>')} />
     </section>
   ))}
-
-  <!-- Fotos -->
-  <PhotoGallery title={language === 'es' ? 'Momentos' : 'Moments'} photos={photos} />
 
 </div>
 
@@ -52,8 +65,27 @@ const photos = await fetchPhotos('contact');
   }
 
   .about-hero {
-    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
   }
+
+  .about-hero__portrait {
+    width: 100%;
+    max-width: 22rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background-color: var(--surface-container-low);
+  }
+  .about-hero__portrait img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: grayscale(1) contrast(1.15);
+  }
+
+  .about-hero__text { flex: 1; }
   .about-hero__title {
     font-family: 'Manrope', sans-serif;
     font-size: clamp(2.5rem, 7vw, 4.5rem);
@@ -95,6 +127,18 @@ const photos = await fetchPhotos('contact');
     color: var(--primary-fixed-dim);
     text-decoration: underline;
     text-underline-offset: 2px;
+  }
+
+  @media (min-width: 768px) {
+    .about-hero {
+      flex-direction: row;
+      align-items: center;
+      gap: 3rem;
+    }
+    .about-hero__portrait {
+      flex-shrink: 0;
+      max-width: 18rem;
+    }
   }
 
   @media (min-width: 1024px) {
