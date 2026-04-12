@@ -22,26 +22,21 @@ export const techHubData = {
     ],
     insightsTitle: 'Artículos',
     viewAll: 'Ver todos',
-    talksTitle: 'Charlas y Media',
+    talksTitle: 'Charlas y vídeos',
     newsletterTitle: 'Sync with the Hub.',
     newsletterDesc: 'Deep dives quincenales sobre liderazgo técnico y diseño de sistemas.',
     newsletterPlaceholder: 'email@address.com',
     newsletterLink: 'https://manufosela.substack.com',
-    componentsTitle: 'Componentes Web',
-    componentsDesc: 'Librería de web components publicados en npm, con demos interactivas.',
-    componentsCatalog: 'Ver catálogo completo',
-    componentsCatalogUrl: 'https://manufosela.github.io/',
-    components: [
-      { name: '@manufosela/app-modal', desc: 'Modal configurable con botones y slots' },
-      { name: '@manufosela/slide-notification', desc: 'Notificaciones deslizantes desde el borde' },
-      { name: '@manufosela/multi-carousel', desc: 'Carrusel responsive multi-slide' },
-      { name: '@manufosela/stars-rating', desc: 'Rating interactivo con estrellas' },
-      { name: '@manufosela/marked-calendar', desc: 'Calendario interactivo para tracking' },
-      { name: '@manufosela/circle-percent', desc: 'Indicador circular de progreso animado' }
+    projectsTitle: 'Proyectos',
+    projects: [
+      { name: 'Karajan Code', desc: 'Orquestador multi-agente local para desarrollo de software', url: 'https://karajancode.com' },
+      { name: 'Planning Game XP', desc: 'Gestión de proyectos ágiles basada en eXtreme Programming', url: 'https://pgamexp.com' }
     ],
-    analyticsTitle: 'Manulitics',
-    analyticsDesc: 'Mi plataforma de analíticas web, proyecto propio.',
-    analyticsUrl: 'https://stats.manulitics.com'
+    linksTitle: 'Más recursos',
+    links: [
+      { name: 'Componentes Web', desc: 'Catálogo completo de mis web components con demos', url: 'https://manufosela.github.io/' },
+      { name: 'npm', desc: 'Todos mis paquetes publicados', url: 'https://www.npmjs.com/~manufosela' }
+    ]
   },
   en: {
     badge: '',
@@ -66,25 +61,20 @@ export const techHubData = {
     ],
     insightsTitle: 'Engineering Insights',
     viewAll: 'View all',
-    talksTitle: 'Talks & Media',
+    talksTitle: 'Talks & Videos',
     newsletterTitle: 'Sync with the Hub.',
     newsletterDesc: 'Bi-weekly deep dives into engineering leadership and system design.',
     newsletterPlaceholder: 'email@address.com',
     newsletterLink: 'https://manufosela.substack.com',
-    componentsTitle: 'Web Components',
-    componentsDesc: 'Library of web components published on npm, with interactive demos.',
-    componentsCatalog: 'View full catalog',
-    componentsCatalogUrl: 'https://manufosela.github.io/',
-    components: [
-      { name: '@manufosela/app-modal', desc: 'Feature-rich modal with configurable buttons' },
-      { name: '@manufosela/slide-notification', desc: 'Slide-in notifications from the edge' },
-      { name: '@manufosela/multi-carousel', desc: 'Responsive multi-slide carousel' },
-      { name: '@manufosela/stars-rating', desc: 'Interactive star rating component' },
-      { name: '@manufosela/marked-calendar', desc: 'Interactive calendar for tracking' },
-      { name: '@manufosela/circle-percent', desc: 'Animated circular progress indicator' }
+    projectsTitle: 'Projects',
+    projects: [
+      { name: 'Karajan Code', desc: 'Local multi-agent orchestrator for software development', url: 'https://karajancode.com' },
+      { name: 'Planning Game XP', desc: 'Agile project management based on eXtreme Programming', url: 'https://pgamexp.com' }
     ],
-    analyticsTitle: 'Manulitics',
-    analyticsDesc: 'My web analytics platform, personal project.',
-    analyticsUrl: 'https://stats.manulitics.com'
+    linksTitle: 'More resources',
+    links: [
+      { name: 'Web Components', desc: 'Full catalog of my web components with demos', url: 'https://manufosela.github.io/' },
+      { name: 'npm', desc: 'All my published packages', url: 'https://www.npmjs.com/~manufosela' }
+    ]
   }
 };

@@ -148,33 +148,33 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
     </section>
   )}
 
-  <!-- Web Components -->
-  <section class="components" aria-label={d.componentsTitle}>
-    <div class="components__header">
-      <h2 class="components__title">{d.componentsTitle}</h2>
-      <a class="components__viewall" href={d.componentsCatalogUrl} target="_blank" rel="noopener noreferrer">{d.componentsCatalog} →</a>
-    </div>
-    <p class="components__desc">{d.componentsDesc}</p>
-    <div class="components__grid">
-      {d.components.map((comp) => (
-        <a href={`https://www.npmjs.com/package/${comp.name}`} class="comp-card" target="_blank" rel="noopener noreferrer">
-          <span class="comp-card__name">{comp.name.replace('@manufosela/', '')}</span>
-          <span class="comp-card__desc">{comp.desc}</span>
+  <!-- Proyectos -->
+  <section class="projects" aria-label={d.projectsTitle}>
+    <h2 class="projects__title">{d.projectsTitle}</h2>
+    <div class="projects__grid">
+      {d.projects.map((project) => (
+        <a href={project.url} class="project-card" target="_blank" rel="noopener noreferrer">
+          <span class="project-card__name">{project.name}</span>
+          <span class="project-card__desc">{project.desc}</span>
+          <svg class="project-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
         </a>
       ))}
     </div>
   </section>
 
-  <!-- Manulitics -->
-  <section class="manulitics" aria-label={d.analyticsTitle}>
-    <div class="manulitics__card">
-      <div class="manulitics__info">
-        <h2 class="manulitics__title">{d.analyticsTitle}</h2>
-        <p class="manulitics__desc">{d.analyticsDesc}</p>
-      </div>
-      <a href={d.analyticsUrl} class="manulitics__btn" target="_blank" rel="noopener noreferrer">
-        {d.analyticsTitle} →
-      </a>
+  <!-- Más recursos -->
+  <section class="resources" aria-label={d.linksTitle}>
+    <h2 class="resources__title">{d.linksTitle}</h2>
+    <div class="resources__list">
+      {d.links.map((link) => (
+        <a href={link.url} class="resource-link" target="_blank" rel="noopener noreferrer">
+          <div class="resource-link__text">
+            <span class="resource-link__name">{link.name}</span>
+            <span class="resource-link__desc">{link.desc}</span>
+          </div>
+          <svg class="resource-link__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      ))}
     </div>
   </section>
 
@@ -522,101 +522,100 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
     }
   }
 
-  /* Components */
-  .components__header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-  .components__title {
+  /* Projects */
+  .projects__title {
     font-family: 'Manrope', sans-serif;
     font-size: 1.125rem;
     font-weight: 700;
     color: var(--on-surface);
+    margin-bottom: 1.25rem;
   }
-  .components__viewall {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--primary-fixed-dim);
-    text-decoration: none;
-  }
-  .components__viewall:hover { text-decoration: underline; }
-  .components__desc {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    color: var(--on-surface-variant);
-    margin-bottom: 1.5rem;
-  }
-  .components__grid {
+  .projects__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1rem;
   }
-  .comp-card {
+  .project-card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0.375rem;
-    padding: 1rem;
-    background-color: var(--surface-container-low);
-    border-radius: 0.5rem;
-    text-decoration: none;
-    transition: background-color 200ms var(--ease-3);
-  }
-  .comp-card:hover { background-color: var(--surface-container-high); }
-  .comp-card__name {
-    font-family: 'Manrope', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 700;
-    color: var(--primary-fixed-dim);
-  }
-  .comp-card__desc {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.6875rem;
-    color: var(--on-surface-variant);
-    line-height: 1.4;
-  }
-
-  /* Manulitics */
-  .manulitics__card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
+    gap: 0.5rem;
     padding: 1.5rem;
     background-color: var(--surface-container-low);
     border-radius: 0.75rem;
+    text-decoration: none;
     border: 1px solid color-mix(in srgb, var(--outline-variant) 10%, transparent);
-    flex-wrap: wrap;
+    transition: background-color 200ms var(--ease-3);
   }
-  .manulitics__title {
+  .project-card:hover { background-color: var(--surface-container-high); }
+  .project-card__name {
     font-family: 'Manrope', sans-serif;
     font-size: 1.125rem;
     font-weight: 800;
     color: var(--on-surface);
   }
-  .manulitics__desc {
+  .project-card__desc {
     font-family: 'Inter', sans-serif;
     font-size: 0.875rem;
     color: var(--on-surface-variant);
-    margin-top: 0.25rem;
+    line-height: 1.5;
   }
-  .manulitics__btn {
+  .project-card__arrow {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 1rem;
+    height: 1rem;
+    color: var(--on-surface-variant);
+    transition: color 200ms var(--ease-3);
+  }
+  .project-card:hover .project-card__arrow { color: var(--primary-container); }
+
+  /* Resources */
+  .resources__title {
     font-family: 'Manrope', sans-serif;
-    font-size: 0.8125rem;
+    font-size: 1.125rem;
     font-weight: 700;
-    padding: 0.625rem 1.25rem;
-    background-color: var(--surface-container-high);
-    color: var(--primary-fixed-dim);
+    color: var(--on-surface);
+    margin-bottom: 1rem;
+  }
+  .resources__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .resource-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--surface-container-lowest);
+    border: 1px solid color-mix(in srgb, var(--outline-variant) 10%, transparent);
     border-radius: 0.5rem;
     text-decoration: none;
     transition: background-color 200ms var(--ease-3);
-    white-space: nowrap;
   }
-  .manulitics__btn:hover { background-color: var(--surface-bright); }
+  .resource-link:hover { background-color: var(--surface-container-high); }
+  .resource-link__text { display: flex; flex-direction: column; }
+  .resource-link__name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--on-surface);
+  }
+  .resource-link__desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    color: var(--on-surface-variant);
+  }
+  .resource-link__arrow {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    color: var(--on-surface-variant);
+  }
+  .resource-link:hover .resource-link__arrow { color: var(--primary-container); }
 
   @media (prefers-reduced-motion: reduce) {
     .repo-card, .article-card__title, .talk-card, .newsletter__btn, .repo-card__arrow, .comp-card, .manulitics__btn { transition: none; }
