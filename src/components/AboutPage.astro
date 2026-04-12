@@ -1,0 +1,109 @@
+---
+import { aboutData } from '~/data/about';
+import { ManuFosela } from '~/data/index';
+import PhotoGallery from '~/components/PhotoGallery.astro';
+import { fetchPhotos } from '~/utils/fetchPhotos';
+
+interface Props {
+  language: 'es' | 'en';
+}
+
+const { language } = Astro.props;
+const about = aboutData[language];
+const person = ManuFosela[language];
+const photos = await fetchPhotos('contact');
+---
+
+<div class="about-page">
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <span class="u-label u-label--accent">{language === 'es' ? 'Sobre mí' : 'About me'}</span>
+    <h1 class="about-hero__title">{person.name}</h1>
+    <p class="about-hero__role">{person.position}</p>
+  </section>
+
+  <!-- Slides / Secciones -->
+  {about.slides.map((slide, i) => (
+    <section class:list={['about-section', { 'about-section--alt': i % 2 === 1 }]}>
+      <h2 class="about-section__subtitle">{slide.subtitle}</h2>
+      <div class="about-section__text" set:html={slide.description.replace(/\n/g, '<br>')} />
+    </section>
+  ))}
+
+  <!-- Fotos -->
+  <PhotoGallery title={language === 'es' ? 'Momentos' : 'Moments'} photos={photos} />
+
+</div>
+
+<style>
+  .about-page {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 6vh, 4rem);
+    padding-block: clamp(2rem, 6vh, 4rem);
+  }
+
+  .about-page > section {
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+    max-width: 1280px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .about-hero {
+    padding-bottom: 1rem;
+  }
+  .about-hero__title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--on-surface);
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .about-hero__role {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    color: var(--on-surface-variant);
+  }
+
+  .about-section {
+    max-width: 48rem;
+  }
+  .about-section--alt {
+    background-color: var(--surface-container-lowest);
+    padding-block: clamp(2rem, 5vh, 3rem);
+    border-radius: 0.75rem;
+    max-width: 1280px;
+  }
+  .about-section__subtitle {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 800;
+    color: var(--primary-fixed-dim);
+    margin-bottom: 1.25rem;
+  }
+  .about-section__text {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.9375rem, 1.5vw, 1rem);
+    line-height: 1.7;
+    color: var(--on-surface-variant);
+  }
+  .about-section__text :global(a) {
+    color: var(--primary-fixed-dim);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  @media (min-width: 1024px) {
+    .about-section {
+      max-width: 48rem;
+    }
+    .about-section--alt {
+      max-width: 1280px;
+      padding-inline: clamp(3rem, 6vw, 5rem);
+    }
+  }
+</style>

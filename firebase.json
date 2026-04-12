@@ -24,8 +24,6 @@
     ],
     "redirects": [
       { "source": "/", "destination": "/es/", "type": 302 },
-      { "source": "/es/about", "destination": "/es/", "type": 301 },
-      { "source": "/en/about", "destination": "/en/", "type": 301 },
       { "source": "/es/articles", "destination": "/es/tech", "type": 301 },
       { "source": "/en/articles", "destination": "/en/tech", "type": 301 },
       { "source": "/es/media", "destination": "/es/tech", "type": 301 },
