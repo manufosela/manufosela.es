@@ -15,9 +15,10 @@ export const techHubData = {
     repos: { value: '128', label: 'Repositories' },
     featuredReposTitle: 'Repos destacados',
     featuredRepos: [
+      { name: 'introduccion-docker', desc: 'Introducción práctica a Docker y Docker Compose', url: 'https://github.com/manufosela/introduccion-docker' },
       { name: 'karajan-code', desc: 'Orquestador multi-agente local con 13 roles de pipeline', url: 'https://github.com/manufosela/karajan-code' },
-      { name: 'planning-game-xp', desc: 'Gestión de proyectos AI-gile con XP', url: 'https://github.com/manufosela/planning-game-xp' },
-      { name: 'SOLIDwithJS', desc: 'Principios SOLID con ejemplos en JavaScript', url: 'https://github.com/manufosela/SOLIDwithJS' }
+      { name: 'Automatic-Form-Validation', desc: 'Validación automática de formularios en JavaScript', url: 'https://github.com/manufosela/Automatic-Form-Validation' },
+      { name: 'generator-litelement-webcomponent', desc: 'Generador Yeoman de Web Components con LitElement', url: 'https://github.com/manufosela/generator-litelement-webcomponent' }
     ],
     insightsTitle: 'Engineering Insights',
     viewAll: 'Ver todos',
@@ -43,9 +44,10 @@ export const techHubData = {
     repos: { value: '128', label: 'Repositories' },
     featuredReposTitle: 'Featured Repos',
     featuredRepos: [
+      { name: 'introduccion-docker', desc: 'Practical introduction to Docker and Docker Compose', url: 'https://github.com/manufosela/introduccion-docker' },
       { name: 'karajan-code', desc: 'Local multi-agent coding orchestrator with 13 pipeline roles', url: 'https://github.com/manufosela/karajan-code' },
-      { name: 'planning-game-xp', desc: 'AI-gile project management with XP', url: 'https://github.com/manufosela/planning-game-xp' },
-      { name: 'SOLIDwithJS', desc: 'SOLID principles with JavaScript examples', url: 'https://github.com/manufosela/SOLIDwithJS' }
+      { name: 'Automatic-Form-Validation', desc: 'Automatic JavaScript form validation', url: 'https://github.com/manufosela/Automatic-Form-Validation' },
+      { name: 'generator-litelement-webcomponent', desc: 'Yeoman generator for LitElement Web Components', url: 'https://github.com/manufosela/generator-litelement-webcomponent' }
     ],
     insightsTitle: 'Engineering Insights',
     viewAll: 'View all',

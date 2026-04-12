@@ -33,13 +33,14 @@ const icons = {
           {d.detailsButton}
         </a>
       </div>
+      <p class="hero-libro__editorial">{d.editorialNote}</p>
     </div>
     <div class="hero-libro__cover">
       <img
-        src="/images/liderazgo_afectivo.png"
+        src={d.bookCover}
         alt={d.bookAlt}
         width="400"
-        height="500"
+        height="580"
         loading="eager"
         fetchpriority="high"
       />
@@ -155,6 +156,15 @@ const icons = {
     color: var(--on-surface-variant);
     max-width: 28rem;
     margin-bottom: 1.5rem;
+  }
+
+  .hero-libro__editorial {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--on-surface-variant);
+    margin-top: 1rem;
   }
 
   .hero-libro__actions {
