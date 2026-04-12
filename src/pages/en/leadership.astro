@@ -1,31 +1,11 @@
 ---
 import Layout from '~/layouts/Layout.astro';
+import LeadershipPage from '~/components/LeadershipPage.astro';
 import { Site } from '~/data/config';
 
-const title = `${Site.title} — Leadership`;
+const title = `${Site.title} — Affective Leadership`;
 ---
 
 <Layout {title} active="leadership">
-  <main class="placeholder">
-    <p class="u-label u-label--accent">Coming soon</p>
-    <h1>Affective Leadership</h1>
-    <p>This section is under construction as part of the 2026 redesign.</p>
-  </main>
+  <LeadershipPage language="en" />
 </Layout>
-
-<style>
-  .placeholder {
-    max-width: 48rem;
-    margin-inline: auto;
-    padding: clamp(3rem, 10vh, 6rem) clamp(1.5rem, 4vw, 3rem);
-    color: var(--on-surface-variant);
-  }
-  .placeholder h1 {
-    font-family: 'Manrope', sans-serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    color: var(--on-surface);
-    margin-block: 1rem;
-  }
-</style>
