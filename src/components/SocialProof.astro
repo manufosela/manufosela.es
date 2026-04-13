@@ -46,12 +46,12 @@ const logos = socialProof.logos;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: clamp(2rem, 5vw, 3.5rem);
+    gap: 1rem clamp(1.5rem, 4vw, 3rem);
   }
 
   .social-proof__logo {
     font-family: 'Manrope', sans-serif;
-    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    font-size: clamp(0.8125rem, 1.5vw, 1rem);
     font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--on-surface-variant);
@@ -63,20 +63,6 @@ const logos = socialProof.logos;
 
   .social-proof__logo:hover {
     opacity: 0.7;
-  }
-
-  @media (max-width: 640px) {
-    .social-proof__strip {
-      overflow-x: auto;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      padding-inline: 0.5rem;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .social-proof__strip::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

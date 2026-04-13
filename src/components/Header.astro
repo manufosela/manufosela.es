@@ -305,16 +305,12 @@ const { active = 'home', language = 'es' } = Astro.props;
 </style>
 
 <script>
-  const bar = document.querySelector<HTMLElement>('.top-app-bar');
-  const burger = document.querySelector<HTMLButtonElement>('.top-app-bar__burger');
-  const drawer = document.querySelector<HTMLElement>('.mobile-drawer');
-  const backdrop = drawer?.querySelector('.mobile-drawer__backdrop');
-
-  const onScroll = () => bar?.setAttribute('data-scrolled', String(window.scrollY > 16));
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  // Event delegation on document/window so handlers survive ClientRouter transitions
+  // (the header/drawer DOM nodes are replaced between pages, but document/window persist).
 
   const setDrawer = (open: boolean) => {
+    const burger = document.querySelector<HTMLButtonElement>('.top-app-bar__burger');
+    const drawer = document.querySelector<HTMLElement>('.mobile-drawer');
     if (!burger || !drawer) return;
     burger.setAttribute('aria-expanded', String(open));
     drawer.setAttribute('data-open', String(open));
@@ -324,12 +320,44 @@ const { active = 'home', language = 'es' } = Astro.props;
       el.tabIndex = open ? 0 : -1;
     });
   };
-  setDrawer(false);
-  burger?.addEventListener('click', () => {
-    setDrawer(burger.getAttribute('aria-expanded') !== 'true');
+
+  const updateScrolled = () => {
+    const bar = document.querySelector<HTMLElement>('.top-app-bar');
+    bar?.setAttribute('data-scrolled', String(window.scrollY > 16));
+  };
+
+  // Click delegation: handles burger toggle, backdrop close, and closing drawer on nav link click
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('.top-app-bar__burger')) {
+      const burger = document.querySelector<HTMLButtonElement>('.top-app-bar__burger');
+      setDrawer(burger?.getAttribute('aria-expanded') !== 'true');
+      return;
+    }
+    if (target.closest('.mobile-drawer__backdrop')) {
+      setDrawer(false);
+      return;
+    }
+    if (target.closest('.mobile-drawer__link')) {
+      setDrawer(false);
+    }
   });
-  backdrop?.addEventListener('click', () => setDrawer(false));
+
+  // Escape closes drawer
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setDrawer(false);
   });
+
+  // Scroll listener on window (persists across transitions)
+  window.addEventListener('scroll', updateScrolled, { passive: true });
+
+  // Reset drawer state and re-check scroll after each ClientRouter page swap
+  document.addEventListener('astro:page-load', () => {
+    setDrawer(false);
+    updateScrolled();
+  });
+
+  // Initial call
+  updateScrolled();
+  setDrawer(false);
 </script>
