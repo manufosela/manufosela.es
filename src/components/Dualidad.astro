@@ -186,24 +186,21 @@ const d = dualidad[language];
 </style>
 
 <script>
-  const tabs = document.querySelectorAll<HTMLButtonElement>('.dualidad__tab');
-  const panels = document.querySelectorAll<HTMLElement>('.dualidad__panel');
+  // Event delegation: survives ClientRouter transitions without rebinding
+  document.addEventListener('click', (e) => {
+    const tab = (e.target as HTMLElement).closest<HTMLButtonElement>('.dualidad__tab');
+    if (!tab) return;
 
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.panel;
-
-      tabs.forEach((t) => {
-        const isActive = t === tab;
-        t.classList.toggle('dualidad__tab--active', isActive);
-        t.setAttribute('aria-selected', String(isActive));
-      });
-
-      panels.forEach((p) => {
-        const show = p.id === `panel-${target}`;
-        p.classList.toggle('dualidad__panel--visible', show);
-        p.hidden = !show;
-      });
+    const target = tab.dataset.panel;
+    document.querySelectorAll<HTMLButtonElement>('.dualidad__tab').forEach((t) => {
+      const isActive = t === tab;
+      t.classList.toggle('dualidad__tab--active', isActive);
+      t.setAttribute('aria-selected', String(isActive));
+    });
+    document.querySelectorAll<HTMLElement>('.dualidad__panel').forEach((p) => {
+      const show = p.id === `panel-${target}`;
+      p.classList.toggle('dualidad__panel--visible', show);
+      p.hidden = !show;
     });
   });
 </script>

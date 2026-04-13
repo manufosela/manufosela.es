@@ -19,23 +19,30 @@
 </div>
 
 <script>
-  const langSwitch = document.querySelectorAll<HTMLAnchorElement>('.lang-switch__option');
-  const currentLang = document.location.pathname.includes('/en/') ? 'en' : 'es';
-
-  langSwitch.forEach((link) => {
-    const lang = link.dataset.lang;
-    if (lang === currentLang) {
-      link.classList.add('lang-switch__option--active');
-      link.setAttribute('aria-current', 'true');
-    }
-
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (lang === currentLang) return;
-      const segments = window.location.pathname.split('/');
-      segments[1] = lang || 'es';
-      window.location.href = segments.join('/');
+  // Mark active on load and after ClientRouter transitions
+  const markActive = () => {
+    const currentLang = document.location.pathname.includes('/en/') ? 'en' : 'es';
+    document.querySelectorAll<HTMLAnchorElement>('.lang-switch__option').forEach((link) => {
+      const isActive = link.dataset.lang === currentLang;
+      link.classList.toggle('lang-switch__option--active', isActive);
+      if (isActive) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
     });
+  };
+  markActive();
+  document.addEventListener('astro:page-load', markActive);
+
+  // Click delegation (single listener on document, survives transitions)
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest<HTMLAnchorElement>('.lang-switch__option');
+    if (!link) return;
+    e.preventDefault();
+    const currentLang = document.location.pathname.includes('/en/') ? 'en' : 'es';
+    const lang = link.dataset.lang;
+    if (lang === currentLang) return;
+    const segments = window.location.pathname.split('/');
+    segments[1] = lang || 'es';
+    window.location.href = segments.join('/');
   });
 </script>
 
