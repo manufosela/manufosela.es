@@ -82,7 +82,8 @@ const portraitAlt = aboutDesc[language];
     width: 100%;
     height: auto;
     display: block;
-    filter: grayscale(1) contrast(1.15);
+    /* grayscale(0) = a color (en activo). Cambiar a grayscale(1) para B/N (sin trabajo). */
+    filter: grayscale(0) contrast(1.15);
   }
 
   .about-hero__text { flex: 1; }
