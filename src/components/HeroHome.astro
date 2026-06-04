@@ -69,7 +69,8 @@ const ctaHref = `/${language}/about`;
     height: 100%;
     object-fit: cover;
     object-position: center 20%;
-    filter: grayscale(1) contrast(1.15);
+    /* grayscale(0) = a color (en activo). Cambiar a grayscale(1) para B/N (sin trabajo). */
+    filter: grayscale(0) contrast(1.15);
     aspect-ratio: 4 / 5;
   }
 
