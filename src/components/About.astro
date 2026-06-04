@@ -26,6 +26,36 @@ const slides = aboutData[language]?.slides || [];
     });
   }
 
+  /**
+   * Calcula la edad en años a partir de una fecha ISO (YYYY-MM-DD).
+   * @param {string} isoDate - Fecha de nacimiento en formato ISO.
+   * @returns {number} Edad actual en años completos.
+   */
+  function calculateAge(isoDate: string): number {
+    const birthDate = new Date(isoDate);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
+  }
+
+  /**
+   * Recalcula en runtime la edad de cada placeholder .js-age para que el
+   * número se mantenga correcto sin necesidad de reconstruir el sitio.
+   */
+  function updateAges() {
+    document.querySelectorAll<HTMLElement>('.js-age').forEach((el) => {
+      const birthdate = el.dataset.birthdate;
+      if (!birthdate) return;
+      el.textContent = String(calculateAge(birthdate));
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.nav-button').forEach((button, index) => {
       button.addEventListener('click', () => {
@@ -36,6 +66,9 @@ const slides = aboutData[language]?.slides || [];
     // Inicializar el primer slide
     goToSlide(0);
   });
+
+  // Fires en la carga inicial y tras cada navegación con ClientRouter (View Transitions).
+  document.addEventListener('astro:page-load', updateAges);
 </script>
 
 <div class="pagecontent">
