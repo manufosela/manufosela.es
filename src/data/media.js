@@ -77,7 +77,7 @@ export const mediaData = {
       '2023': [
         {
           title: 'Podacast: Ni cero ni uno',
-          link: 'https://savvily.es/podcasts/ni-cero-ni-uno/episodios/e46/'
+          link: 'https://www.ivoox.com/e46-liderazgo-management-motivacion-manu-fosela-audios-mp3_rf_104478997_1.html'
         }
       ],
       '2022': [
@@ -167,7 +167,7 @@ export const mediaData = {
       '2023': [
         {
           title: 'Neither Zero nor One (podcast) (2023)',
-          link: 'https://savvily.es/podcasts/ni-cero-ni-uno/episodios/e46/'
+          link: 'https://www.ivoox.com/e46-liderazgo-management-motivacion-manu-fosela-audios-mp3_rf_104478997_1.html'
         }
       ],
       '2022': [
