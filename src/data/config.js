@@ -1,6 +1,6 @@
 export const Site = {
   title: 'Manu Fosela',
-  description: 'Personal website of Manu Fosela, Head of Engineering at Geniova Technologies',
+  description: 'Personal website of Manu Fosela, Senior Engineering Manager at TRIBBU and fractional CTO at OX Medicina Hiperbárica',
   url: 'https://manufosela.es'
 };
 

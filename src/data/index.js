@@ -8,7 +8,7 @@ export const ManuFosela = {
     name: ' Mánu Fosela',
     rol: 'Liderazgo Afectivo',
     liderazgo_afectivo: '/images/liderazgo_afectivo.svg',
-    position: 'Head of Engineering en Geniova Technologies',
+    position: 'Senior Engineering Manager en TRIBBU · Fractional CTO en OX',
     bio: `Ingeniero de Telecomunicaciones de formación.<br>
 Liderazgo de equipos tecnológicos.<br>
 Transformación digital y metodologías ágiles.<br>
@@ -21,7 +21,7 @@ Apoyo a los Juniors.`
     name: ' Mánu Fosela',
     rol: 'Affective Leadership',
     liderazgo_afectivo: '/images/liderazgo_afectivo.svg',
-    position: 'Head of Engineering at Geniova Technologies',
+    position: 'Senior Engineering Manager at TRIBBU · Fractional CTO at OX',
     bio: `Telecommunications Engineer by training.<br>
 Leadership of technological teams.<br>
 Digital transformation and agile methodologies.<br>
