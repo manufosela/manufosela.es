@@ -6,9 +6,21 @@ export const trajectoryData = {
     timeline: [
       {
         scope: 'Liderazgo de Equipo',
-        title: 'Head of Engineering en Geniova Technologies',
-        description: 'Montando un equipo de ingeniería desde cero, dirigiendo toda la parte de desarrollo de software e IT. Desde enero de 2025.',
+        title: 'Senior Engineering Manager en TRIBBU',
+        description: 'Liderando equipos de ingeniería y la adopción de IA en el desarrollo de producto. Desde junio de 2026.',
         current: true
+      },
+      {
+        scope: 'Dirección Tecnológica',
+        title: 'Fractional CTO en OX Medicina Hiperbárica',
+        description: 'Dirección tecnológica a tiempo parcial: estrategia, producto y digitalización.',
+        current: true
+      },
+      {
+        scope: 'Liderazgo de Equipo',
+        title: 'Head of Engineering en Geniova Technologies',
+        description: 'Monté un equipo de ingeniería desde cero, dirigiendo toda la parte de desarrollo de software e IT. Enero 2025 - Abril 2026.',
+        current: false
       },
       {
         scope: 'Dirección de Operaciones',
@@ -43,9 +55,21 @@ export const trajectoryData = {
     timeline: [
       {
         scope: 'Team Leadership',
-        title: 'Head of Engineering at Geniova Technologies',
-        description: 'Building an engineering team from scratch, leading all software development and IT. Since January 2025.',
+        title: 'Senior Engineering Manager at TRIBBU',
+        description: 'Leading engineering teams and AI adoption in product development. Since June 2026.',
         current: true
+      },
+      {
+        scope: 'Technology Leadership',
+        title: 'Fractional CTO at OX Medicina Hiperbárica',
+        description: 'Part-time technology leadership: strategy, product and digitalization.',
+        current: true
+      },
+      {
+        scope: 'Team Leadership',
+        title: 'Head of Engineering at Geniova Technologies',
+        description: 'Built an engineering team from scratch, leading all software development and IT. January 2025 - April 2026.',
+        current: false
       },
       {
         scope: 'Operations Management',
