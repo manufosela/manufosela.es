@@ -13,7 +13,7 @@ export const trajectoryData = {
       {
         scope: 'Dirección Tecnológica',
         title: 'Fractional CTO en OX Medicina Hiperbárica',
-        description: 'Dirección tecnológica a tiempo parcial: estrategia, producto y digitalización.',
+        description: 'Dirección tecnológica a tiempo parcial: estrategia, producto y digitalización. Desde mayo de 2026.',
         current: true
       },
       {
@@ -64,7 +64,7 @@ export const trajectoryData = {
       {
         scope: 'Technology Leadership',
         title: 'Fractional CTO at OX Medicina Hiperbárica',
-        description: 'Part-time technology leadership: strategy, product and digitalization.',
+        description: 'Part-time technology leadership: strategy, product and digitalization. Since May 2026.',
         current: true
       },
       {
