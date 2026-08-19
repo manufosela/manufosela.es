@@ -53,7 +53,7 @@ Volví a Orange, al departamento de I+D, en el que estuve 4 años, para después
 En 2015 me uní a Kairós DS, siendo el empleado 23 y donde comencé a dar el giro hacia el liderazgo de equipos y proyectos.\n
 Durante 2023-2024, ejercí como Director de Operaciones en Lean Mind.\n
 Desde enero de 2025 hasta abril de 2026, como Head of Engineering en Geniova, monté el equipo de IT y digitalizamos todo el proceso de producción, e implementé un framework de desarrollo con IA.\n
-Desde junio de 2026 soy Senior Engineering Manager en TRIBBU y, en paralelo, fractional CTO en OX Medicina Hiperbárica.
+Desde mayo de 2026 soy fractional CTO en OX Medicina Hiperbárica y, desde junio de 2026, Senior Engineering Manager en TRIBBU.
       `
       }
     ]
@@ -85,7 +85,7 @@ I returned to Orange, where I spent 4 years in the R&D department, before joinin
 In 2015, I joined Kairós DS as the 23rd employee, where I began transitioning towards team and project leadership.\n
 During 2023-2024, I served as Director of Operations at Lean Mind.\n
 From January 2025 to April 2026, as Head of Engineering at Geniova, I built the IT team, we digitalized the entire production process, and I implemented an AI-assisted development framework.\n
-Since June 2026, I have been Senior Engineering Manager at TRIBBU and, in parallel, fractional CTO at OX Medicina Hiperbárica.
+Since May 2026, I have been fractional CTO at OX Medicina Hiperbárica and, since June 2026, Senior Engineering Manager at TRIBBU.
       `
       }
     ]
