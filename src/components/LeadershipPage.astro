@@ -36,6 +36,11 @@ const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : 
         <a href={d.buyLink} class="hero-libro__btn hero-libro__btn--primary" target="_blank" rel="noopener noreferrer">
           {d.buyButton}
         </a>
+        {d.ebookLink && (
+          <a href={d.ebookLink} class="hero-libro__btn hero-libro__btn--ghost" target="_blank" rel="noopener noreferrer">
+            {d.ebookButton}
+          </a>
+        )}
         <a href={d.detailsLink} class="hero-libro__btn hero-libro__btn--ghost" target="_blank" rel="noopener noreferrer">
           {d.detailsButton}
         </a>
