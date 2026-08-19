@@ -35,7 +35,7 @@ try {
 d.repos.value = String(ghRepos);
 d.stars.value = ghStars > 999 ? `${(ghStars / 1000).toFixed(1)}k` : String(ghStars);
 
-const allArticles = await getAllArticles();
+const allArticles = await getAllArticles(language);
 const techArticles = filterByTopic(allArticles, 'tech');
 const latestArticles = techArticles.slice(0, 5);
 
@@ -134,7 +134,7 @@ const viewAllTalks = language === 'es' ? 'Ver todas las charlas' : 'View all tal
         </a>
       ))}
     </div>
-    <ArticlesRehydrator topic="tech" limit={5} target="#tech-articles-list" />
+    <ArticlesRehydrator topic="tech" limit={5} lang={language} target="#tech-articles-list" />
   </section>
 
   <!-- Talks & Media -->

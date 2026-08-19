@@ -52,23 +52,27 @@ export async function fetchFirebaseArticles() {
       title: item.title,
       url: item.url,
       date: item.date || new Date().toISOString(),
-      source: 'linkedin',
+      source: item.url.includes('dev.to/') ? 'devto' : 'linkedin',
       topic: item.topic || 'leadership',
-      order: item.order || 99
+      order: item.order || 99,
+      lang: item.lang || null
     }));
   } catch {
     return [];
   }
 }
 
-export async function getAllArticles() {
-  const [rss, linkedin] = await Promise.all([
+export async function getAllArticles(lang) {
+  const [rss, curated] = await Promise.all([
     fetchRSSArticles(),
     fetchFirebaseArticles()
   ]);
-  const all = [...rss, ...linkedin];
+  // Los artículos curados en RTDB son la autoridad: si el RSS trae la misma URL, gana el curado (con su lang)
+  const curatedUrls = new Set(curated.map((a) => a.url));
+  const all = [...rss.filter((a) => !curatedUrls.has(a.url)), ...curated];
   all.sort((a, b) => (a.order || 99) - (b.order || 99) || new Date(b.date).getTime() - new Date(a.date).getTime());
-  return all;
+  if (!lang) return all;
+  return all.filter((a) => !a.lang || a.lang === lang);
 }
 
 export function filterByTopic(articles, topic) {

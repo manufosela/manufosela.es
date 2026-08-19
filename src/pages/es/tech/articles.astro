@@ -5,7 +5,7 @@ import ArticlesRehydrator from '~/components/ArticlesRehydrator.astro';
 import { getAllArticles, filterByTopic } from '~/utils/fetchArticles';
 import { Site } from '~/data/config';
 
-const allArticles = await getAllArticles();
+const allArticles = await getAllArticles('es');
 const techArticles = filterByTopic(allArticles, 'tech');
 const title = `${Site.title} — Artículos Tech`;
 ---
@@ -13,6 +13,6 @@ const title = `${Site.title} — Artículos Tech`;
 <Layout {title} active="tech">
   <main>
     <ArticleCatalog title="Artículos Tech" articles={techArticles} language="es" />
-    <ArticlesRehydrator topic="tech" target="#catalog-years" />
+    <ArticlesRehydrator topic="tech" lang="es" target="#catalog-years" />
   </main>
 </Layout>

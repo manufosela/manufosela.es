@@ -3,12 +3,13 @@ interface Props {
   topic?: 'tech' | 'leadership' | 'all';
   limit?: number;
   target: string;
+  lang?: 'es' | 'en';
 }
 
-const { topic = 'all', limit = 0, target } = Astro.props;
+const { topic = 'all', limit = 0, target, lang = '' } = Astro.props;
 ---
 
-<script is:inline define:vars={{ topic, limit, target }}>
+<script is:inline define:vars={{ topic, limit, target, lang }}>
   (async () => {
     const RTDB = 'https://manufosela-es-default-rtdb.europe-west1.firebasedatabase.app';
     const FEEDS = [
@@ -57,15 +58,20 @@ const { topic = 'all', limit = 0, target } = Astro.props;
         return Object.values(data).map((i) => ({
           title: i.title, url: i.url,
           date: i.date || new Date().toISOString(),
-          source: 'linkedin', topic: i.topic || 'leadership',
-          order: i.order || 99
+          source: i.url.includes('dev.to/') ? 'devto' : 'linkedin',
+          topic: i.topic || 'leadership',
+          order: i.order || 99,
+          lang: i.lang || null
         }));
       } catch { return []; }
     };
 
-    const [rss, linkedin] = await Promise.all([fetchRSS(), fetchLinkedIn()]);
-    let all = [...rss, ...linkedin];
+    const [rss, curated] = await Promise.all([fetchRSS(), fetchLinkedIn()]);
+    // Los artículos curados en RTDB son la autoridad: si el RSS trae la misma URL, gana el curado (con su lang)
+    const curatedUrls = new Set(curated.map((a) => a.url));
+    let all = [...rss.filter((a) => !curatedUrls.has(a.url)), ...curated];
     all.sort((a, b) => (a.order || 99) - (b.order || 99) || new Date(b.date).getTime() - new Date(a.date).getTime());
+    if (lang) all = all.filter((a) => !a.lang || a.lang === lang);
     if (topic !== 'all') all = all.filter((a) => a.topic === topic);
     if (limit > 0) all = all.slice(0, limit);
 

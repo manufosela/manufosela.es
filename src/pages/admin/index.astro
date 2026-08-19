@@ -79,6 +79,10 @@ import '~/styles/utilities.css';
                 <select id="art-topic"><option value="leadership">Liderazgo</option><option value="tech">Tech</option></select>
               </div>
               <div class="admin__field">
+                <label class="u-label" for="art-lang">Idioma</label>
+                <select id="art-lang"><option value="">Ambos</option><option value="es">Solo ES</option><option value="en">Solo EN</option></select>
+              </div>
+              <div class="admin__field">
                 <label class="u-label" for="art-date">Fecha</label>
                 <input type="date" id="art-date" />
               </div>
@@ -174,11 +178,12 @@ import '~/styles/utilities.css';
       const title = $('art-title').value.trim();
       const url = $('art-url').value.trim();
       const topic = $('art-topic').value;
+      const lang = $('art-lang').value;
       const date = $('art-date').value || new Date().toISOString().split('T')[0];
       const order = $('art-order').value ? parseInt($('art-order').value) : 99;
       if (!title || !url) return;
       try {
-        await set(push(ref(db, 'articles/linkedin')), { title, url, topic, date: new Date(date).toISOString(), order });
+        await set(push(ref(db, 'articles/linkedin')), { title, url, topic, ...(lang && { lang }), date: new Date(date).toISOString(), order });
         $('article-form').reset();
         $('article-status').textContent = '✓ Guardado';
         $('article-status').style.color = 'var(--primary-fixed-dim)';
@@ -462,9 +467,12 @@ import '~/styles/utilities.css';
 
     // Seed data
     const SEED_ARTICLES = [
-      { title: 'Lo más difícil no es la IA. Somos nosotros', url: 'https://www.linkedin.com/pulse/lo-m%C3%A1s-dif%C3%ADcil-es-la-ia-somos-nosotros-m%C3%A1nu-fosela-esole', topic: 'tech', date: '2026-08-16' },
-      { title: 'Delegar en la IA implica gobernar el entorno', url: 'https://www.linkedin.com/pulse/delegar-en-la-ia-implica-gobernar-el-entorno-m%C3%A1nu-fosela-2a38e', topic: 'tech', date: '2026-08-13' },
-      { title: 'El desplazamiento del ingeniero de software', url: 'https://www.linkedin.com/pulse/el-desplazamiento-del-ingeniero-de-software-m%C3%A1nu-fosela-eajqe', topic: 'tech', date: '2026-08-11' },
+      { title: "The Hardest Part Isn't AI. It's Us", url: 'https://dev.to/manufosela/the-hardest-part-isnt-ai-its-us-bp9', topic: 'tech', lang: 'en', date: '2026-08-17' },
+      { title: 'Delegating to AI Means Governing the Environment', url: 'https://dev.to/manufosela/delegating-to-ai-means-governing-the-environment-ef3', topic: 'tech', lang: 'en', date: '2026-08-13' },
+      { title: 'The Shifting Role of the Software Engineer', url: 'https://dev.to/manufosela/the-shifting-role-of-the-software-engineer-4ph8', topic: 'tech', lang: 'en', date: '2026-08-11' },
+      { title: 'Lo más difícil no es la IA. Somos nosotros', url: 'https://www.linkedin.com/pulse/lo-m%C3%A1s-dif%C3%ADcil-es-la-ia-somos-nosotros-m%C3%A1nu-fosela-esole', topic: 'tech', lang: 'es', date: '2026-08-16' },
+      { title: 'Delegar en la IA implica gobernar el entorno', url: 'https://www.linkedin.com/pulse/delegar-en-la-ia-implica-gobernar-el-entorno-m%C3%A1nu-fosela-2a38e', topic: 'tech', lang: 'es', date: '2026-08-13' },
+      { title: 'El desplazamiento del ingeniero de software', url: 'https://www.linkedin.com/pulse/el-desplazamiento-del-ingeniero-de-software-m%C3%A1nu-fosela-eajqe', topic: 'tech', lang: 'es', date: '2026-08-11' },
       { title: '¡Anda! ¿Y ese ruido?', url: 'https://www.linkedin.com/pulse/anda-y-ese-ruido-m%C3%A1nu-fosela-8m13e', topic: 'tech', date: '2026-07-14' },
       { title: 'Mi primer año en Geniova', url: 'https://www.linkedin.com/pulse/mi-primer-a%25C3%25B1o-en-geniova-m%25C3%25A1nu-fosela-q8qle/', topic: 'leadership', date: '2026-01-15' },
       { title: 'Disculpa, ¿Tienes F.O.G.O.?', url: 'https://www.linkedin.com/feed/update/urn:li:activity:7321163293581041668/', topic: 'leadership', date: '2025-06-01' },
