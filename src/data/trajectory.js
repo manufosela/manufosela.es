@@ -41,6 +41,8 @@ export const trajectoryData = {
         current: false
       }
     ],
+    contactBadge: 'Hablemos',
+    photoAlt: 'Collage de fotos con equipos en eventos y conferencias',
     contactTitle: 'Contacto',
     contactDescription: 'Mentoría estratégica y asesoramiento técnico para líderes.',
     formLabels: { name: 'Nombre', email: 'Email', inquiry: 'Tipo de consulta', message: 'Mensaje', send: 'ENVIAR MENSAJE' },
@@ -90,6 +92,8 @@ export const trajectoryData = {
         current: false
       }
     ],
+    contactBadge: 'Get in touch',
+    photoAlt: 'Collage of photos with teams at events and conferences',
     contactTitle: 'Contact',
     contactDescription: 'Strategic mentorship and technical advisory for leaders.',
     formLabels: { name: 'Name', email: 'Email', inquiry: 'Inquiry Type', message: 'Message', send: 'SEND MESSAGE' },

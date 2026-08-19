@@ -1,0 +1,13 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import TrajectoryPage from '~/components/TrajectoryPage.astro';
+import { Site } from '~/data/config';
+
+const title = `${Site.title} — Career`;
+---
+
+<Layout {title} active="trajectory">
+  <main>
+    <TrajectoryPage language="en" />
+  </main>
+</Layout>
