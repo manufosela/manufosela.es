@@ -10,7 +10,7 @@ const sections = Object.entries(media);
 
 <Layout {title} active="leadership">
   <main class="talks-catalog">
-    <h1 class="talks-catalog__title">Talks & interviews</h1>
+    <h1 class="talks-catalog__title">Talks & interviews <span class="talks-catalog__lang">(in Spanish)</span></h1>
 
     {sections.map(([type, yearGroups]) => (
       <section class="talks-catalog__section">
@@ -38,6 +38,7 @@ const sections = Object.entries(media);
 <style>
   .talks-catalog { padding-inline: clamp(1.5rem, 4vw, 3rem); max-width: 1280px; margin-inline: auto; padding-block: clamp(2rem, 6vh, 4rem); }
   .talks-catalog__title { font-family: 'Manrope', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: -0.03em; color: var(--on-surface); margin-bottom: clamp(2rem, 5vh, 3rem); }
+  .talks-catalog__lang { font-size: 0.45em; font-weight: 600; letter-spacing: 0; color: var(--on-surface-variant); }
   .talks-catalog__section { margin-bottom: 3rem; }
   .talks-catalog__type { font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--on-surface); margin-bottom: 1.5rem; }
   .talks-catalog__year { margin-bottom: 2rem; }
