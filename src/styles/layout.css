@@ -18,7 +18,8 @@
   --primary-fixed: #24ffcd;
   --primary-fixed-dim: #00e0b3;
   --on-primary: #00382b;
-  --on-primary-container: #00725a;
+  /* Texto sobre --primary-container (#00ffcc): casi negro para contraste 14.3:1 (antes #00725a, 4.5:1, verde sobre verde) */
+  --on-primary-container: #131313;
 
   --outline: #83958d;
   --outline-variant: #3a4a44;
