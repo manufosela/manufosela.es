@@ -8,7 +8,7 @@ export const contributionsData = {
     {
       title: 'Autor del libro "Liderazgo Afectivo"',
       description:
-        '[A la venta desde el 3 de abril de 2025](https://liderazgoafectivo.com). En el que cuento mi experiencia liderando equipos de desarrollo y como el liderazgo afectivo puede ayudar a mejorar la productividad y el bienestar de los equipos.'
+        'A la venta en Amazon en [tapa blanda](https://www.amazon.es/dp/B0HFQ675FD) y [ebook](https://www.amazon.es/dp/B0HFPYVDMC), también incluido en Kindle Unlimited. En el que cuento mi experiencia liderando equipos de desarrollo y como el liderazgo afectivo puede ayudar a mejorar la productividad y el bienestar de los equipos.'
     },
     {
       title: 'Speaker',
@@ -40,7 +40,7 @@ export const contributionsData = {
     {
       title: 'Author of the book "Affective Leadership"',
       description:
-        '[Available for sale since April 3, 2025](https://liderazgoafectivo.com). In which I tell my experience leading development teams and how affective leadership can help improve the productivity and well-being of teams.'
+        'Available on [Amazon](https://www.amazon.com/dp/B0F1Y8XG2G) (English edition). In which I tell my experience leading development teams and how affective leadership can help improve the productivity and well-being of teams.'
     },
     {
       title: 'Speaker',
