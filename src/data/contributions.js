@@ -40,7 +40,7 @@ export const contributionsData = {
     {
       title: 'Author of the book "Affective Leadership"',
       description:
-        'Available on [Amazon](https://www.amazon.com/dp/B0F1Y8XG2G) (English edition). In which I tell my experience leading development teams and how affective leadership can help improve the productivity and well-being of teams.'
+        'Available on Amazon in [paperback](https://www.amazon.com/dp/B0G3R2BW79) and [ebook](https://www.amazon.com/dp/B0G3R5LRHY), also included in Kindle Unlimited. In which I tell my experience leading development teams and how affective leadership can help improve the productivity and well-being of teams.'
     },
     {
       title: 'Speaker',
