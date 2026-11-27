@@ -30,7 +30,7 @@ export const aboutData = {
     slides: [
       {
         subtitle: 'Personal',
-        description: `Tengo <span class="js-age" data-birthdate="${BIRTH_DATE}">${edad}</span> años. Nacido en Mayo.\nExtrovertido y divertido.\nApasionado. Creativo. Resolutivo.\nQuisquilloso a veces. Testarudo.\nMe molestan los cambios imprevistos, pero me adapto rápido a ellos.\nSoy el mayor de 5 hermanos.\nEsposo de una persona maravillosa y padre de dos jovenes estupendos.\nActualmente trabajo como Senior Engineering Manager en TRIBBU y como fractional CTO en OX Medicina Hiperbárica.`
+        description: `Tengo <span class="js-age" data-birthdate="${BIRTH_DATE}">${edad}</span> años. Nacido en Mayo.\nExtrovertido y divertido.\nApasionado. Creativo. Resolutivo.\nQuisquilloso a veces. Testarudo.\nMe molestan los cambios imprevistos, pero me adapto rápido a ellos.\nSoy el mayor de 5 hermanos.\nEsposo de una persona maravillosa y padre de dos jovenes estupendos.\nActualmente soy CTO en TRIBBU y fractional CTO en OX Medicina Hiperbárica.`
       },
       {
         subtitle: 'Profesional',
@@ -53,7 +53,7 @@ Volví a Orange, al departamento de I+D, en el que estuve 4 años, para después
 En 2015 me uní a Kairós DS, siendo el empleado 23 y donde comencé a dar el giro hacia el liderazgo de equipos y proyectos.\n
 Durante 2023-2024, ejercí como Director de Operaciones en Lean Mind.\n
 Desde enero de 2025 hasta abril de 2026, como Head of Engineering en Geniova, monté el equipo de IT y digitalizamos todo el proceso de producción, e implementé un framework de desarrollo con IA.\n
-Desde mayo de 2026 soy fractional CTO en OX Medicina Hiperbárica y, desde junio de 2026, Senior Engineering Manager en TRIBBU.
+Desde mayo de 2026 soy fractional CTO en OX Medicina Hiperbárica y, desde septiembre de 2026, CTO en TRIBBU.
       `
       }
     ]
@@ -63,7 +63,7 @@ Desde mayo de 2026 soy fractional CTO en OX Medicina Hiperbárica y, desde junio
     slides: [
       {
         subtitle: 'Personal',
-        description: `I'm <span class="js-age" data-birthdate="${BIRTH_DATE}">${edad}</span> years old. Born in May.\nOutgoing and fun.\nPassionate. Creative. Problem-solver.\nPicky sometimes. Stubborn.\nUnexpected changes bother me, but I adapt quickly to them.\nI am the eldest of 5 siblings.\nHusband to a wonderful person and father of two amazing young people.\nCurrently, I am Senior Engineering Manager at TRIBBU and fractional CTO at OX Medicina Hiperbárica.\n`
+        description: `I'm <span class="js-age" data-birthdate="${BIRTH_DATE}">${edad}</span> years old. Born in May.\nOutgoing and fun.\nPassionate. Creative. Problem-solver.\nPicky sometimes. Stubborn.\nUnexpected changes bother me, but I adapt quickly to them.\nI am the eldest of 5 siblings.\nHusband to a wonderful person and father of two amazing young people.\nCurrently, I am CTO at TRIBBU and fractional CTO at OX Medicina Hiperbárica.\n`
       },
       {
         subtitle: 'Professional',
@@ -85,7 +85,7 @@ I returned to Orange, where I spent 4 years in the R&D department, before joinin
 In 2015, I joined Kairós DS as the 23rd employee, where I began transitioning towards team and project leadership.\n
 During 2023-2024, I served as Director of Operations at Lean Mind.\n
 From January 2025 to April 2026, as Head of Engineering at Geniova, I built the IT team, we digitalized the entire production process, and I implemented an AI-assisted development framework.\n
-Since May 2026, I have been fractional CTO at OX Medicina Hiperbárica and, since June 2026, Senior Engineering Manager at TRIBBU.
+Since May 2026, I have been fractional CTO at OX Medicina Hiperbárica and, since September 2026, CTO at TRIBBU.
       `
       }
     ]
