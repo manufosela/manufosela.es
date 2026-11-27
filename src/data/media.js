@@ -6,6 +6,12 @@ export const mediaDesc = {
 export const mediaData = {
   es: {
     Charlas: {
+      '2026': [
+        {
+          title: 'Conducting an Orchestra of AI Agents (Orbitant)',
+          link: 'https://www.youtube.com/watch?v=oSytmPwHl1M'
+        }
+      ],
       '2025': [
         {
           title: 'Liderazgo Afectivo: Transformando organizaciones a través de conexiones humanas (Commintconf) (3/3)',
@@ -58,7 +64,17 @@ export const mediaData = {
       ]
     },
     Entrevistas: {
+      '2026': [
+        {
+          title: 'La factoría escribe el código... ¿Y ahora qué hace tu equipo? (LambdaCast #41)',
+          link: 'https://www.youtube.com/watch?v=OdjVVSR-Gu8'
+        }
+      ],
       '2025': [
+        {
+          title: 'Liderazgo Afectivo (S.M.A.R.T Bienestar, EP26)',
+          link: 'https://www.youtube.com/watch?v=3djicIcuF5U'
+        },
         {
           title: 'Cómo montar equipos técnicos (GetManfred)',
           link: 'https://www.youtube.com/watch?v=BBDL4i9TaF0'
@@ -96,6 +112,12 @@ export const mediaData = {
   },
   en: {
     Talks: {
+      '2026': [
+        {
+          title: 'Conducting an Orchestra of AI Agents (Orbitant)',
+          link: 'https://www.youtube.com/watch?v=oSytmPwHl1M'
+        }
+      ],
       '2025': [
         {
           title: 'Affective Leadership: Transforming organizations through human connections (CommitConf) (3/3)',
@@ -148,7 +170,17 @@ export const mediaData = {
       ]
     },
     Interviews: {
+      '2026': [
+        {
+          title: 'The factory writes the code... so what does your team do now? (LambdaCast #41)',
+          link: 'https://www.youtube.com/watch?v=OdjVVSR-Gu8'
+        }
+      ],
       '2025': [
+        {
+          title: 'Affective Leadership (S.M.A.R.T Bienestar, EP26)',
+          link: 'https://www.youtube.com/watch?v=3djicIcuF5U'
+        },
         {
           title: 'How to build technical teams (GetManfred)',
           link: 'https://www.youtube.com/watch?v=BBDL4i9TaF0'
