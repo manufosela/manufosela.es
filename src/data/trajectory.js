@@ -5,9 +5,9 @@ export const trajectoryData = {
     resumeTitle: 'Impact Resume',
     timeline: [
       {
-        scope: 'Liderazgo de Equipo',
-        title: 'Senior Engineering Manager en TRIBBU',
-        description: 'Liderando equipos de ingeniería y la adopción de IA en el desarrollo de producto. Desde junio de 2026.',
+        scope: 'Dirección Tecnológica',
+        title: 'CTO en TRIBBU',
+        description: 'Dirección tecnológica de la compañía: estrategia técnica, equipos de ingeniería y adopción de IA en el desarrollo de producto. Desde septiembre de 2026.',
         current: true
       },
       {
@@ -56,9 +56,9 @@ export const trajectoryData = {
     resumeTitle: 'Impact Resume',
     timeline: [
       {
-        scope: 'Team Leadership',
-        title: 'Senior Engineering Manager at TRIBBU',
-        description: 'Leading engineering teams and AI adoption in product development. Since June 2026.',
+        scope: 'Technology Leadership',
+        title: 'CTO at TRIBBU',
+        description: 'Leading the company technology: technical strategy, engineering teams and AI adoption in product development. Since September 2026.',
         current: true
       },
       {
