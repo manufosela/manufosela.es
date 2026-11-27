@@ -15,8 +15,12 @@ const d = leadershipData[language];
 const talksKey = language === 'es' ? 'Charlas' : 'Talks';
 const media = mediaData[language];
 const talks = media[talksKey];
-const latestTalkYear = talks ? Object.keys(talks).sort().reverse()[0] : null;
-const latestTalks = latestTalkYear ? talks[latestTalkYear]?.slice(0, 3) || [] : [];
+const latestTalks = talks
+  ? Object.keys(talks)
+      .toSorted((a, b) => Number(b) - Number(a))
+      .flatMap((year) => talks[year])
+      .slice(0, 3)
+  : [];
 
 ---
 
