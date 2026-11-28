@@ -2,6 +2,8 @@ export const socialProof = {
   es: { label: 'Colaboraciones y liderazgo' },
   en: { label: 'Collaborations & Leadership' },
   logos: [
+    { name: 'TRIBBU', width: 80 },
+    { name: 'OX', width: 40 },
     { name: 'Orange', width: 90 },
     { name: 'Kairós DS', width: 80 },
     { name: 'Lean Mind', width: 90 },
