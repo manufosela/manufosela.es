@@ -135,28 +135,6 @@ const latestTalks = talks
   )}
 
   <section class="lead-forms-wrap">
-  <!-- Consultas -->
-  <div class="lead-form" aria-label={d.consultasTitle}>
-    <h2 class="lead-form__title">{d.consultasTitle}</h2>
-    <p class="lead-form__desc">{d.consultasDesc}</p>
-    <form action="https://formspree.io/f/mrbqjrkv" method="POST" class="lead-form__form">
-      <input type="hidden" name="_subject" value="Consulta desde manufosela.es — Liderazgo" />
-      <div class="lead-form__field">
-        <input type="text" name="name" placeholder={language === 'es' ? 'Tu nombre' : 'Your name'} required />
-      </div>
-      <div class="lead-form__field">
-        <input type="email" name="email" placeholder="email" required />
-      </div>
-      <div class="lead-form__field">
-        <textarea name="message" rows="3" placeholder={d.consultasPlaceholder} required></textarea>
-      </div>
-      <div style="position:absolute;left:-9999px" aria-hidden="true">
-        <input type="text" name="website" tabindex="-1" autocomplete="off" />
-      </div>
-      <button type="submit" class="lead-form__btn">{d.consultasButton}</button>
-    </form>
-  </div>
-
   <!-- Contacto -->
   <div class="lead-form" aria-label={d.contactTitle}>
     <h2 class="lead-form__title">{d.contactTitle}</h2>
@@ -474,17 +452,9 @@ const latestTalks = talks
     .en-accion__wrap { justify-content: flex-start; padding-inline: 0; }
   }
 
-  /* Forms side-by-side on desktop */
-  .lead-forms-wrap {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-  @media (min-width: 768px) {
-    .lead-forms-wrap {
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
+  /* Single contact form, kept to a readable width */
+  .lead-forms-wrap .lead-form {
+    max-width: 40rem;
   }
 
   /* Charlas de liderazgo (preview) */
