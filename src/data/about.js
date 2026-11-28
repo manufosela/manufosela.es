@@ -41,7 +41,8 @@ Por azares del destino entré a trabajar en una startup, plus.es, y arranqué mi
 He trabajado con ASP, Java, PHP, Perl, ShellScript, Javascript, desde vanilla ES1 hasta VueJS, pasando por dojo, prototype, scriptaculous, jquery, backbone, AngularJS, React, Angular 2, Polymer, Lit...\n
 Y me he pegado con sistemas Windows y Linux. Apache, Nginx. MySQL, Oracle, PostgreSQL, IBMDb2, mongoDB...\n
 En total mas de 20 años de experiencia en el mundo del desarrollo de software web.\n
-Desde 2016 mas enfocado en liderar equipos de ingeniería que cumplan con los objetivos a la vez que a velar por su desarrollo profesional y bienestar. A organizar departamentos técnicos, mentorizar y hacer coaching.\n`
+Desde 2016 mas enfocado en liderar equipos de ingeniería que cumplan con los objetivos a la vez que a velar por su desarrollo profesional y bienestar. A organizar departamentos técnicos, mentorizar y hacer coaching.\n
+Hoy estoy inmerso en la adopción de la IA en los equipos de desarrollo y en el conjunto de la empresa: en organizar su uso para que sea correcto y seguro, y a la vez eficiente. Para mí, usar la IA no va de gastar más tokens ni de producir más líneas de código o más aplicaciones, sino de potenciar el criterio y la experiencia de las personas, delegando en la IA lo que le corresponde. Mi manera de pensar sobre el uso de la IA está en <a href="https://theunread.com" target="_blank" rel="noopener">theunread.com</a>.\n`
       },
       {
         subtitle: 'Experiencia',
@@ -74,7 +75,8 @@ By chance, I began working at a startup, plus.es, and started my journey as a we
 I have worked with ASP, Java, PHP, Perl, ShellScript, JavaScript, from vanilla ES1 to VueJS, including dojo, prototype, scriptaculous, jquery, backbone, AngularJS, React, Angular 2, Polymer, Lit...\n
 I have also dealt with Windows and Linux systems. Apache, Nginx. MySQL, Oracle, PostgreSQL, IBMDb2, mongoDB...\n
 In total, 20 years of experience in the world of web software development.\n
-Since 2016, I have been more focused on leading engineering teams to meet objectives while ensuring their professional development and well-being. I organize technical departments, mentor, and coach.\n`
+Since 2016, I have been more focused on leading engineering teams to meet objectives while ensuring their professional development and well-being. I organize technical departments, mentor, and coach.\n
+Today I am deeply involved in bringing AI into development teams and across the whole company: organizing its use so that it is correct and secure, and efficient at the same time. To me, using AI is not about burning more tokens or producing more lines of code or more apps, but about strengthening people's judgment and experience, delegating to AI what belongs to it. My way of thinking about the use of AI is at <a href="https://theunread.com" target="_blank" rel="noopener">theunread.com</a>.\n`
       },
       {
         subtitle: 'Experience',
