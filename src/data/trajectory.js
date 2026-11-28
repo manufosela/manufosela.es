@@ -47,7 +47,7 @@ export const trajectoryData = {
     contactDescription: 'Charlas, entrevistas, colaboraciones o, simplemente, hablar de liderazgo y tecnología.',
     formLabels: { name: 'Nombre', email: 'Email', inquiry: 'Tipo de consulta', message: 'Mensaje', send: 'ENVIAR MENSAJE' },
     formPlaceholders: { name: 'Tu nombre completo', email: 'nombre@empresa.com', message: '¿En qué puedo ayudarte?' },
-    inquiryOptions: ['Mentoría', 'Charlas', 'Proyectos'],
+    inquiryOptions: ['Charlas', 'Entrevistas', 'Colaboraciones', 'Otro'],
     socialTitle: 'Redes'
   },
   en: {
@@ -98,7 +98,7 @@ export const trajectoryData = {
     contactDescription: 'Talks, interviews, collaborations or simply a conversation about leadership and technology.',
     formLabels: { name: 'Name', email: 'Email', inquiry: 'Inquiry Type', message: 'Message', send: 'SEND MESSAGE' },
     formPlaceholders: { name: 'Your full name', email: 'name@company.com', message: 'How can I help you scale?' },
-    inquiryOptions: ['Mentorship', 'Talks', 'Projects'],
+    inquiryOptions: ['Talks', 'Interviews', 'Collaborations', 'Other'],
     socialTitle: 'Social'
   }
 };
