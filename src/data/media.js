@@ -235,8 +235,8 @@ export const Links = {
       url: 'https://www.linkedin.com/in/manufosela/'
     },
     {
-      name: 'Twitter',
-      url: 'https://twitter.com/manufosela'
+      name: 'X',
+      url: 'https://x.com/manufosela'
     },
     {
       name: 'Bluesky',
