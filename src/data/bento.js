@@ -10,15 +10,17 @@ export const bentoItems = {
     {
       id: 'book',
       icon: 'book',
-      value: null,
-      label: 'Autor de \'Liderazgo Afectivo\'',
+      value: 'Liderazgo Afectivo',
+      label: 'Autor del libro',
+      href: '/es/leadership',
       wide: false
     },
     {
       id: 'ai',
       icon: 'bolt',
-      value: null,
-      label: 'AI-Powered Enthusiast',
+      value: 'theunread.com',
+      label: 'IA con criterio',
+      href: 'https://theunread.com',
       wide: false
     }
   ],
@@ -33,15 +35,17 @@ export const bentoItems = {
     {
       id: 'book',
       icon: 'book',
-      value: null,
-      label: 'Author of \'Affective Leadership\'',
+      value: 'Liderazgo Afectivo',
+      label: 'Author of the book',
+      href: '/en/leadership',
       wide: false
     },
     {
       id: 'ai',
       icon: 'bolt',
-      value: null,
-      label: 'AI-Powered Enthusiast',
+      value: 'theunread.com',
+      label: 'AI with judgment',
+      href: 'https://theunread.com',
       wide: false
     }
   ]

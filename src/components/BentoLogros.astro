@@ -16,15 +16,24 @@ const icons = {
 ---
 
 <section class="bento-logros u-bento" aria-label="Logros">
-  {items.map((item) => (
-    <div class:list={['bento-logros__item', 'u-bento__item', { 'u-bento__item--wide': item.wide }]}>
-      <span class="bento-logros__icon" aria-hidden="true" set:html={icons[item.icon]} />
-      {item.value && (
-        <span class="bento-logros__value">{item.value}</span>
-      )}
-      <h4 class="bento-logros__label">{item.label}</h4>
-    </div>
-  ))}
+  {items.map((item) => {
+    const Tag = item.href ? 'a' : 'div';
+    const isExternal = item.href?.startsWith('http');
+    return (
+      <Tag
+        class:list={['bento-logros__item', 'u-bento__item', { 'u-bento__item--wide': item.wide, 'bento-logros__item--link': item.href }]}
+        href={item.href}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener' : undefined}
+      >
+        <span class="bento-logros__icon" aria-hidden="true" set:html={icons[item.icon]} />
+        {item.value && (
+          <span class:list={['bento-logros__value', { 'bento-logros__value--text': !item.wide }]}>{item.value}</span>
+        )}
+        <h4 class="bento-logros__label">{item.label}</h4>
+      </Tag>
+    );
+  })}
 </section>
 
 <style>
@@ -60,6 +69,25 @@ const icons = {
     letter-spacing: -0.02em;
     color: var(--on-surface);
     line-height: 1;
+  }
+
+  .bento-logros__value--text {
+    font-size: clamp(1.375rem, 3vw, 1.75rem);
+    font-weight: 800;
+    overflow-wrap: anywhere;
+  }
+
+  .bento-logros__item--link {
+    text-decoration: none;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .bento-logros__item--link:hover .bento-logros__value,
+  .bento-logros__item--link:focus-visible .bento-logros__value {
+    color: var(--primary-fixed-dim);
+  }
+  .bento-logros__item--link:focus-visible {
+    outline: 2px solid var(--primary-fixed-dim);
+    outline-offset: 2px;
   }
 
   .bento-logros__label {
